@@ -4,8 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.control.MainMenuController;
+
+import static com.tilldawn.Main.getBatch;
 
 public class MainMenuView implements Screen {
     private Stage stage;
@@ -15,12 +18,13 @@ public class MainMenuView implements Screen {
     public Table table;
     private final MainMenuController controller;
 
-    public MainMenuView(Skin skin, MainMenuController controller) {
+    public MainMenuView(MainMenuController controller, Skin skin) {
         this.controller = controller;
         this.playButton = new TextButton("play", skin);
         this.gameTitle = new Label("this is a title", skin);
         this.field = new TextField("this is a field", skin);
         this.table = new Table();
+        controller.setView(this);
     }
 
 
@@ -29,6 +33,8 @@ public class MainMenuView implements Screen {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
+
+        table.setFillParent(true);
         table.center();
         table.add(gameTitle);
         table.row().pad(10, 0, 10, 0);
@@ -43,6 +49,14 @@ public class MainMenuView implements Screen {
 
     @Override
     public void render(float v) {
+
+
+        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+        getBatch().begin();
+        getBatch().end();
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        stage.draw();
+        controller.handleMainMenuButtons();
 
     }
 
@@ -70,4 +84,13 @@ public class MainMenuView implements Screen {
     public void dispose() {
 
     }
+
+    public TextButton getPlayButton() {
+        return playButton;
+    }
+
+    public TextField getField() {
+        return field;
+    }
+
 }
