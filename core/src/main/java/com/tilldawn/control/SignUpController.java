@@ -1,16 +1,31 @@
 package com.tilldawn.control;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.tilldawn.Main;
 import com.tilldawn.model.Result;
 import com.tilldawn.model.SaveUserToJson;
 import com.tilldawn.model.User;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
+
+import java.security.SecureRandom;
+import java.util.Random;
+
+import com.tilldawn.Enum.*;
 
 import static com.tilldawn.model.App.*;
 
 import java.util.*;
 
 public class SignUpController {
-    private static final String[] avatars = {"avatar1.png", "avatar2.png", "avatar3.png"};
+    public String getRandomAvatar() {
+        SecureRandom secureRandom = new SecureRandom();
+        int random = secureRandom.nextInt(27);
+        return Avatar.fromId(random).getPath();
+    }
 
     public Result register(String username, String password, String securityAnswer) {
         if (Main.getApp().getAllUsers().containsKey(username)) {
@@ -21,7 +36,7 @@ public class SignUpController {
             return new Result(false, "Weak password !");
         }
 
-        String avatar = avatars[new Random().nextInt(avatars.length)];
+        String avatar = getRandomAvatar();
         User user = new User(username, password, securityAnswer, avatar);
         Main.getApp().getAllUsers().put(username, user);
         SaveUserToJson.saveUserToJson(user);
@@ -33,6 +48,6 @@ public class SignUpController {
     }
 
     public User loginAsGuest() {
-        return new User("Guest", "", "", avatars[new Random().nextInt(avatars.length)]);
+        return new User("Guest", "", "", getRandomAvatar());
     }
 }
