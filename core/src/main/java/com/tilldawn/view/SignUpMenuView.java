@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.Main;
+import com.tilldawn.control.LoginController;
 import com.tilldawn.control.MainMenuController;
 import com.tilldawn.control.SignUpController;
 import com.tilldawn.model.GameAssetManager;
@@ -21,6 +22,7 @@ public class SignUpMenuView implements Screen {
     private Stage stage;
     private Skin skin;
     private final float FIELD_WIDTH_RATIO = 0.8f;
+    private final LoginController controller2 = new LoginController();
 
 
     public SignUpMenuView(SignUpController controller, Skin skin) {
@@ -71,9 +73,18 @@ public class SignUpMenuView implements Screen {
 
                 message.setText("");
                 if (!securityField.isVisible() && usernameField.isVisible()) {
-                    if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty() || securityField.getText().isEmpty()) {
+                    if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
                         message.setColor(Color.RED);
                         message.setText("Please fill all fields.");
+
+                    } else {
+                        Result result = controller2.Login(usernameField.getText(), passwordField.getText());
+                        message.setText(result.Message());
+                        if (result.IsSuccess()) {
+                            Main.getMain().setScreen(new MainMenuView(new MainMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
+
+                        }
+
 
                     }
                 } else {
