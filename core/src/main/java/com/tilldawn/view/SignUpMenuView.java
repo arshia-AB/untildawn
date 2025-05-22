@@ -149,8 +149,9 @@ public class SignUpMenuView implements Screen {
                 passwordField.setVisible(false);
                 securityField.setVisible(false);
                 User guest = controller.loginAsGuest();
-                message.setColor(Color.GREEN);
-                message.setText("Logged in as guest : " + guest.getUsername());
+                Main.getApp().setCurrentUser(guest);
+                Main.getMain().setScreen(new MainMenuView(new MainMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
+
             }
         });
 

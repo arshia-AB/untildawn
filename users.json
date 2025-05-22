@@ -21,13 +21,6 @@
     "score": 0
   },
   {
-    "username": "arshia5",
-    "password": "123456aA@",
-    "securityAnswer": "leo",
-    "avatarPath": "avatar3.png",
-    "score": 0
-  },
-  {
     "username": "arshia6",
     "password": "123456aA@",
     "securityAnswer": "leo",
@@ -74,6 +67,20 @@
     "password": "asdasdA1@asd213",
     "securityAnswer": "asd",
     "avatarPath": "avatar1.png",
+    "score": 0
+  },
+  {
+    "username": "asdsa",
+    "password": "asd123@2A",
+    "securityAnswer": "ads",
+    "avatarPath": "avatar2.png",
+    "score": 0
+  },
+  {
+    "username": "arshia5",
+    "password": "aA123456@",
+    "securityAnswer": "leo",
+    "avatarPath": "avatar3.png",
     "score": 0
   }
 ]

@@ -5,7 +5,7 @@ public class User {
     private String password;
     private String securityAnswer;
     private String avatarPath;
-    private int score;
+    private int score=0;
 
     public int getScore() {
         return score;

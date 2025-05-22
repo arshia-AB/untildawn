@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.Main;
 import com.tilldawn.control.MainMenuController;
 import com.tilldawn.control.SignUpController;
+import com.tilldawn.model.GameAssetManager;
 import com.tilldawn.model.User;
 
 import static com.tilldawn.Main.getApp;
@@ -69,6 +70,13 @@ public class MainMenuView implements Screen {
 //                }
 //            }
 //        });
+        settingsBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Main.getMain().setScreen(new SettingMenuView(GameAssetManager.getGameAssetManager().getSkin()));
+            }
+        });
+
 
         logoutBtn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
