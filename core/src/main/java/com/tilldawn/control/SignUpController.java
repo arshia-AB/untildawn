@@ -1,5 +1,6 @@
 package com.tilldawn.control;
 
+import com.tilldawn.model.SaveUserToJson;
 import com.tilldawn.model.User;
 
 import java.util.*;
@@ -20,7 +21,9 @@ public class SignUpController {
         }
 
         String avatar = avatars[new Random().nextInt(avatars.length)];
-        users.put(username, new User(username, password, securityAnswer, avatar));
+        User user = new User(username, password, securityAnswer, avatar);
+        users.put(username, user);
+        SaveUserToJson.saveUserToJson(user);
         return "Registered successfully ";
     }
 

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.tilldawn.control.MainMenuController;
 import com.tilldawn.control.SignUpController;
+import com.tilldawn.model.App;
 import com.tilldawn.model.GameAssetManager;
 import com.tilldawn.view.MainMenuView;
 import com.tilldawn.view.SignUpMenuView;
@@ -21,6 +22,7 @@ public class Main extends Game {
     private static SpriteBatch batch;
     private Texture image;
     private static Main main;
+    private static App app;
     private int x = 0;
     private int y = 0;
 
@@ -70,4 +72,10 @@ public class Main extends Game {
     public static Main getMain() {
         return main;
     }
+
+    public static App getApp() {
+        return app;
+    }
+
+
 }
