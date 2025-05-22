@@ -18,6 +18,7 @@ public class SignUpMenuView implements Screen {
     private Skin skin;
     private final float FIELD_WIDTH_RATIO = 0.8f;
 
+
     public SignUpMenuView(SignUpController controller, Skin skin) {
         this.skin = skin;
         stage = new Stage(new ScreenViewport());
@@ -63,10 +64,22 @@ public class SignUpMenuView implements Screen {
         loginBtn.addListener(new ClickListener() {
 
             public void clicked(InputEvent event, float x, float y) {
+
                 message.setText("");
-                usernameField.setVisible(false);
-                passwordField.setVisible(false);
-                securityField.setVisible(false);
+                if (!securityField.isVisible() && usernameField.isVisible()) {
+                    if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty() || securityField.getText().isEmpty()) {
+                        message.setColor(Color.RED);
+                        message.setText("Please fill all fields.");
+
+                    }
+                } else {
+
+                    usernameField.setVisible(true);
+                    passwordField.setVisible(true);
+                    securityField.setVisible(false);
+                }
+
+
             }
         });
         registerBtn.addListener(new ClickListener() {
@@ -76,8 +89,12 @@ public class SignUpMenuView implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 message.setText("");
 
-                if (usernameField.isVisible()) {
-
+                if (securityField.isVisible()) {
+                    if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty() || securityField.getText().isEmpty()) {
+                        message.setColor(Color.RED);
+                        message.setText("Please fill all fields.");
+                        return;
+                    }
                     String result = controller.register(
                         usernameField.getText(),
                         passwordField.getText(),
@@ -97,7 +114,9 @@ public class SignUpMenuView implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 message.setText("");
-
+                usernameField.setVisible(false);
+                passwordField.setVisible(false);
+                securityField.setVisible(false);
                 User guest = controller.loginAsGuest();
                 message.setColor(Color.GREEN);
                 message.setText("Logged in as guest : " + guest.getUsername());
