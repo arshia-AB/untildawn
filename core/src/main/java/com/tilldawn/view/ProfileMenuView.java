@@ -139,14 +139,11 @@ public class ProfileMenuView implements Screen {
         table.add(deleteBtn).colspan(2).padBottom(20).row();
 
         // Avatar section
-        // Table برای نمایش آواتارها
         Table avatarTable = new Table();
 
-// تصویر پیش‌نمایش (بالای صفحه یا وسط بذار)
         Image previewImage = new Image();
-        table.add(previewImage).colspan(2).padBottom(20).row();
+        table.add(previewImage).colspan(2).left().row();
 
-// حلقه روی آواتارها
         for (Avatar avatar : Avatar.values()) {
             Texture texture = new Texture(Gdx.files.internal(avatar.getPath()));
 
@@ -158,23 +155,23 @@ public class ProfileMenuView implements Screen {
             avatarBtn.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    selectedAvatar = Gdx.files.internal(avatar.getPath()); // FileHandle ذخیره
+                    selectedAvatar = Gdx.files.internal(avatar.getPath());
 
-                    // تغییر تصویر پیش‌نمایش
                     previewImage.setDrawable(new TextureRegionDrawable(new TextureRegion(texture)));
+                    Main.getApp().getCurrentUser().setAvatarPath(avatar.getPath());
                 }
             });
 
             avatarTable.add(avatarBtn).size(64).pad(10);
         }
 
-// ScrollPane برای اسکرول افقی
         ScrollPane scrollPane = new ScrollPane(avatarTable, skin);
-        scrollPane.setScrollingDisabled(false, true); // فقط افقی
-        table.add(scrollPane).colspan(2).height(100).width(400).padBottom(20).row();
+        scrollPane.setScrollingDisabled(false, true);
+        scrollPane.setFadeScrollBars(false);
+
+        table.add(scrollPane).colspan(2).height(100).width(Gdx.graphics.getWidth() * 0.8f).padBottom(20).row();
 
 
-        // Back button
         TextButton backBtn = new TextButton("Back", skin);
         backBtn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
