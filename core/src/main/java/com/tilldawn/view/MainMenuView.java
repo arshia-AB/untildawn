@@ -2,6 +2,7 @@ package com.tilldawn.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -22,6 +23,7 @@ public class MainMenuView implements Screen {
     private Stage stage;
     private Skin skin;
     private User currentUser;
+    private final float FIELD_WIDTH_RATIO = 0.8f;
 
     public MainMenuView(MainMenuController controller, Skin skin) {
         this.skin = skin;
@@ -31,10 +33,16 @@ public class MainMenuView implements Screen {
 
         Table root = new Table();
         root.setFillParent(true);
+        root.left();
         stage.addActor(root);
+        Table info = new Table();
+        info.setFillParent(true);
+        info.right();
+        stage.addActor(info);
 
 
         Image avatar = new Image(new Texture(Gdx.files.internal(currentUser.getAvatarPath())));
+
         Label username = new Label("User: " + currentUser.getUsername(), skin);
         Label score = new Label("Score: " + currentUser.getScore(), skin);
 
@@ -47,18 +55,19 @@ public class MainMenuView implements Screen {
         TextButton talentBtn = new TextButton("Hints / Talents", skin);
         TextButton logoutBtn = new TextButton("Log Out", skin);
 
+        float fieldWidth = Gdx.graphics.getWidth() * FIELD_WIDTH_RATIO;
 
-        root.add(avatar).colspan(2).pad(10).row();
-        root.add(username).pad(5).row();
-        root.add(score).pad(5).row();
+        info.add(avatar).colspan(2).pad(10).row();
+        info.add(username).pad(5).row();
+        info.add(score).pad(5).row();
 
-        root.add(continueBtn).width(200).pad(10).row();
-        root.add(preGameBtn).width(200).pad(10).row();
-        root.add(leaderboardBtn).width(200).pad(10).row();
-        root.add(profileBtn).width(200).pad(10).row();
-        root.add(settingsBtn).width(200).pad(10).row();
-        root.add(talentBtn).width(200).pad(10).row();
-        root.add(logoutBtn).width(200).pad(20).row();
+        root.add(continueBtn).width(fieldWidth / 2).right().pad(10).row();
+        root.add(preGameBtn).width(fieldWidth / 2).pad(10).row();
+        root.add(leaderboardBtn).width(fieldWidth / 2).pad(10).row();
+        root.add(profileBtn).width(fieldWidth / 2).pad(10).row();
+        root.add(settingsBtn).width(fieldWidth / 2).pad(10).row();
+        root.add(talentBtn).width(fieldWidth / 2).pad(10).row();
+        root.add(logoutBtn).width(fieldWidth / 2).pad(20).row();
 
 
 //        continueBtn.addListener(new ClickListener() {
@@ -87,6 +96,7 @@ public class MainMenuView implements Screen {
 
 
     }
+
 
     @Override
     public void render(float delta) {

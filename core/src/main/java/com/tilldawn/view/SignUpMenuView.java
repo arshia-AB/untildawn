@@ -3,9 +3,11 @@ package com.tilldawn.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -52,6 +54,10 @@ public class SignUpMenuView implements Screen {
         ButtonTable.setFillParent(true);
         ButtonTable.bottom().padBottom(10);
         stage.addActor(ButtonTable);
+        Table exitTable = new Table();
+        exitTable.setFillParent(true);
+        exitTable.top().right().pad(100);
+        stage.addActor(exitTable);
 
         TextField usernameField = new TextField("", skin);
         usernameField.setMessageText("Username");
@@ -65,10 +71,18 @@ public class SignUpMenuView implements Screen {
         securityField.setMessageText("Your first pet's name?");
 
         Label message = new Label("", skin);
+        TextButton exit = new TextButton("X", skin);
         TextButton forgetBtn = new TextButton("forget password", skin);
         TextButton loginBtn = new TextButton("Login", skin);
         TextButton registerBtn = new TextButton("Sign Up", skin);
         TextButton guestBtn = new TextButton("Play as Guest", skin);
+        exit.getLabel().setColor(Color.RED);
+        exit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
         loginBtn.addListener(new ClickListener() {
 
             public void clicked(InputEvent event, float x, float y) {
@@ -157,6 +171,7 @@ public class SignUpMenuView implements Screen {
 
 
         float fieldWidth = Gdx.graphics.getWidth() * FIELD_WIDTH_RATIO;
+        exitTable.add(exit).width(20);
         formTable.add(forgetBtn).width(fieldWidth / 3).pad(10);
         formTable.row();
         formTable.add(usernameField).width(fieldWidth / 4).pad(10);
