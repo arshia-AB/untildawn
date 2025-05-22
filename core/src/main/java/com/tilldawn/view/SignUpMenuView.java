@@ -64,6 +64,7 @@ public class SignUpMenuView implements Screen {
         securityField.setMessageText("Your first pet's name?");
 
         Label message = new Label("", skin);
+        TextButton forgetBtn = new TextButton("forget password", skin);
         TextButton loginBtn = new TextButton("Login", skin);
         TextButton registerBtn = new TextButton("Sign Up", skin);
         TextButton guestBtn = new TextButton("Play as Guest", skin);
@@ -83,12 +84,22 @@ public class SignUpMenuView implements Screen {
                         if (result.IsSuccess()) {
                             Main.getMain().setScreen(new MainMenuView(new MainMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
 
+                        } else {
+                            forgetBtn.setVisible(true);
+                            forgetBtn.addListener(new ClickListener(){
+                                @Override
+                                public void clicked(InputEvent event, float x, float y) {
+                                    securityField.setVisible(true);
+                                    if (securityField.getText().equals())
+                                }
+                            });
                         }
 
 
                     }
                 } else {
 
+                    forgetBtn.setVisible(false);
                     usernameField.setVisible(true);
                     passwordField.setVisible(true);
                     securityField.setVisible(false);
@@ -117,6 +128,8 @@ public class SignUpMenuView implements Screen {
                         Main.getMain().setScreen(new MainMenuView(new MainMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
                     }
                 } else {
+
+                    forgetBtn.setVisible(false);
                     usernameField.setVisible(true);
                     passwordField.setVisible(true);
                     securityField.setVisible(true);
@@ -129,6 +142,8 @@ public class SignUpMenuView implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 message.setText("");
+
+                forgetBtn.setVisible(false);
                 usernameField.setVisible(false);
                 passwordField.setVisible(false);
                 securityField.setVisible(false);
@@ -140,12 +155,15 @@ public class SignUpMenuView implements Screen {
 
 
         float fieldWidth = Gdx.graphics.getWidth() * FIELD_WIDTH_RATIO;
+        formTable.add(forgetBtn).width(fieldWidth).pad(10);
+        formTable.row();
         formTable.add(usernameField).width(fieldWidth).pad(10);
         formTable.row();
         formTable.add(passwordField).width(fieldWidth).pad(10);
         formTable.row();
         formTable.add(securityField).width(fieldWidth).pad(10);
         formTable.row();
+        forgetBtn.setVisible(false);
         usernameField.setVisible(false);
         passwordField.setVisible(false);
         securityField.setVisible(false);
