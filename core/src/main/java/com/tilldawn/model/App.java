@@ -8,6 +8,7 @@ public class App {
     private HashMap<String, User> AllUsers = new HashMap<>();
     private User currentUser = null;
 
+
     public HashMap<String, User> getAllUsers() {
         return AllUsers;
     }

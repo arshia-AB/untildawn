@@ -5,6 +5,15 @@ public class User {
     private String password;
     private String securityAnswer;
     private String avatarPath;
+    private int score;
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     public User(String username, String password, String securityAnswer, String avatarPath) {
         this.username = username;
