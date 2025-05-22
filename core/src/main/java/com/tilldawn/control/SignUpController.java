@@ -7,21 +7,21 @@ import java.util.*;
 public class SignUpController {
     private Map<String, User> users = new HashMap<>();
     private static final String[] avatars = {
-        "avatars/avatar1.png", "avatars/avatar2.png", "avatars/avatar3.png"
+        "avatar1.png", "avatar2.png", "avatar3.png"
     };
 
     public String register(String username, String password, String securityAnswer) {
         if (users.containsKey(username)) {
-            return "نام کاربری قبلاً ثبت شده است.";
+            return "Username is already taken";
         }
 
         if (!isPasswordStrong(password)) {
-            return "رمز عبور باید حداقل ۸ کاراکتر، یک عدد، یک حرف بزرگ و یک کاراکتر خاص داشته باشد.";
+            return "Weak password !";
         }
 
         String avatar = avatars[new Random().nextInt(avatars.length)];
         users.put(username, new User(username, password, securityAnswer, avatar));
-        return "ثبت‌نام با موفقیت انجام شد.";
+        return "Registered successfully ";
     }
 
     private boolean isPasswordStrong(String password) {
@@ -32,6 +32,6 @@ public class SignUpController {
     }
 
     public User loginAsGuest() {
-        return new User("مهمان", "", "", avatars[new Random().nextInt(avatars.length)]);
+        return new User("Guest", "", "", avatars[new Random().nextInt(avatars.length)]);
     }
 }
