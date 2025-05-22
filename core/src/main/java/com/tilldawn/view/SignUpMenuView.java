@@ -42,7 +42,7 @@ public class SignUpMenuView implements Screen {
         stage.addActor(formTable);
         Table ButtonTable = new Table();
         ButtonTable.setFillParent(true);
-        ButtonTable.bottom().right().padBottom(30).padRight(30);
+        ButtonTable.bottom().padBottom(10);
         stage.addActor(ButtonTable);
 
         TextField usernameField = new TextField("", skin);
