@@ -56,17 +56,19 @@ public class ProfileMenuView implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 Result result = controller.ChangeUsername(usernameField.getText());
                 message.setText(result.Message());
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        Gdx.app.postRunnable(() -> {
+                            message.setText("");
+                        });
+                    }
+                }, 5);
             }
+
         });
         messageTable.add(message).width(100).height(50);
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                Gdx.app.postRunnable(() -> {
-                    message.setText("");
-                });
-            }
-        }, 5);
+
         table.add(new Label("Username", skin)).left();
         table.add(usernameField).width(300).row();
         table.add(changeUsernameBtn).colspan(2).padBottom(10).row();
@@ -81,6 +83,14 @@ public class ProfileMenuView implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 Result result = controller.changePassword(passwordField.getText());
                 message.setText(result.Message());
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        Gdx.app.postRunnable(() -> {
+                            message.setText("");
+                        });
+                    }
+                }, 5);
             }
         });
 
@@ -101,13 +111,23 @@ public class ProfileMenuView implements Screen {
                             message.setText(result.Message());
                         }
 
+
                     }
+
                 };
 
-                confirmDialog.text("Are you sure you want to delete your account?").pad(40);
+                confirmDialog.text("Are you sure you want to delete your account?");
                 confirmDialog.button("Yes", true);
                 confirmDialog.button("No", false);
                 confirmDialog.show(stage);
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        Gdx.app.postRunnable(() -> {
+                            message.setText("");
+                        });
+                    }
+                }, 5);
             }
         });
         table.add(deleteBtn).colspan(2).padBottom(20).row();
