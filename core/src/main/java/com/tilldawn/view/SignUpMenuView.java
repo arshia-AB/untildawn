@@ -86,11 +86,11 @@ public class SignUpMenuView implements Screen {
 
                         } else {
                             forgetBtn.setVisible(true);
-                            forgetBtn.addListener(new ClickListener(){
+                            forgetBtn.addListener(new ClickListener() {
                                 @Override
                                 public void clicked(InputEvent event, float x, float y) {
-                                    securityField.setVisible(true);
-                                    if (securityField.getText().equals())
+                                    Main.getMain().getScreen().hide();
+                                    Main.getMain().setScreen(new ForgotPasswordView(skin, controller2));
                                 }
                             });
                         }
@@ -155,24 +155,24 @@ public class SignUpMenuView implements Screen {
 
 
         float fieldWidth = Gdx.graphics.getWidth() * FIELD_WIDTH_RATIO;
-        formTable.add(forgetBtn).width(fieldWidth).pad(10);
+        formTable.add(forgetBtn).width(fieldWidth / 3).pad(10);
         formTable.row();
-        formTable.add(usernameField).width(fieldWidth).pad(10);
+        formTable.add(usernameField).width(fieldWidth / 4).pad(10);
         formTable.row();
-        formTable.add(passwordField).width(fieldWidth).pad(10);
+        formTable.add(passwordField).width(fieldWidth / 4).pad(10);
         formTable.row();
-        formTable.add(securityField).width(fieldWidth).pad(10);
+        formTable.add(securityField).width(fieldWidth / 4).pad(10);
         formTable.row();
         forgetBtn.setVisible(false);
         usernameField.setVisible(false);
         passwordField.setVisible(false);
         securityField.setVisible(false);
-        ButtonTable.add(loginBtn).width(fieldWidth / 2).padTop(20);
+        ButtonTable.add(loginBtn).width(fieldWidth / 4).padTop(20);
         ButtonTable.row();
-        ButtonTable.add(registerBtn).width(fieldWidth / 2).padTop(10);
+        ButtonTable.add(registerBtn).width(fieldWidth / 4).padTop(10);
         ButtonTable.row();
 
-        ButtonTable.add(guestBtn).width(fieldWidth).padTop(10);
+        ButtonTable.add(guestBtn).width(fieldWidth/4).padTop(10);
         ButtonTable.row();
 
         ButtonTable.add(message).padTop(20);
@@ -208,5 +208,6 @@ public class SignUpMenuView implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+
     }
 }

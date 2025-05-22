@@ -31,6 +31,7 @@ public class Main extends Game {
         main = this;
         batch = new SpriteBatch();
         app = new App();
+        Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
         SaveUserToJson.readFile();
 
 
