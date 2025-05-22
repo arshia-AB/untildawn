@@ -99,7 +99,7 @@ public class SignUpMenuView implements Screen {
                         usernameField.getText(),
                         passwordField.getText(),
                         securityField.getText()
-                    );
+                    ).Message();
                     message.setText(result);
                 } else {
                     usernameField.setVisible(true);
