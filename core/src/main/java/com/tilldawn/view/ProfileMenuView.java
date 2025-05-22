@@ -22,6 +22,7 @@ import com.tilldawn.model.Result;
 import com.tilldawn.model.User;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Timer;
 
 
 public class ProfileMenuView implements Screen {
@@ -57,7 +58,15 @@ public class ProfileMenuView implements Screen {
                 message.setText(result.Message());
             }
         });
-        messageTable.add(message);
+        messageTable.add(message).width(100).height(50);
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                Gdx.app.postRunnable(() -> {
+                    message.setText("");
+                });
+            }
+        }, 5);
         table.add(new Label("Username", skin)).left();
         table.add(usernameField).width(300).row();
         table.add(changeUsernameBtn).colspan(2).padBottom(10).row();
@@ -67,7 +76,13 @@ public class ProfileMenuView implements Screen {
         passwordField.setPasswordMode(true);
         passwordField.setPasswordCharacter('*');
         TextButton changePassBtn = new TextButton("Change Password", skin);
-//        changePassBtn.addListener(...بررسی امنیت ...);
+        changePassBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Result result = controller.changePassword(passwordField.getText());
+                message.setText(result.Message());
+            }
+        });
 
         table.add(new Label("Password", skin)).left();
         table.add(passwordField).width(300).row();
@@ -75,7 +90,26 @@ public class ProfileMenuView implements Screen {
 
         // Delete account
         TextButton deleteBtn = new TextButton("Delete Account", skin);
-//        deleteBtn.addListener(...تأییدیه حذف ...);
+
+        deleteBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Dialog confirmDialog = new Dialog("Confirm", skin) {
+                    protected void result(Object object) {
+                        if ((boolean) object) {
+                            Result result = controller.DeleteAccount();
+                            message.setText(result.Message());
+                        }
+
+                    }
+                };
+
+                confirmDialog.text("Are you sure you want to delete your account?").pad(40);
+                confirmDialog.button("Yes", true);
+                confirmDialog.button("No", false);
+                confirmDialog.show(stage);
+            }
+        });
         table.add(deleteBtn).colspan(2).padBottom(20).row();
 
         // Avatar section
@@ -95,6 +129,7 @@ public class ProfileMenuView implements Screen {
         });
         table.add(backBtn).colspan(2);
     }
+
 
     @Override
     public void show() {
