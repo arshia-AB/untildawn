@@ -71,7 +71,7 @@ public class SignUpMenuView implements Screen {
         securityField.setMessageText("Your first pet's name?");
 
         Label message = new Label("", skin);
-        TextButton exit = new TextButton("X", skin);
+        TextButton exit = new TextButton("EXIT", skin);
         TextButton forgetBtn = new TextButton("forget password", skin);
         TextButton loginBtn = new TextButton("Login", skin);
         TextButton registerBtn = new TextButton("Sign Up", skin);
@@ -171,7 +171,7 @@ public class SignUpMenuView implements Screen {
 
 
         float fieldWidth = Gdx.graphics.getWidth() * FIELD_WIDTH_RATIO;
-        exitTable.add(exit).width(20);
+        exitTable.add(exit).width(fieldWidth/10);
         formTable.add(forgetBtn).width(fieldWidth / 3).pad(10);
         formTable.row();
         formTable.add(usernameField).width(fieldWidth / 4).pad(10);
