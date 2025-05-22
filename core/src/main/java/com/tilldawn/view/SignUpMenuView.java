@@ -57,19 +57,34 @@ public class SignUpMenuView implements Screen {
         securityField.setMessageText("Your first pet's name?");
 
         Label message = new Label("", skin);
-
+        TextButton loginBtn = new TextButton("Login", skin);
         TextButton registerBtn = new TextButton("Sign Up", skin);
         TextButton guestBtn = new TextButton("Play as Guest", skin);
+        float fieldWidth = Gdx.graphics.getWidth() * FIELD_WIDTH_RATIO;
 
         registerBtn.addListener(new ClickListener() {
+            private boolean fieldsAdded = false;
+
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                String result = controller.register(
-                    usernameField.getText(),
-                    passwordField.getText(),
-                    securityField.getText()
-                );
-                message.setText(result);
+                if (fieldsAdded) {
+
+                    String result = controller.register(
+                        usernameField.getText(),
+                        passwordField.getText(),
+                        securityField.getText()
+                    );
+                    message.setText(result);
+                } else {
+                    formTable.add(usernameField).width(fieldWidth).pad(10);
+                    formTable.row();
+                    formTable.add(passwordField).width(fieldWidth).pad(10);
+                    formTable.row();
+                    formTable.add(securityField).width(fieldWidth).pad(10);
+                    formTable.row();
+                    fieldsAdded = true;
+                }
+
             }
         });
 
@@ -82,14 +97,14 @@ public class SignUpMenuView implements Screen {
             }
         });
 
-        float fieldWidth = Gdx.graphics.getWidth() * FIELD_WIDTH_RATIO;
+//        float fieldWidth = Gdx.graphics.getWidth() * FIELD_WIDTH_RATIO;
 
-        formTable.add(usernameField).width(fieldWidth).pad(10);
-        formTable.row();
-        formTable.add(passwordField).width(fieldWidth).pad(10);
-        formTable.row();
-        formTable.add(securityField).width(fieldWidth).pad(10);
-        formTable.row();
+//        formTable.add(usernameField).width(fieldWidth).pad(10);
+//        formTable.row();
+//        formTable.add(passwordField).width(fieldWidth).pad(10);
+//        formTable.row();
+//        formTable.add(securityField).width(fieldWidth).pad(10);
+//        formTable.row();
 
         ButtonTable.add(registerBtn).width(fieldWidth / 2).padTop(20);
         ButtonTable.row();
