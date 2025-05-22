@@ -89,7 +89,7 @@ public class SignUpMenuView implements Screen {
                             forgetBtn.addListener(new ClickListener() {
                                 @Override
                                 public void clicked(InputEvent event, float x, float y) {
-                                    Main.getMain().getScreen().hide();
+
                                     Main.getMain().setScreen(new ForgotPasswordView(skin, controller2));
                                 }
                             });
@@ -172,7 +172,7 @@ public class SignUpMenuView implements Screen {
         ButtonTable.add(registerBtn).width(fieldWidth / 4).padTop(10);
         ButtonTable.row();
 
-        ButtonTable.add(guestBtn).width(fieldWidth/4).padTop(10);
+        ButtonTable.add(guestBtn).width(fieldWidth / 4).padTop(10);
         ButtonTable.row();
 
         ButtonTable.add(message).padTop(20);

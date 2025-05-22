@@ -29,8 +29,15 @@ public class LoginController {
         if (!user.getSecurityAnswer().equals(securityAnswer)) {
             return new Result(false, "Incorrect security answer!");
         }
+        if (!isPasswordStrong(newPassword)) {
+            return new Result(false, "password is weak");
+        }
         user.setPassword(newPassword);
         SaveUserToJson.saveUserToJson(user);
         return new Result(true, "Password reset successful!");
+    }
+
+    private boolean isPasswordStrong(String password) {
+        return password.length() >= 8 && password.matches(".*[A-Z].*") && password.matches(".*[0-9].*") && password.matches(".*[@#$%&*()_].*");
     }
 }

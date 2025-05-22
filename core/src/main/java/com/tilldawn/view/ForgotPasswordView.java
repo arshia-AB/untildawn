@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.Main;
 import com.tilldawn.control.LoginController;
@@ -28,7 +29,10 @@ public class ForgotPasswordView implements Screen {
         this.skin = skin;
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-
+        Texture bgTexture = new Texture(Gdx.files.internal("foeget.jpg"));
+        Image background = new Image(bgTexture);
+        background.setFillParent(true);
+        stage.addActor(background);
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
@@ -84,6 +88,7 @@ public class ForgotPasswordView implements Screen {
 
     @Override
     public void render(float delta) {
+        ScreenUtils.clear(0, 0, 0, 1);
         stage.act(delta);
         stage.draw();
     }
