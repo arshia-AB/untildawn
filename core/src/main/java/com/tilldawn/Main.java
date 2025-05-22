@@ -12,6 +12,7 @@ import com.tilldawn.control.MainMenuController;
 import com.tilldawn.control.SignUpController;
 import com.tilldawn.model.App;
 import com.tilldawn.model.GameAssetManager;
+import com.tilldawn.model.SaveUserToJson;
 import com.tilldawn.view.MainMenuView;
 import com.tilldawn.view.SignUpMenuView;
 
@@ -31,6 +32,10 @@ public class Main extends Game {
         main = this;
         batch = new SpriteBatch();
 //        image = new Texture("libgdx.png");
+        app = new App();
+        SaveUserToJson.readFile();
+
+
         getMain().setScreen(new SignUpMenuView(new SignUpController(), GameAssetManager.getGameAssetManager().getSkin()));
 
 

@@ -8,7 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.tilldawn.Main;
+import com.tilldawn.control.MainMenuController;
 import com.tilldawn.control.SignUpController;
+import com.tilldawn.model.GameAssetManager;
+import com.tilldawn.model.Result;
 import com.tilldawn.model.User;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -95,12 +99,12 @@ public class SignUpMenuView implements Screen {
                         message.setText("Please fill all fields.");
                         return;
                     }
-                    String result = controller.register(
-                        usernameField.getText(),
-                        passwordField.getText(),
-                        securityField.getText()
-                    ).Message();
-                    message.setText(result);
+                    Result result = controller.register(usernameField.getText(), passwordField.getText(), securityField.getText());
+
+                    message.setText(result.Message());
+                    if (result.IsSuccess()) {
+                        Main.getMain().setScreen(new MainMenuView(new MainMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
+                    }
                 } else {
                     usernameField.setVisible(true);
                     passwordField.setVisible(true);
