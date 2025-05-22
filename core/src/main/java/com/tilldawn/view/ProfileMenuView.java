@@ -4,14 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.tilldawn.Enum.Avatar;
 import com.tilldawn.Main;
 import com.tilldawn.control.LoginController;
 import com.tilldawn.control.MainMenuController;
@@ -36,7 +39,10 @@ public class ProfileMenuView implements Screen {
         this.skin = skin;
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-
+        Texture bgTexture = new Texture(Gdx.files.internal("backgrounds/1.png"));
+        Image background = new Image(bgTexture);
+        background.setFillParent(true);
+        stage.addActor(background);
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
@@ -133,12 +139,40 @@ public class ProfileMenuView implements Screen {
         table.add(deleteBtn).colspan(2).padBottom(20).row();
 
         // Avatar section
-        avatarImage = new Image(new Texture("avatar1.png"));
-        TextButton changeAvatarBtn = new TextButton("Choose Avatar", skin);
-//        changeAvatarBtn.addListener(...انتخاب از فایل یا لیست ...);
+        // Table برای نمایش آواتارها
+        Table avatarTable = new Table();
 
-        table.add(avatarImage).colspan(2).padBottom(10).row();
-        table.add(changeAvatarBtn).colspan(2).padBottom(10).row();
+// تصویر پیش‌نمایش (بالای صفحه یا وسط بذار)
+        Image previewImage = new Image();
+        table.add(previewImage).colspan(2).padBottom(20).row();
+
+// حلقه روی آواتارها
+        for (Avatar avatar : Avatar.values()) {
+            Texture texture = new Texture(Gdx.files.internal(avatar.getPath()));
+
+            ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle();
+            style.imageUp = new TextureRegionDrawable(new TextureRegion(texture));
+
+            ImageButton avatarBtn = new ImageButton(style);
+
+            avatarBtn.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    selectedAvatar = Gdx.files.internal(avatar.getPath()); // FileHandle ذخیره
+
+                    // تغییر تصویر پیش‌نمایش
+                    previewImage.setDrawable(new TextureRegionDrawable(new TextureRegion(texture)));
+                }
+            });
+
+            avatarTable.add(avatarBtn).size(64).pad(10);
+        }
+
+// ScrollPane برای اسکرول افقی
+        ScrollPane scrollPane = new ScrollPane(avatarTable, skin);
+        scrollPane.setScrollingDisabled(false, true); // فقط افقی
+        table.add(scrollPane).colspan(2).height(100).width(400).padBottom(20).row();
+
 
         // Back button
         TextButton backBtn = new TextButton("Back", skin);

@@ -2,7 +2,7 @@ package com.tilldawn.Enum;
 
 public enum Avatar {
 
-
+    //shayan soleymani
     AVATAR_1(1, "avatars/vibrent_1.png"),
 
     AVATAR_2(2, "avatars/vibrent_2.png"),
@@ -80,9 +80,5 @@ public enum Avatar {
         return null;
     }
 
-    public static Avatar getRandomAvatar() {
-        Avatar[] avatars = values();
-        int index = (int) (Math.random() * avatars.length);
-        return avatars[index];
-    }
+
 }
