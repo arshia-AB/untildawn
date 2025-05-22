@@ -60,14 +60,23 @@ public class SignUpMenuView implements Screen {
         TextButton loginBtn = new TextButton("Login", skin);
         TextButton registerBtn = new TextButton("Sign Up", skin);
         TextButton guestBtn = new TextButton("Play as Guest", skin);
-        float fieldWidth = Gdx.graphics.getWidth() * FIELD_WIDTH_RATIO;
+        loginBtn.addListener(new ClickListener() {
 
+            public void clicked(InputEvent event, float x, float y) {
+                message.setText("");
+                usernameField.setVisible(false);
+                passwordField.setVisible(false);
+                securityField.setVisible(false);
+            }
+        });
         registerBtn.addListener(new ClickListener() {
-            private boolean fieldsAdded = false;
+
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (fieldsAdded) {
+                message.setText("");
+
+                if (usernameField.isVisible()) {
 
                     String result = controller.register(
                         usernameField.getText(),
@@ -76,13 +85,9 @@ public class SignUpMenuView implements Screen {
                     );
                     message.setText(result);
                 } else {
-                    formTable.add(usernameField).width(fieldWidth).pad(10);
-                    formTable.row();
-                    formTable.add(passwordField).width(fieldWidth).pad(10);
-                    formTable.row();
-                    formTable.add(securityField).width(fieldWidth).pad(10);
-                    formTable.row();
-                    fieldsAdded = true;
+                    usernameField.setVisible(true);
+                    passwordField.setVisible(true);
+                    securityField.setVisible(true);
                 }
 
             }
@@ -91,22 +96,28 @@ public class SignUpMenuView implements Screen {
         guestBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                message.setText("");
+
                 User guest = controller.loginAsGuest();
                 message.setColor(Color.GREEN);
                 message.setText("Logged in as guest : " + guest.getUsername());
             }
         });
 
-//        float fieldWidth = Gdx.graphics.getWidth() * FIELD_WIDTH_RATIO;
 
-//        formTable.add(usernameField).width(fieldWidth).pad(10);
-//        formTable.row();
-//        formTable.add(passwordField).width(fieldWidth).pad(10);
-//        formTable.row();
-//        formTable.add(securityField).width(fieldWidth).pad(10);
-//        formTable.row();
-
-        ButtonTable.add(registerBtn).width(fieldWidth / 2).padTop(20);
+        float fieldWidth = Gdx.graphics.getWidth() * FIELD_WIDTH_RATIO;
+        formTable.add(usernameField).width(fieldWidth).pad(10);
+        formTable.row();
+        formTable.add(passwordField).width(fieldWidth).pad(10);
+        formTable.row();
+        formTable.add(securityField).width(fieldWidth).pad(10);
+        formTable.row();
+        usernameField.setVisible(false);
+        passwordField.setVisible(false);
+        securityField.setVisible(false);
+        ButtonTable.add(loginBtn).width(fieldWidth / 2).padTop(20);
+        ButtonTable.row();
+        ButtonTable.add(registerBtn).width(fieldWidth / 2).padTop(10);
         ButtonTable.row();
 
         ButtonTable.add(guestBtn).width(fieldWidth).padTop(10);
