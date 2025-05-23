@@ -2,6 +2,7 @@ package com.tilldawn.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -31,21 +32,28 @@ public class MainMenuView implements Screen {
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         this.currentUser = getApp().getCurrentUser();
-
+        Texture bgtexture = new Texture(Gdx.files.internal("backgrounds/2.png"));
+        Image background = new Image(bgtexture);
+        background.setFillParent(true);
+        stage.addActor(background);
         Table root = new Table();
         root.setFillParent(true);
         root.left();
         stage.addActor(root);
-        Table info = new Table();
-        info.setFillParent(true);
-        info.right();
-        stage.addActor(info);
+//        Table info = new Table(skin);
+//        info.setFillParent(true);
+//
+//        stage.addActor(info);
 
 
         Image avatar = new Image(new Texture(Gdx.files.internal(currentUser.getAvatarPath())));
 
         Label username = new Label("User: " + currentUser.getUsername(), skin);
+        username.setColor(Color.GOLDENROD);
+        username.setFontScale(1.5f);
         Label score = new Label("Score: " + currentUser.getScore(), skin);
+        score.setColor(Color.GOLD);
+        score.setFontScale(1.5f);
 
 
         TextButton continueBtn = new TextButton("Continue", skin);
@@ -57,10 +65,16 @@ public class MainMenuView implements Screen {
         TextButton logoutBtn = new TextButton("Log Out", skin);
 
         float fieldWidth = Gdx.graphics.getWidth() * FIELD_WIDTH_RATIO;
+        Table userInfoTable = new Table(skin);
+        userInfoTable.right();
+        userInfoTable.pad(10);
+        userInfoTable.add(avatar).size(320).padBottom(10).row();
+        userInfoTable.add(username).pad(50).row();
+        userInfoTable.add(score).pad(50).row();
 
-        info.add(avatar).colspan(2).pad(10).row();
-        info.add(username).pad(5).row();
-        info.add(score).pad(5).row();
+        stage.addActor(userInfoTable);
+
+        userInfoTable.setFillParent(true);
 
         root.add(continueBtn).width(fieldWidth / 2).right().pad(10).row();
         root.add(preGameBtn).width(fieldWidth / 2).pad(10).row();
