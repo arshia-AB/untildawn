@@ -7,12 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.tilldawn.Enum.Hero;
+import com.tilldawn.Enum.HeroEnum;
 import com.tilldawn.Main;
 import com.tilldawn.control.MainMenuController;
 import com.tilldawn.model.GameAssetManager;
-
-import java.util.Map;
 
 public class HintMenuView implements Screen {
 
@@ -38,9 +36,9 @@ public class HintMenuView implements Screen {
 
         // Hero hints
         root.add(new Label("Hero Hints:", skin)).left().row();
-        for (Hero hero : Hero.values()) {
+        for (HeroEnum heroEnum : HeroEnum.values()) {
 
-            root.add(new Label(hero.name() + "  HP :" + hero.getHP() + "  Speed :" + hero.getSpeed(), skin)).left().pad(5).row();
+            root.add(new Label(heroEnum.name() + "  HP :" + heroEnum.getHP() + "  Speed :" + heroEnum.getSpeed(), skin)).left().pad(5).row();
         }
 
         // Active controls

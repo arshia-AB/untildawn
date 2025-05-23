@@ -1,5 +1,6 @@
 package com.tilldawn.control;
 
+import com.tilldawn.Enum.WeaponEnum;
 import com.tilldawn.model.User;
 import com.tilldawn.model.Weapon;
 import com.tilldawn.view.GameView;
@@ -15,7 +16,7 @@ public class GameController {
         this.view = view;
         playerController = new PlayerController(new User());
         worldController = new WorldController(playerController);
-        weaponController = new WeaponController(new Weapon());
+        weaponController = new WeaponController(new Weapon(WeaponEnum.SMG));
     }
 
     public void updateGame() {

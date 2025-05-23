@@ -3,8 +3,8 @@ package com.tilldawn.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.tilldawn.Enum.Hero;
-import com.tilldawn.Enum.Weapon;
+import com.tilldawn.Enum.HeroEnum;
+import com.tilldawn.Enum.WeaponEnum;
 
 public class User {
     private String username;
@@ -12,18 +12,63 @@ public class User {
     private String securityAnswer;
     private String avatarPath;
     private int score = 0;
-    private Hero hero;
+    private HeroEnum heroEnum;
+    private WeaponEnum weaponEnum;
     private Weapon weapon;
     private Texture playerTexture = new Texture(GameAssetManager.getGameAssetManager().getCharacter1_idle0());
     private Sprite playerSprite = new Sprite(playerTexture);
-    private float posX = 0;
-    private float posY = 0;
+    private float posX ;
+    private float posY ;
     private float playerHealth = 100;
     private float time = 0;
     private float Speed = 5;
     private boolean isPlayerIdle = true;
     private boolean isPlayerRunning = true;
+    private CollisionRect rect;
 
+    public User() {
+    }
+
+    public User(String username, String password, String securityAnswer, String avatarPath) {
+        this.username = username;
+        this.password = password;
+        this.securityAnswer = securityAnswer;
+        this.avatarPath = avatarPath;
+        playerSprite.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+        playerSprite.setSize(playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
+        rect = new CollisionRect((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight(), playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
+
+        this.posX = this.playerSprite.getX();
+        this.posY = this.playerSprite.getY();
+    }
+
+    public HeroEnum getHeroEnum() {
+        return heroEnum;
+    }
+
+    public void setHeroEnum(HeroEnum heroEnum) {
+        this.heroEnum = heroEnum;
+    }
+
+    public WeaponEnum getWeaponEnum() {
+        return weaponEnum;
+    }
+
+    public void setWeaponEnum(WeaponEnum weaponEnum) {
+        this.weaponEnum = weaponEnum;
+    }
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
+
+    public CollisionRect getRect() {
+        return rect;
+    }
+
+    public void setRect(CollisionRect rect) {
+        this.rect = rect;
+    }
 
     public boolean isPlayerIdle() {
         return isPlayerIdle;
@@ -97,20 +142,20 @@ public class User {
         this.playerSprite = playerSprite;
     }
 
-    public Hero getHero() {
-        return hero;
+    public HeroEnum getHero() {
+        return heroEnum;
     }
 
-    public void setHero(Hero hero) {
-        this.hero = hero;
+    public void setHero(HeroEnum heroEnum) {
+        this.heroEnum = heroEnum;
     }
 
-    public Weapon getWeapon() {
-        return weapon;
+    public WeaponEnum getWeapon() {
+        return weaponEnum;
     }
 
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
+    public void setWeapon(WeaponEnum weaponEnum) {
+        this.weaponEnum = weaponEnum;
     }
 
     public int getScore() {
@@ -121,18 +166,6 @@ public class User {
         this.score = score;
     }
 
-    public User() {
-    }
-
-    public User(String username, String password, String securityAnswer, String avatarPath) {
-        this.username = username;
-        this.password = password;
-        this.securityAnswer = securityAnswer;
-        this.avatarPath = avatarPath;
-        this.playerSprite.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-        this.playerSprite.setSize(playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
-
-    }
 
     public String getUsername() {
         return username;

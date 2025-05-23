@@ -1,7 +1,7 @@
 package com.tilldawn.model;
 
-import com.tilldawn.Enum.Hero;
-import com.tilldawn.Enum.Weapon;
+import com.tilldawn.Enum.HeroEnum;
+import com.tilldawn.Enum.WeaponEnum;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -52,8 +52,8 @@ public class UserDatabase {
             while (rs.next()) {
                 User user = new User();
                 user.setUsername(rs.getString("username"));
-                user.setHero(Hero.valueOf(rs.getString("hero")));
-                user.setWeapon(Weapon.valueOf(rs.getString("weapon")));
+                user.setHero(HeroEnum.valueOf(rs.getString("hero")));
+                user.setWeapon(WeaponEnum.valueOf(rs.getString("weapon")));
                 userList.add(user);
             }
 

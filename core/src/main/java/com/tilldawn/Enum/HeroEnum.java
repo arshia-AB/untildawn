@@ -1,6 +1,6 @@
 package com.tilldawn.Enum;
 
-public enum Hero {
+public enum HeroEnum {
     SHANA("heros/T_Shana_Portrait.png", "SHANA", 4, 4),
     DIAMOND("heros/T_Diamond_Portrait.png", "DIAMOND", 7, 1),
     SCARLET("heros/T_Scarlett_Portrait.png", "SCARLET", 3, 5),
@@ -11,7 +11,7 @@ public enum Hero {
     private final int HP;
     private final int Speed;
 
-    Hero(String path, String Name, int Hp, int Speed) {
+    HeroEnum(String path, String Name, int Hp, int Speed) {
         this.path = path;
         this.Name = Name;
         this.HP = Hp;
@@ -34,9 +34,9 @@ public enum Hero {
         return path;
     }
 
-    public Hero getHeroByName(String name) {
-        for (Hero hero : Hero.values()) {
-            if (hero.getName().equals(name)) return hero;
+    public HeroEnum getHeroByName(String name) {
+        for (HeroEnum heroEnum : HeroEnum.values()) {
+            if (heroEnum.getName().equals(name)) return heroEnum;
         }
         return null;
     }

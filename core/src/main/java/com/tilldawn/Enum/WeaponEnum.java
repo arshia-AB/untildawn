@@ -1,6 +1,6 @@
 package com.tilldawn.Enum;
 
-public enum Weapon {
+public enum WeaponEnum {
     REVOLVER("weapons/RevolverStill.png", "REVOLVER", 20, 1, 1, 6),
     SHOTGUN("weapons/T_Shotgun_SS_0.png", "SHOTGUN", 10, 4, 1, 2),
     SMG("weapons/SMGStill.png", "SMG", 8, 1, 2, 24);
@@ -11,7 +11,7 @@ public enum Weapon {
     private int reloadTime;
     private int maxAmmo;
 
-    Weapon(String path, String name, int damage, int projecttile, int reloadTime, int maxAmmo) {
+    WeaponEnum(String path, String name, int damage, int projecttile, int reloadTime, int maxAmmo) {
         this.path = path;
         this.name = name;
         this.damage = damage;
@@ -44,9 +44,9 @@ public enum Weapon {
         return name;
     }
 
-    public Weapon getWeaponByName(String name) {
-        for (Weapon weapon : Weapon.values()) {
-            if (weapon.getName().equals(name)) return weapon;
+    public WeaponEnum getWeaponByName(String name) {
+        for (WeaponEnum weaponEnum : WeaponEnum.values()) {
+            if (weaponEnum.getName().equals(name)) return weaponEnum;
         }
         return null;
     }
