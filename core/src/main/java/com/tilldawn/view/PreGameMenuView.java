@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.Enum.Hero;
 import com.tilldawn.Enum.Weapon;
 import com.tilldawn.Main;
+import com.tilldawn.control.GameController;
 import com.tilldawn.control.MainMenuController;
 import com.tilldawn.control.PreGameMenuController;
 import com.tilldawn.model.GameAssetManager;
@@ -120,7 +121,7 @@ public class PreGameMenuView implements Screen {
 
                     message.setText("user hero and weapon saved");
 
-                    //todo boro too bazi
+                    Main.getMain().setScreen(new GameView(new GameController(), GameAssetManager.getGameAssetManager().getSkin()));
                 } else {
                     message.setText("please select hero and weapon");
                 }
