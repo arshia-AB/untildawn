@@ -1,11 +1,32 @@
 package com.tilldawn.model;
 
+import com.tilldawn.Enum.Hero;
+import com.tilldawn.Enum.Weapon;
+
 public class User {
     private String username;
     private String password;
     private String securityAnswer;
     private String avatarPath;
-    private int score=0;
+    private int score = 0;
+    private Hero hero;
+    private Weapon weapon;
+
+    public Hero getHero() {
+        return hero;
+    }
+
+    public void setHero(Hero hero) {
+        this.hero = hero;
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
 
     public int getScore() {
         return score;

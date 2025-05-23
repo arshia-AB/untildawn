@@ -6,10 +6,10 @@ public enum Hero {
     SCARLET("heros/T_Scarlett_Portrait.png", "SCARLET", 3, 5),
     LILITH("heros/T_Lilith_Portrait.png", "LILITH", 5, 3),
     DASHER("heros/T_Dasher_Portrait.png", "DASHER", 2, 10);
-    private String path;
-    private String Name;
-    private int HP;
-    private int Speed;
+    private final String path;
+    private final String Name;
+    private final int HP;
+    private final int Speed;
 
     Hero(String path, String Name, int Hp, int Speed) {
         this.path = path;
@@ -28,6 +28,10 @@ public enum Hero {
 
     public int getSpeed() {
         return Speed;
+    }
+
+    public String getPath() {
+        return path;
     }
 
     public Hero getHeroByName(String name) {
