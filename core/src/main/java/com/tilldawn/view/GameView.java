@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -15,6 +16,9 @@ import com.tilldawn.Main;
 public class GameView implements Screen, InputProcessor {
     private Stage stage;
     private GameController controller;
+    private OrthographicCamera camera;
+    private long startTimeMillis;
+    private Texture bgTexture;
 
     public GameView(GameController controller, Skin skin) {
         this.controller = controller;
@@ -23,7 +27,13 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public void show() {
+
+//        camera = new OrthographicCamera();
+//        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
         stage = new Stage(new ScreenViewport());
+//        bgTexture = new Texture(Gdx.files.internal("GameBackground.png.png"));
+//        bgTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         Gdx.input.setInputProcessor(this);
     }
 
@@ -31,7 +41,25 @@ public class GameView implements Screen, InputProcessor {
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
         Main.getBatch().begin();
+//        camera.update();
+//        Main.getBatch().setProjectionMatrix(camera.combined);
+//        Main.getBatch().begin();
+//        float camX = camera.position.x;
+//        float camY = camera.position.y;
+//
+//        float width = Gdx.graphics.getWidth();
+//        float height = Gdx.graphics.getHeight();
+//
+//        Main.getBatch().draw(
+//                bgTexture,
+//                camX - width / 2f, camY - height / 2f,
+//                width, height,
+//                0, 0,
+//                width / bgTexture.getWidth(), height / bgTexture.getHeight()
+//        );
+
         controller.updateGame();
+
         Main.getBatch().end();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();

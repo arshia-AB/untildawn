@@ -1,5 +1,7 @@
 package com.tilldawn.control;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.tilldawn.Main;
 
@@ -20,4 +22,35 @@ public class WorldController {
         Main.getBatch().draw(backgroundTexture, backgroundX, backgroundY);
     }
 
+    public float getBackgroundY() {
+        return backgroundY;
+    }
+
+    public void setBackgroundY(float backgroundY) {
+        this.backgroundY = backgroundY;
+    }
+
+    public float getBackgroundX() {
+        return backgroundX;
+    }
+
+    public void setBackgroundX(float backgroundX) {
+        this.backgroundX = backgroundX;
+    }
+
+    public Texture getBackgroundTexture() {
+        return backgroundTexture;
+    }
+
+    public void setBackgroundTexture(Texture backgroundTexture) {
+        this.backgroundTexture = backgroundTexture;
+    }
+
+    public PlayerController getPlayerController() {
+        return playerController;
+    }
+
+    public void setPlayerController(PlayerController playerController) {
+        this.playerController = playerController;
+    }
 }
