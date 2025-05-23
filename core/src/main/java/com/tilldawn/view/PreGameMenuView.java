@@ -3,10 +3,12 @@ package com.tilldawn.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.Enum.Hero;
@@ -23,6 +25,8 @@ public class PreGameMenuView implements Screen {
     private Hero selectedHero;
     private Weapon selectedWeapon;
     private int selectedTime;
+    private Image selectedHeroImage;
+    private Image selectedGunImage;
 
     public PreGameMenuView(PreGameMenuController controller, Skin skin) {
         this.skin = skin;
@@ -36,7 +40,19 @@ public class PreGameMenuView implements Screen {
         Table mainTable = new Table();
         mainTable.setFillParent(true);
         stage.addActor(mainTable);
+        // preview table
 
+        selectedHeroImage = new Image();
+        selectedGunImage = new Image();
+
+        Table previewTable = new Table();
+        previewTable.add(new Label("Selected Hero", skin));
+        previewTable.row();
+        previewTable.add(selectedHeroImage).size(320);
+        previewTable.row();
+        previewTable.add(new Label("Selected Gun", skin));
+        previewTable.row();
+        previewTable.add(selectedGunImage).size(320);
         // Hero Selection
         mainTable.add(new Label("Choose Hero", skin)).row();
         Table heroTable = new Table();
@@ -47,11 +63,21 @@ public class PreGameMenuView implements Screen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     selectedHero = hero;
+                    selectedHeroImage.setDrawable(image.getDrawable());
+
                 }
             });
             heroTable.add(image).size(64).pad(10);
         }
+        Table rootTable = new Table();
+        rootTable.setFillParent(true);
+        stage.addActor(rootTable);
         mainTable.add(heroTable).row();
+
+        rootTable.add(previewTable).pad(20).top().left();
+
+
+        rootTable.add(mainTable).expand().fill();
 
         // Weapon Selection
         mainTable.add(new Label("Choose Weapon", skin)).row();
@@ -63,6 +89,7 @@ public class PreGameMenuView implements Screen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     selectedWeapon = weapon;
+                    selectedGunImage.setDrawable(image.getDrawable());
                 }
             });
             weaponTable.add(image).size(64).pad(10);
@@ -79,16 +106,13 @@ public class PreGameMenuView implements Screen {
                 selectedTime = timeSelect.getSelected();
             }
         });
-        mainTable.add(timeSelect).row();
 
         // Start Button
         TextButton startBtn = new TextButton("Start Game", skin);
         startBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // انتقال به بازی با تنظیمات انتخابی
-//                System.out.println("Start game with: " + selectedHero + ", " + selectedWeapon + ", " + selectedTime + " minutes");
-                // game.setScreen(new GameScreen(selectedHero, selectedWeapon, selectedTime));
+
             }
         });
         mainTable.add(startBtn).padTop(20).row();
