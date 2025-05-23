@@ -2,6 +2,7 @@ package com.tilldawn.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -17,6 +18,7 @@ import com.tilldawn.Main;
 import com.tilldawn.control.MainMenuController;
 import com.tilldawn.control.PreGameMenuController;
 import com.tilldawn.model.GameAssetManager;
+import com.tilldawn.model.SaveUserToJson;
 
 
 public class PreGameMenuView implements Screen {
@@ -63,6 +65,7 @@ public class PreGameMenuView implements Screen {
                 public void clicked(InputEvent event, float x, float y) {
                     selectedHero = hero;
                     selectedHeroImage.setDrawable(image.getDrawable());
+                    Main.getApp().getCurrentUser().setHero(hero);
                 }
             });
             heroTable.add(image).size(64).pad(10);
@@ -79,6 +82,8 @@ public class PreGameMenuView implements Screen {
                 public void clicked(InputEvent event, float x, float y) {
                     selectedWeapon = weapon;
                     selectedGunImage.setDrawable(image.getDrawable());
+                    Main.getApp().getCurrentUser().setWeapon(weapon);
+
                 }
             });
             weaponTable.add(image).size(64).pad(10);
@@ -89,9 +94,25 @@ public class PreGameMenuView implements Screen {
         SelectBox<Integer> timeSelect = new SelectBox<>(skin);
         timeSelect.setItems(2, 5, 10, 20);
         mainTable.add(timeSelect).row();
-
+        Label message = new Label("", skin);
+        message.setScale(2f);
+        message.setColor(Color.VIOLET);
         TextButton startBtn = new TextButton("Start Game", skin);
         mainTable.add(startBtn).padTop(20).row();
+        startBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                SaveUserToJson.saveUserToJson(Main.getApp().getCurrentUser());
+                if (selectedHero != null && selectedWeapon != null) {
+
+                    message.setText("user hero and weapon saved");
+
+                    //todo boro too bazi
+                } else {
+                    message.setText("please select hero and weapon");
+                }
+            }
+        });
 
         TextButton backBtn = new TextButton("Back", skin);
         backBtn.addListener(new ClickListener() {
@@ -109,6 +130,8 @@ public class PreGameMenuView implements Screen {
         rootTable.add(gunPreviewTable).expandY().left().pad(20);
         rootTable.add(mainTable).expand().fill().pad(20);
         rootTable.add(heroPreviewTable).expandY().right().pad(20);
+        rootTable.row();
+        rootTable.add(message).colspan(3).center().padBottom(50);
 
 
     }

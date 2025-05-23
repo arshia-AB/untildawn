@@ -82,5 +82,14 @@
     "securityAnswer": "leo",
     "avatarPath": "avatar3.png",
     "score": 0
+  },
+  {
+    "username": "Guest",
+    "password": "",
+    "securityAnswer": "",
+    "avatarPath": "avatars/vibrent_26.png",
+    "score": 0,
+    "hero": "DIAMOND",
+    "weapon": "REVOLVER"
   }
 ]
