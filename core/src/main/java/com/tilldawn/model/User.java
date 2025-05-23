@@ -14,7 +14,7 @@ public class User {
     private int score = 0;
     private Hero hero;
     private Weapon weapon;
-    private Texture playerTexture = new Texture("heros/T_Shana_Portrait.png");
+    private Texture playerTexture = new Texture(GameAssetManager.getGameAssetManager().getCharacter1_idle0());
     private Sprite playerSprite = new Sprite(playerTexture);
     private float posX = 0;
     private float posY = 0;
@@ -129,8 +129,8 @@ public class User {
         this.password = password;
         this.securityAnswer = securityAnswer;
         this.avatarPath = avatarPath;
-        playerSprite.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-        playerSprite.setSize(playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
+        this.playerSprite.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+        this.playerSprite.setSize(playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
 
     }
 

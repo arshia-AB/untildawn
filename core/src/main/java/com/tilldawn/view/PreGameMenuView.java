@@ -104,22 +104,22 @@ public class PreGameMenuView implements Screen {
         startBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                SaveUserToJson.saveUserToJson(Main.getApp().getCurrentUser());
-                message.setVisible(true);
-                message.getColor().a = 1f;
-                message.clearActions();
-
-                message.addAction(Actions.sequence(
-                    Actions.delay(1.5f),
-                    Actions.fadeOut(0.5f),
-                    Actions.run(() -> {
-                        message.setVisible(false);
-                        message.getColor().a = 1f;
-                    })
-                ));
+//                SaveUserToJson.saveUserToJson(Main.getApp().getCurrentUser());
+//                message.setVisible(true);
+//                message.getColor().a = 1f;
+//                message.clearActions();
+//
+//                message.addAction(Actions.sequence(
+//                    Actions.delay(1.5f),
+//                    Actions.fadeOut(0.5f),
+//                    Actions.run(() -> {
+//                        message.setVisible(false);
+//                        message.getColor().a = 1f;
+//                    })
+//                ));
                 if (selectedHero != null && selectedWeapon != null) {
 
-                    message.setText("user hero and weapon saved");
+//                    message.setText("user hero and weapon saved");
 
                     Main.getMain().setScreen(new GameView(new GameController(), GameAssetManager.getGameAssetManager().getSkin()));
                 } else {
