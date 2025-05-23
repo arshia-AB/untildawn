@@ -56,6 +56,7 @@ public class ProfileMenuView implements Screen {
 
         // Username
         usernameField = new TextField("", skin);
+        usernameField.setMessageText("enter new username");
         TextButton changeUsernameBtn = new TextButton("Change Username", skin);
         changeUsernameBtn.addListener(new ClickListener() {
             @Override
@@ -65,14 +66,16 @@ public class ProfileMenuView implements Screen {
                 scheduleMessageClear(message);
             }
         });
-        table.add(new Label("Username", skin)).left();
-        table.add(usernameField).width(300).row();
-        table.add(changeUsernameBtn).colspan(2).padBottom(10).row();
+        table.add(usernameField).padLeft(200).width(500).row();
+        table.add(changeUsernameBtn).padLeft(200).padBottom(10).row();
 
         // Password
         passwordField = new TextField("", skin);
         passwordField.setPasswordMode(true);
         passwordField.setPasswordCharacter('*');
+
+        passwordField.setMessageText("enter new password");
+
         TextButton changePassBtn = new TextButton("Change Password", skin);
         changePassBtn.addListener(new ClickListener() {
             @Override
@@ -82,9 +85,8 @@ public class ProfileMenuView implements Screen {
                 scheduleMessageClear(message);
             }
         });
-        table.add(new Label("Password", skin)).left();
-        table.add(passwordField).width(300).row();
-        table.add(changePassBtn).colspan(2).padBottom(10).row();
+        table.add(passwordField).padLeft(200).width(500).row();
+        table.add(changePassBtn).padLeft(200).padBottom(10).row();
 
         // Delete Account
         TextButton deleteBtn = new TextButton("Delete Account", skin);
@@ -106,11 +108,11 @@ public class ProfileMenuView implements Screen {
                 scheduleMessageClear(message);
             }
         });
-        table.add(deleteBtn).colspan(2).padBottom(20).row();
+        table.add(deleteBtn).padLeft(200).padBottom(20).row();
 
         // Avatar Preview
         Image previewImage = new Image();
-        table.add(previewImage).colspan(2).left().padBottom(10).row();
+        table.add(previewImage).left().padBottom(10).row();
 
         // Avatar Selection
         Table avatarTable = new Table();
@@ -156,7 +158,8 @@ public class ProfileMenuView implements Screen {
     }
 
     @Override
-    public void show() {}
+    public void show() {
+    }
 
     @Override
     public void render(float delta) {
@@ -166,17 +169,22 @@ public class ProfileMenuView implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) {}
+    public void resize(int width, int height) {
+    }
 
     @Override
-    public void pause() {}
+    public void pause() {
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+    }
 
     @Override
-    public void hide() {}
+    public void hide() {
+    }
 
     @Override
-    public void dispose() {}
+    public void dispose() {
+    }
 }
