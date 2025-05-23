@@ -42,8 +42,11 @@ public class GameView implements Screen, InputProcessor {
         ScreenUtils.clear(0, 0, 0, 1);
 
         camera.update();
+        controller.getPlayerController().centerPlayerOnCamera(camera);
         Main.getBatch().setProjectionMatrix(camera.combined);
         Main.getBatch().begin();
+        controller.getPlayerController().getPlayer().getPlayerSprite().draw(Main.getBatch());
+
         float camX = camera.position.x;
         float camY = camera.position.y;
 
