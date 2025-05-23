@@ -39,21 +39,20 @@ public class PreGameMenuView implements Screen {
 
         Table mainTable = new Table();
         mainTable.setFillParent(true);
-        stage.addActor(mainTable);
-        // preview table
+        mainTable.center().padRight(500);
 
         selectedHeroImage = new Image();
         selectedGunImage = new Image();
 
-        Table previewTable = new Table();
-        previewTable.add(new Label("Selected Hero", skin));
-        previewTable.row();
-        previewTable.add(selectedHeroImage).size(320);
-        previewTable.row();
-        previewTable.add(new Label("Selected Gun", skin));
-        previewTable.row();
-        previewTable.add(selectedGunImage).size(320);
-        // Hero Selection
+        Table gunPreviewTable = new Table();
+        gunPreviewTable.add(new Label("Selected Gun", skin)).row();
+        gunPreviewTable.add(selectedGunImage).size(200).pad(10);
+
+        Table heroPreviewTable = new Table();
+        heroPreviewTable.add(new Label("Selected Hero", skin)).row();
+        heroPreviewTable.add(selectedHeroImage).size(200).pad(10);
+
+
         mainTable.add(new Label("Choose Hero", skin)).row();
         Table heroTable = new Table();
         for (Hero hero : Hero.values()) {
@@ -64,22 +63,12 @@ public class PreGameMenuView implements Screen {
                 public void clicked(InputEvent event, float x, float y) {
                     selectedHero = hero;
                     selectedHeroImage.setDrawable(image.getDrawable());
-
                 }
             });
             heroTable.add(image).size(64).pad(10);
         }
-        Table rootTable = new Table();
-        rootTable.setFillParent(true);
-        stage.addActor(rootTable);
         mainTable.add(heroTable).row();
 
-        rootTable.add(previewTable).pad(20).top().left();
-
-
-        rootTable.add(mainTable).expand().fill();
-
-        // Weapon Selection
         mainTable.add(new Label("Choose Weapon", skin)).row();
         Table weaponTable = new Table();
         for (Weapon weapon : Weapon.values()) {
@@ -96,35 +85,32 @@ public class PreGameMenuView implements Screen {
         }
         mainTable.add(weaponTable).row();
 
-        // Time Selection
         mainTable.add(new Label("Game Duration (minutes)", skin)).row();
         SelectBox<Integer> timeSelect = new SelectBox<>(skin);
         timeSelect.setItems(2, 5, 10, 20);
-        timeSelect.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                selectedTime = timeSelect.getSelected();
-            }
-        });
+        mainTable.add(timeSelect).row();
 
-        // Start Button
         TextButton startBtn = new TextButton("Start Game", skin);
-        startBtn.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-
-            }
-        });
         mainTable.add(startBtn).padTop(20).row();
-        // back Button
-        TextButton backBtn = new TextButton("back", skin);
+
+        TextButton backBtn = new TextButton("Back", skin);
         backBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Main.getMain().setScreen(new MainMenuView(new MainMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
             }
         });
-        mainTable.add(backBtn).padTop(20).row();
+        mainTable.add(backBtn).padTop(10).row();
+
+        Table rootTable = new Table();
+        rootTable.setFillParent(true);
+        stage.addActor(rootTable);
+
+        rootTable.add(gunPreviewTable).expandY().left().pad(20);
+        rootTable.add(mainTable).expand().fill().pad(20);
+        rootTable.add(heroPreviewTable).expandY().right().pad(20);
+
+
     }
 
     public Stage getStage() {
