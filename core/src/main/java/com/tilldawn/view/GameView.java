@@ -28,35 +28,35 @@ public class GameView implements Screen, InputProcessor {
     @Override
     public void show() {
 
-//        camera = new OrthographicCamera();
-//        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         stage = new Stage(new ScreenViewport());
-//        bgTexture = new Texture(Gdx.files.internal("GameBackground.png.png"));
-//        bgTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        bgTexture = new Texture(Gdx.files.internal("GameBackground.png"));
+        bgTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         Gdx.input.setInputProcessor(this);
     }
 
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
+
+        camera.update();
+        Main.getBatch().setProjectionMatrix(camera.combined);
         Main.getBatch().begin();
-//        camera.update();
-//        Main.getBatch().setProjectionMatrix(camera.combined);
-//        Main.getBatch().begin();
-//        float camX = camera.position.x;
-//        float camY = camera.position.y;
-//
-//        float width = Gdx.graphics.getWidth();
-//        float height = Gdx.graphics.getHeight();
-//
-//        Main.getBatch().draw(
-//                bgTexture,
-//                camX - width / 2f, camY - height / 2f,
-//                width, height,
-//                0, 0,
-//                width / bgTexture.getWidth(), height / bgTexture.getHeight()
-//        );
+        float camX = camera.position.x;
+        float camY = camera.position.y;
+
+        float width = Gdx.graphics.getWidth();
+        float height = Gdx.graphics.getHeight();
+
+        Main.getBatch().draw(
+                bgTexture,
+                camX - width / 2f, camY - height / 2f,
+                width, height,
+                0, 0,
+                width / bgTexture.getWidth(), height / bgTexture.getHeight()
+        );
 
         controller.updateGame();
 
@@ -88,6 +88,8 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public void dispose() {
+        stage.dispose();
+        bgTexture.dispose();
     }
 
     @Override
