@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -19,7 +20,7 @@ import com.tilldawn.control.MainMenuController;
 import com.tilldawn.control.PreGameMenuController;
 import com.tilldawn.model.GameAssetManager;
 import com.tilldawn.model.SaveUserToJson;
-
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class PreGameMenuView implements Screen {
     private Stage stage;
@@ -103,6 +104,18 @@ public class PreGameMenuView implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 SaveUserToJson.saveUserToJson(Main.getApp().getCurrentUser());
+                message.setVisible(true);
+                message.getColor().a = 1f;
+                message.clearActions();
+
+                message.addAction(Actions.sequence(
+                    Actions.delay(1.5f),
+                    Actions.fadeOut(0.5f),
+                    Actions.run(() -> {
+                        message.setVisible(false);
+                        message.getColor().a = 1f;
+                    })
+                ));
                 if (selectedHero != null && selectedWeapon != null) {
 
                     message.setText("user hero and weapon saved");
