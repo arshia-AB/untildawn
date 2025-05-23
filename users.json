@@ -91,5 +91,12 @@
     "score": 0,
     "hero": "LILITH",
     "weapon": "SHOTGUN"
+  },
+  {
+    "username": "fa",
+    "password": "1988Aa@dfgs2A",
+    "securityAnswer": "leo",
+    "avatarPath": "avatars/vibrent_17.png",
+    "score": 0
   }
 ]
