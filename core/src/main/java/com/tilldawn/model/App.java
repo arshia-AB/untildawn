@@ -7,7 +7,7 @@ import java.util.HashSet;
 public class App {
     private HashMap<String, User> AllUsers = new HashMap<>();
     private User currentUser = null;
-
+    public static boolean grayscaleEnabled = false;
 
     public HashMap<String, User> getAllUsers() {
         return AllUsers;

@@ -36,6 +36,9 @@ public class User {
         this.score = score;
     }
 
+    public User() {
+    }
+
     public User(String username, String password, String securityAnswer, String avatarPath) {
         this.username = username;
         this.password = password;

@@ -4,6 +4,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.Main;
 import com.tilldawn.control.MainMenuController;
 import com.tilldawn.control.SignUpController;
+import com.tilldawn.model.App;
 import com.tilldawn.model.GameAssetManager;
 import com.tilldawn.model.User;
 import com.badlogic.gdx.audio.Music;
@@ -24,6 +27,9 @@ public class SettingMenuView implements Screen {
     private Stage stage;
     private Skin skin;
     private Music currentMusic = null;
+    private ShaderProgram grayscaleShader;
+    private Texture bgTexture;
+    private SpriteBatch batch;
 
     public SettingMenuView(Skin skin) {
         this.skin = skin;
@@ -84,7 +90,14 @@ public class SettingMenuView implements Screen {
 
 
         CheckBox grayscaleCheck = new CheckBox("Grayscale Mode", skin);
+        grayscaleCheck.setChecked(App.grayscaleEnabled);
 
+        grayscaleCheck.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                App.grayscaleEnabled = grayscaleCheck.isChecked();
+            }
+        });
 
         TextButton backBtn = new TextButton("Back", skin);
         backBtn.addListener(new ClickListener() {
@@ -122,11 +135,35 @@ public class SettingMenuView implements Screen {
 
     @Override
     public void show() {
+        ShaderProgram.pedantic = false;
+        grayscaleShader = new ShaderProgram(
+            Gdx.files.internal("shader/grayscale.vertex.glsl"),
+            Gdx.files.internal("shader/grayscale.fragment.glsl")
+        );
+        if (!grayscaleShader.isCompiled()) {
+            System.err.println(grayscaleShader.getLog());
+        }
+
+        bgTexture = new Texture(Gdx.files.internal("backgrounds/17.png"));
+        batch = new SpriteBatch();
     }
 
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
+
+        batch.setProjectionMatrix(stage.getCamera().combined);
+
+        if (App.grayscaleEnabled) {
+            batch.setShader(grayscaleShader);
+        } else {
+            batch.setShader(null);
+        }
+
+        batch.begin();
+        batch.draw(bgTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.end();
+
         stage.act(delta);
         stage.draw();
     }
@@ -151,5 +188,8 @@ public class SettingMenuView implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        batch.dispose();
+        bgTexture.dispose();
+        grayscaleShader.dispose();
     }
 }

@@ -114,6 +114,13 @@ public class MainMenuView implements Screen {
 
             }
         });
+        talentBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Main.getMain().setScreen(new HintMenuView(GameAssetManager.getGameAssetManager().getSkin()));
+
+            }
+        });
 
 
         logoutBtn.addListener(new ClickListener() {
