@@ -29,7 +29,7 @@ public class GameAssetManager {
     private final Texture Smg_reload2 = new Texture("smg/SMGReload_2.png");
     private final Texture Smg_reload3 = new Texture("smg/SMGReload_3.png");
     private final Animation<Texture> character1_reload_anim = new Animation<>(
-        0.2f,
+        0.5f,
         Smg_reload0,
         Smg_reload1,
         Smg_reload2,
