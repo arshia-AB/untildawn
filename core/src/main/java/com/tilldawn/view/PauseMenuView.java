@@ -3,10 +3,12 @@ package com.tilldawn.view;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -33,10 +35,15 @@ public class PauseMenuView implements Screen {
     }
 
     private void createUI() {
+        Texture bgTexture = new Texture("backgrounds/36.png");
+        Image background = new Image(bgTexture);
+        background.setFillParent(true);
+        stage.addActor(background);
         root = new Table(skin);
         root.setFillParent(true);
         root.center();
         stage.addActor(root);
+
 
         TextButton resumeBtn = new TextButton("Resume", skin);
         TextButton cheatsBtn = new TextButton("Cheat Codes", skin);
@@ -91,7 +98,7 @@ public class PauseMenuView implements Screen {
 
         settingsBtn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                Main.getMain().setScreen(new SettingMenuView(skin,PauseMenuView.this));
+                Main.getMain().setScreen(new SettingMenuView(skin, PauseMenuView.this));
             }
         });
 
