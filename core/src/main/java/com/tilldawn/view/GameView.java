@@ -44,7 +44,7 @@ public class GameView implements Screen, InputProcessor {
     private Label levelLabel;
     private User player = Main.getApp().getCurrentUser();
     private float health = player.getPlayerHP();
- 
+
 
     private int level = player.getLevel();
     private float levelProgress = player.getXP();
@@ -235,6 +235,10 @@ public class GameView implements Screen, InputProcessor {
         if (player.getWeapon().getAmmo() > 0 && !player.isReloading()) {
             controller.getWeaponController().handleWeaponShoot(screenX, screenY);
             player.getWeapon().setAmmo(Math.max(0, player.getWeapon().getAmmo() - 1));
+        }
+        if (player.isAutoReload() && player.getWeapon().getAmmo() <= 0) {
+            player.setReloading(true);
+
         }
         return true;
     }

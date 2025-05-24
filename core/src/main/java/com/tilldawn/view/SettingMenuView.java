@@ -93,7 +93,7 @@ public class SettingMenuView implements Screen {
 
 
         CheckBox autoReloadCheck = new CheckBox("Enable Auto Reload", skin);
-
+        autoReloadCheck.setChecked(Main.getApp().getCurrentUser().isAutoReload());
 
         CheckBox grayscaleCheck = new CheckBox("Grayscale Mode", skin);
         grayscaleCheck.setChecked(App.grayscaleEnabled);
@@ -102,6 +102,13 @@ public class SettingMenuView implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 App.grayscaleEnabled = grayscaleCheck.isChecked();
+            }
+        });
+
+        autoReloadCheck.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Main.getApp().getCurrentUser().setAutoReload(autoReloadCheck.isChecked());
             }
         });
 
@@ -152,7 +159,6 @@ public class SettingMenuView implements Screen {
         ScreenUtils.clear(0, 0, 0, 1);
 
         batch.setProjectionMatrix(stage.getCamera().combined);
-
 
 
         batch.begin();

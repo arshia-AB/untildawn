@@ -39,7 +39,15 @@ public class User {
 
     private float ReloadTime = 1f;
     private boolean IsReloading = false;
+    private boolean autoReload = false;
 
+    public boolean isAutoReload() {
+        return autoReload;
+    }
+
+    public void setAutoReload(boolean autoReload) {
+        this.autoReload = autoReload;
+    }
 
     public boolean isReloading() {
         return IsReloading;
