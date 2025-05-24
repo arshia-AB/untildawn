@@ -6,8 +6,10 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
@@ -27,7 +29,9 @@ public class GameView implements Screen, InputProcessor {
     private GameController controller;
     private OrthographicCamera camera;
     private Texture bgTexture;
+    private Texture blackTexture;
     private ShaderProgram grayscaleShader;
+    private ShaderProgram radialShader;
 
     private Skin skin;
     private boolean shiftPressed = false;
@@ -39,10 +43,9 @@ public class GameView implements Screen, InputProcessor {
     private Label levelLabel;
     private User player = Main.getApp().getCurrentUser();
     private float health = player.getPlayerHP();
-    private int ammoLeft = 30;
-//    private int ammoLeft = player.getWeapon().getAmmo();
+    private int ammoLeft = player.getWeapon().getAmmo();
     private int level = player.getLevel();
-    private float levelProgress = player.getXP();//todo meghdarsh ro hava set bashe
+    private float levelProgress = player.getXP();
 
     public GameView(GameController controller, Skin skin) {
         this.controller = controller;
@@ -57,8 +60,14 @@ public class GameView implements Screen, InputProcessor {
                 Gdx.files.internal("shader/grayscale.vertex.glsl"),
                 Gdx.files.internal("shader/grayscale.fragment.glsl")
         );
-        if (!grayscaleShader.isCompiled()) {
-            System.err.println(grayscaleShader.getLog());
+
+        radialShader = new ShaderProgram(
+                Gdx.files.internal("Light/radialLight.vertex.glsl"),
+                Gdx.files.internal("Light/radialLight.fragment.glsl")
+        );
+
+        if (!radialShader.isCompiled()) {
+            System.err.println(radialShader.getLog());
         }
 
         camera = new OrthographicCamera();
@@ -67,8 +76,14 @@ public class GameView implements Screen, InputProcessor {
         bgTexture = new Texture(Gdx.files.internal("GameBackground.png"));
         bgTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
-        stage = new Stage(new ScreenViewport());
+        // blackTexture
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(0, 0, 0, 1);
+        pixmap.fill();
+        blackTexture = new Texture(pixmap);
+        pixmap.dispose();
 
+        stage = new Stage(new ScreenViewport());
         setupHUD();
 
         InputMultiplexer multiplexer = new InputMultiplexer();
@@ -109,6 +124,9 @@ public class GameView implements Screen, InputProcessor {
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
 
+        float width = Gdx.graphics.getWidth();
+        float height = Gdx.graphics.getHeight();
+
         if (App.grayscaleEnabled) {
             Main.getBatch().setShader(grayscaleShader);
         } else {
@@ -123,8 +141,6 @@ public class GameView implements Screen, InputProcessor {
 
         float camX = camera.position.x;
         float camY = camera.position.y;
-        float width = Gdx.graphics.getWidth();
-        float height = Gdx.graphics.getHeight();
 
         Main.getBatch().draw(
                 bgTexture,
@@ -138,46 +154,45 @@ public class GameView implements Screen, InputProcessor {
         controller.getPlayerController().getPlayer().getPlayerSprite().draw(Main.getBatch());
         Main.getBatch().end();
 
-        healthBar.setValue(health);
-        ammoLabel.setText("Ammo: " + ammoLeft);
-        levelLabel.setText("Level: " + level);
-        levelProgressBar.setValue(levelProgress);
-        levelProgressBar.setWidth(Gdx.graphics.getWidth()/5f);
-        healthBar.setWidth(Gdx.graphics.getWidth()/5f);
+        // Light Shader
+        Main.getBatch().setShader(radialShader);
+        Main.getBatch().begin();
+        radialShader.setUniformf("u_lightPos", new Vector2(0.5f, 0.5f));
+        radialShader.setUniformf("u_radius", 0.4f);
+        radialShader.setUniformf("u_color", 1f, 1f, 1f, 1f);
+        Main.getBatch().draw(blackTexture, camX - width / 2f, camY - height / 2f, width, height);
+        Main.getBatch().end();
+        Main.getBatch().setShader(null);
+
+        // HUD Update
+        healthBar.setValue(player.getPlayerHP());
+        ammoLabel.setText("Ammo: " + player.getWeapon().getAmmo());
+        levelLabel.setText("Level: " + player.getLevel());
+        levelProgressBar.setValue(player.getXP());
 
         stage.act(delta);
         stage.draw();
-
     }
 
-    @Override
-    public void resize(int width, int height) {
+    @Override public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
         camera.setToOrtho(false, width, height);
     }
 
-    @Override
-    public void pause() {
-    }
-
-    @Override
-    public void resume() {
-    }
-
-    @Override
-    public void hide() {
-    }
+    @Override public void pause() {}
+    @Override public void resume() {}
+    @Override public void hide() {}
 
     @Override
     public void dispose() {
         stage.dispose();
         bgTexture.dispose();
+        blackTexture.dispose();
         grayscaleShader.dispose();
+        radialShader.dispose();
     }
 
-
-    @Override
-    public boolean keyDown(int keycode) {
+    @Override public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.SHIFT_LEFT || keycode == Input.Keys.SHIFT_RIGHT)
             shiftPressed = true;
 
@@ -188,42 +203,26 @@ public class GameView implements Screen, InputProcessor {
         return false;
     }
 
-    @Override
-    public boolean keyUp(int keycode) {
+    @Override public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.SHIFT_LEFT || keycode == Input.Keys.SHIFT_RIGHT)
             shiftPressed = false;
         return false;
     }
 
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
+    @Override public boolean keyTyped(char character) { return false; }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (ammoLeft > 0) {
-
             controller.getWeaponController().handleWeaponShoot(screenX, screenY);
+            ammoLeft = Math.max(0, ammoLeft - 1);
         }
-        ammoLeft = Math.max(0, ammoLeft - 1);
         return true;
     }
 
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
+    @Override public boolean touchUp(int screenX, int screenY, int pointer, int button) { return false; }
+    @Override public boolean touchCancelled(int screenX, int screenY, int pointer, int button) { return false; }
+    @Override public boolean touchDragged(int screenX, int screenY, int pointer) { return false; }
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
@@ -231,8 +230,5 @@ public class GameView implements Screen, InputProcessor {
         return true;
     }
 
-    @Override
-    public boolean scrolled(float amountX, float amountY) {
-        return false;
-    }
+    @Override public boolean scrolled(float amountX, float amountY) { return false; }
 }
