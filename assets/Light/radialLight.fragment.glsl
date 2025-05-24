@@ -11,5 +11,6 @@ varying vec2 v_texCoord;
 void main() {
     float dist = distance(v_texCoord, u_lightPos);
     float intensity = 1.0 - smoothstep(0.0, u_radius, dist);
-    gl_FragColor = vec4(u_color.rgb, intensity * u_color.a);
+intensity = pow(intensity, 2.0);
+gl_FragColor = vec4(u_color.rgb * intensity, intensity * 0.3);
 }
