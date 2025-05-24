@@ -171,7 +171,7 @@ public class SignUpMenuView implements Screen {
 
 
         float fieldWidth = Gdx.graphics.getWidth() * FIELD_WIDTH_RATIO;
-        exitTable.add(exit).width(fieldWidth/10);
+        exitTable.add(exit).width(fieldWidth / 10);
         formTable.add(forgetBtn).width(fieldWidth / 3).pad(10);
         formTable.row();
         formTable.add(usernameField).width(fieldWidth / 4).pad(10);

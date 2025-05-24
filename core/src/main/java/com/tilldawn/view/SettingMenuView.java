@@ -26,7 +26,7 @@ import com.badlogic.gdx.audio.Music;
 public class SettingMenuView implements Screen {
     private Stage stage;
     private Skin skin;
-    private Music currentMusic = null;
+
     private ShaderProgram grayscaleShader;
     private Texture bgTexture;
     private SpriteBatch batch;
@@ -52,8 +52,11 @@ public class SettingMenuView implements Screen {
         musicSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                float volume = musicSlider.getValue();
-                currentMusic.setVolume(volume);
+                if (App.currentMusic != null) {
+                    float volume = musicSlider.getValue();
+                    App.currentMusic.setVolume(volume);
+                }
+
             }
         });
         musicSelect.addListener(new ChangeListener() {
@@ -71,8 +74,8 @@ public class SettingMenuView implements Screen {
                         playMusic("Track 3.mp3");
                         break;
                     case "No music":
-                        if (currentMusic != null) {
-                            currentMusic.stop();
+                        if (App.currentMusic != null) {
+                            App.currentMusic.stop();
                         }
                         break;
 
@@ -120,16 +123,16 @@ public class SettingMenuView implements Screen {
     }
 
     private void playMusic(String fileName) {
-        if (currentMusic != null) {
-            currentMusic.setLooping(false);
-            currentMusic.stop();
-            currentMusic.dispose();
+        if (App.currentMusic != null) {
+            App.currentMusic.setLooping(false);
+            App.currentMusic.stop();
+            App.currentMusic.dispose();
         }
 
-        currentMusic = Gdx.audio.newMusic(Gdx.files.internal("music/" + fileName));
-        currentMusic.setLooping(true);
-        currentMusic.setVolume(0.5f);
-        currentMusic.play();
+        App.currentMusic = Gdx.audio.newMusic(Gdx.files.internal("music/" + fileName));
+        App.currentMusic.setLooping(true);
+        App.currentMusic.setVolume(0.5f);
+        App.currentMusic.play();
     }
 
 

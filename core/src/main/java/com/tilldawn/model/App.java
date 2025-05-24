@@ -1,5 +1,7 @@
 package com.tilldawn.model;
 
+import com.badlogic.gdx.audio.Music;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,6 +10,7 @@ public class App {
     private HashMap<String, User> AllUsers = new HashMap<>();
     private User currentUser = null;
     public static boolean grayscaleEnabled = false;
+    public static Music currentMusic = null;
 
     public HashMap<String, User> getAllUsers() {
         return AllUsers;
@@ -24,4 +27,5 @@ public class App {
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
+
 }

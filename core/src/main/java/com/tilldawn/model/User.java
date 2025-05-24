@@ -1,7 +1,10 @@
 package com.tilldawn.model;
 
-import com.tilldawn.Enum.Hero;
-import com.tilldawn.Enum.Weapon;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.tilldawn.Enum.HeroEnum;
+import com.tilldawn.Enum.WeaponEnum;
 
 public class User {
     private String username;
@@ -9,23 +12,158 @@ public class User {
     private String securityAnswer;
     private String avatarPath;
     private int score = 0;
-    private Hero hero;
+    private HeroEnum heroEnum;
+    private WeaponEnum weaponEnum;
     private Weapon weapon;
+    private transient Texture playerTexture = new Texture(GameAssetManager.getGameAssetManager().getCharacter1_idle0());
 
-    public Hero getHero() {
-        return hero;
+    private transient Sprite playerSprite = new Sprite(playerTexture);
+    private float posX;
+    private float posY;
+    private float playerHealth = 100;
+    private float time = 0;
+    private float Speed = 5;
+    private boolean isPlayerIdle = true;
+    private boolean isPlayerRunning = true;
+    private transient CollisionRect rect;
+
+    public User() {
     }
 
-    public void setHero(Hero hero) {
-        this.hero = hero;
+    public User(String username, String password, String securityAnswer, String avatarPath) {
+        this.username = username;
+        this.password = password;
+        this.securityAnswer = securityAnswer;
+        this.avatarPath = avatarPath;
+
+        playerSprite.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+
+        playerSprite.setSize(playerTexture.getWidth() * 3f, playerTexture.getHeight() * 3f);
+
+        rect = new CollisionRect((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight(), playerSprite.getWidth(), playerSprite.getHeight());
+
+
+
+        this.posX = this.playerSprite.getX();
+        this.posY = this.playerSprite.getY();
     }
 
-    public Weapon getWeapon() {
-        return weapon;
+
+
+    public HeroEnum getHeroEnum() {
+        return heroEnum;
+    }
+
+    public void setHeroEnum(HeroEnum heroEnum) {
+        this.heroEnum = heroEnum;
+    }
+
+    public WeaponEnum getWeaponEnum() {
+        return weaponEnum;
+    }
+
+    public void setWeaponEnum(WeaponEnum weaponEnum) {
+        this.weaponEnum = weaponEnum;
     }
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
+    }
+
+    public CollisionRect getRect() {
+        return rect;
+    }
+
+    public void setRect(CollisionRect rect) {
+        this.rect = rect;
+    }
+
+    public boolean isPlayerIdle() {
+        return isPlayerIdle;
+    }
+
+    public void setPlayerIdle(boolean playerIdle) {
+        isPlayerIdle = playerIdle;
+    }
+
+    public boolean isPlayerRunning() {
+        return isPlayerRunning;
+    }
+
+    public void setPlayerRunning(boolean playerRunning) {
+        isPlayerRunning = playerRunning;
+    }
+
+    public float getPlayerHealth() {
+        return playerHealth;
+    }
+
+    public void setPlayerHealth(float playerHealth) {
+        this.playerHealth = playerHealth;
+    }
+
+    public float getTime() {
+        return time;
+    }
+
+    public void setTime(float time) {
+        this.time = time;
+    }
+
+    public float getSpeed() {
+        return Speed;
+    }
+
+    public void setSpeed(float speed) {
+        Speed = speed;
+    }
+
+    public float getPosX() {
+        return posX;
+    }
+
+    public void setPosX(float posX) {
+        this.posX = posX;
+    }
+
+    public float getPosY() {
+        return posY;
+    }
+
+    public void setPosY(float posY) {
+        this.posY = posY;
+    }
+
+    public Texture getPlayerTexture() {
+        return playerTexture;
+    }
+
+    public void setPlayerTexture(Texture playerTexture) {
+        this.playerTexture = playerTexture;
+    }
+
+    public Sprite getPlayerSprite() {
+        return playerSprite;
+    }
+
+    public void setPlayerSprite(Sprite playerSprite) {
+        this.playerSprite = playerSprite;
+    }
+
+    public HeroEnum getHero() {
+        return heroEnum;
+    }
+
+    public void setHero(HeroEnum heroEnum) {
+        this.heroEnum = heroEnum;
+    }
+
+    public WeaponEnum getWeapon() {
+        return weaponEnum;
+    }
+
+    public void setWeapon(WeaponEnum weaponEnum) {
+        this.weaponEnum = weaponEnum;
     }
 
     public int getScore() {
@@ -36,15 +174,6 @@ public class User {
         this.score = score;
     }
 
-    public User() {
-    }
-
-    public User(String username, String password, String securityAnswer, String avatarPath) {
-        this.username = username;
-        this.password = password;
-        this.securityAnswer = securityAnswer;
-        this.avatarPath = avatarPath;
-    }
 
     public String getUsername() {
         return username;

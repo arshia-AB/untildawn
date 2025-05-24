@@ -1,95 +1,128 @@
 [
   {
-    "username": "arshia2",
-    "password": "123456aA@",
-    "securityAnswer": "leo",
-    "avatarPath": "avatar3.png",
-    "score": 0
+    "username": "sdf",
+    "password": "dsfAS123@",
+    "securityAnswer": "adsf",
+    "avatarPath": "avatars/vibrent_26.png",
+    "score": 0,
+    "posX": 960.0,
+    "posY": 540.0,
+    "playerHealth": 100.0,
+    "time": 0.0,
+    "Speed": 5.0,
+    "isPlayerIdle": true,
+    "isPlayerRunning": true
   },
   {
-    "username": "arshia3",
-    "password": "123456aA@",
-    "securityAnswer": "leo",
-    "avatarPath": "avatar3.png",
-    "score": 0
+    "username": "asdfsadf",
+    "password": "sadfAS123@",
+    "securityAnswer": "asd",
+    "avatarPath": "avatars/vibrent_19.png",
+    "score": 0,
+    "posX": 960.0,
+    "posY": 540.0,
+    "playerHealth": 100.0,
+    "time": 0.0,
+    "Speed": 5.0,
+    "isPlayerIdle": true,
+    "isPlayerRunning": true
   },
   {
-    "username": "arshia4",
-    "password": "123456aA@",
-    "securityAnswer": "leo",
-    "avatarPath": "avatar3.png",
-    "score": 0
-  },
-  {
-    "username": "arshia6",
-    "password": "123456aA@",
-    "securityAnswer": "leo",
-    "avatarPath": "avatar2.png",
-    "score": 0
-  },
-  {
-    "username": "mohsen",
-    "password": "123456aA@",
-    "securityAnswer": "leo",
-    "avatarPath": "avatar3.png",
-    "score": 0
-  },
-  {
-    "username": "arshia",
-    "password": "123456AAAAa@",
-    "securityAnswer": "leo",
-    "avatarPath": "avatar1.png",
-    "score": 0
-  },
-  {
-    "username": "arshiaaa",
-    "password": "aA123456@",
-    "securityAnswer": "leo",
-    "avatarPath": "avatar1.png",
-    "score": 0
-  },
-  {
-    "username": "arshia5as",
-    "password": "asdasdasdAWDS2A1@",
-    "securityAnswer": "as",
-    "avatarPath": "avatar2.png",
-    "score": 0
-  },
-  {
-    "username": "a",
-    "password": "adA1234@",
-    "securityAnswer": "adsd",
-    "avatarPath": "avatar1.png",
-    "score": 0
+    "username": "asdf",
+    "password": "asdfASD123@",
+    "securityAnswer": "asd",
+    "avatarPath": "avatars/vibrent_5.png",
+    "score": 0,
+    "posX": 960.0,
+    "posY": 540.0,
+    "playerHealth": 100.0,
+    "time": 0.0,
+    "Speed": 5.0,
+    "isPlayerIdle": true,
+    "isPlayerRunning": true
   },
   {
     "username": "asd",
-    "password": "asdasdA1@asd213",
-    "securityAnswer": "asd",
-    "avatarPath": "avatar1.png",
-    "score": 0
-  },
-  {
-    "username": "asdsa",
-    "password": "asd123@2A",
-    "securityAnswer": "ads",
-    "avatarPath": "avatar2.png",
-    "score": 0
-  },
-  {
-    "username": "arshia5",
-    "password": "aA123456@",
-    "securityAnswer": "leo",
-    "avatarPath": "avatar3.png",
-    "score": 0
-  },
-  {
-    "username": "Guest",
-    "password": "",
-    "securityAnswer": "",
-    "avatarPath": "avatars/vibrent_19.png",
+    "password": "asdASd12@",
+    "securityAnswer": "ada",
+    "avatarPath": "avatars/vibrent_5.png",
     "score": 0,
-    "hero": "LILITH",
-    "weapon": "SHOTGUN"
+    "posX": 960.0,
+    "posY": 540.0,
+    "playerHealth": 100.0,
+    "time": 0.0,
+    "Speed": 5.0,
+    "isPlayerIdle": true,
+    "isPlayerRunning": true
+  },
+  {
+    "username": "sdfdas",
+    "password": "ASDasdAS213@",
+    "securityAnswer": "asd",
+    "avatarPath": "avatars/vibrent_16.png",
+    "score": 0,
+    "posX": 960.0,
+    "posY": 540.0,
+    "playerHealth": 100.0,
+    "time": 0.0,
+    "Speed": 5.0,
+    "isPlayerIdle": true,
+    "isPlayerRunning": true
+  },
+  {
+    "username": "asddsf",
+    "password": "dsfASD12@",
+    "securityAnswer": "dfsa",
+    "avatarPath": "avatars/vibrent_22.png",
+    "score": 0,
+    "posX": 960.0,
+    "posY": 540.0,
+    "playerHealth": 100.0,
+    "time": 0.0,
+    "Speed": 5.0,
+    "isPlayerIdle": true,
+    "isPlayerRunning": true
+  },
+  {
+    "username": "afsdfsdg",
+    "password": "sfAD12@34",
+    "securityAnswer": "asdfds",
+    "avatarPath": "avatars/vibrent_21.png",
+    "score": 0,
+    "posX": 960.0,
+    "posY": 540.0,
+    "playerHealth": 100.0,
+    "time": 0.0,
+    "Speed": 5.0,
+    "isPlayerIdle": true,
+    "isPlayerRunning": true
+  },
+  {
+    "username": "arshia",
+    "password": "123456789aA@",
+    "securityAnswer": "leo",
+    "avatarPath": "avatars/vibrent_4.png",
+    "score": 0,
+    "posX": 960.0,
+    "posY": 540.0,
+    "playerHealth": 100.0,
+    "time": 0.0,
+    "Speed": 5.0,
+    "isPlayerIdle": true,
+    "isPlayerRunning": true
+  },
+  {
+    "username": "fatemeh",
+    "password": "123456aA@",
+    "securityAnswer": "sdf",
+    "avatarPath": "avatars/vibrent_17.png",
+    "score": 0,
+    "posX": 960.0,
+    "posY": 540.0,
+    "playerHealth": 100.0,
+    "time": 0.0,
+    "Speed": 5.0,
+    "isPlayerIdle": true,
+    "isPlayerRunning": true
   }
 ]

@@ -4,29 +4,25 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.tilldawn.Enum.Hero;
-import com.tilldawn.Enum.Weapon;
+import com.tilldawn.Enum.HeroEnum;
+import com.tilldawn.Enum.WeaponEnum;
 import com.tilldawn.Main;
+import com.tilldawn.control.GameController;
 import com.tilldawn.control.MainMenuController;
 import com.tilldawn.control.PreGameMenuController;
 import com.tilldawn.model.GameAssetManager;
-import com.tilldawn.model.SaveUserToJson;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class PreGameMenuView implements Screen {
     private Stage stage;
     private Skin skin;
-    private Hero selectedHero;
-    private Weapon selectedWeapon;
+    private HeroEnum selectedHeroEnum;
+    private WeaponEnum selectedWeaponEnum;
     private int selectedTime;
     private Image selectedHeroImage;
     private Image selectedGunImage;
@@ -58,15 +54,15 @@ public class PreGameMenuView implements Screen {
 
         mainTable.add(new Label("Choose Hero", skin)).row();
         Table heroTable = new Table();
-        for (Hero hero : Hero.values()) {
-            Texture texture = new Texture(Gdx.files.internal(hero.getPath()));
+        for (HeroEnum heroEnum : HeroEnum.values()) {
+            Texture texture = new Texture(Gdx.files.internal(heroEnum.getPath()));
             Image image = new Image(texture);
             image.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    selectedHero = hero;
+                    selectedHeroEnum = heroEnum;
                     selectedHeroImage.setDrawable(image.getDrawable());
-                    Main.getApp().getCurrentUser().setHero(hero);
+                    Main.getApp().getCurrentUser().setHero(heroEnum);
                 }
             });
             heroTable.add(image).size(64).pad(10);
@@ -75,15 +71,15 @@ public class PreGameMenuView implements Screen {
 
         mainTable.add(new Label("Choose Weapon", skin)).row();
         Table weaponTable = new Table();
-        for (Weapon weapon : Weapon.values()) {
-            Texture texture = new Texture(Gdx.files.internal(weapon.getPath()));
+        for (WeaponEnum weaponEnum : WeaponEnum.values()) {
+            Texture texture = new Texture(Gdx.files.internal(weaponEnum.getPath()));
             Image image = new Image(texture);
             image.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    selectedWeapon = weapon;
+                    selectedWeaponEnum = weaponEnum;
                     selectedGunImage.setDrawable(image.getDrawable());
-                    Main.getApp().getCurrentUser().setWeapon(weapon);
+                    Main.getApp().getCurrentUser().setWeapon(weaponEnum);
 
                 }
             });
@@ -103,24 +99,24 @@ public class PreGameMenuView implements Screen {
         startBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                SaveUserToJson.saveUserToJson(Main.getApp().getCurrentUser());
-                message.setVisible(true);
-                message.getColor().a = 1f;
-                message.clearActions();
+//                SaveUserToJson.saveUserToJson(Main.getApp().getCurrentUser());
+//                message.setVisible(true);
+//                message.getColor().a = 1f;
+//                message.clearActions();
+//
+//                message.addAction(Actions.sequence(
+//                    Actions.delay(1.5f),
+//                    Actions.fadeOut(0.5f),
+//                    Actions.run(() -> {
+//                        message.setVisible(false);
+//                        message.getColor().a = 1f;
+//                    })
+//                ));
+                if (selectedHeroEnum != null && selectedWeaponEnum != null) {
 
-                message.addAction(Actions.sequence(
-                    Actions.delay(1.5f),
-                    Actions.fadeOut(0.5f),
-                    Actions.run(() -> {
-                        message.setVisible(false);
-                        message.getColor().a = 1f;
-                    })
-                ));
-                if (selectedHero != null && selectedWeapon != null) {
+//                    message.setText("user hero and weapon saved");
 
-                    message.setText("user hero and weapon saved");
-
-                    //todo boro too bazi
+                    Main.getMain().setScreen(new GameView(new GameController(), GameAssetManager.getGameAssetManager().getSkin()));
                 } else {
                     message.setText("please select hero and weapon");
                 }
