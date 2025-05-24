@@ -110,5 +110,19 @@
     "Speed": 5.0,
     "isPlayerIdle": true,
     "isPlayerRunning": true
+  },
+  {
+    "username": "fatemeh",
+    "password": "123456aA@",
+    "securityAnswer": "sdf",
+    "avatarPath": "avatars/vibrent_17.png",
+    "score": 0,
+    "posX": 960.0,
+    "posY": 540.0,
+    "playerHealth": 100.0,
+    "time": 0.0,
+    "Speed": 5.0,
+    "isPlayerIdle": true,
+    "isPlayerRunning": true
   }
 ]

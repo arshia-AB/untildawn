@@ -2,6 +2,7 @@ package com.tilldawn.control;
 
 import com.tilldawn.Main;
 import com.tilldawn.model.Result;
+import com.tilldawn.model.SaveUserToJson;
 import com.tilldawn.model.User;
 
 import java.sql.PreparedStatement;
@@ -31,6 +32,9 @@ public class ProfileController {
     }
 
     public Result DeleteAccount() {
+        SaveUserToJson.removeUserFromJSON(Main.getApp().getCurrentUser().getUsername());
+        Main.getApp().getAllUsers().remove(Main.getApp().getCurrentUser().getUsername());
+        
         return new Result(true, "Account deleted successfully");
     }
 
