@@ -33,7 +33,29 @@ public class User {
 
     private boolean isPlayerIdle = true;
     private boolean isPlayerRunning = true;
+
     private transient CollisionRect rect;
+
+
+    private float ReloadTime = 1f;
+    private boolean IsReloading = false;
+
+
+    public boolean isReloading() {
+        return IsReloading;
+    }
+
+    public void setReloading(boolean reloading) {
+        IsReloading = reloading;
+    }
+
+    public float getReloadTime() {
+        return ReloadTime;
+    }
+
+    public void setReloadTime(float reloadTime) {
+        ReloadTime = reloadTime;
+    }
 
     public int getXP() {
         return XP;

@@ -94,6 +94,22 @@ public class PlayerController {
         animation.setPlayMode(Animation.PlayMode.LOOP);
     }
 
+    public void reloadAnimation() {
+        Animation<Texture> reloadAnim = GameAssetManager.getGameAssetManager().getCharacter1_reload_anim();
+
+        player.getPlayerSprite().setRegion(reloadAnim.getKeyFrame(player.getReloadTime()));
+
+        if (!reloadAnim.isAnimationFinished(player.getReloadTime())) {
+            player.setReloadTime(player.getReloadTime() + Gdx.graphics.getDeltaTime());
+        } else {
+            player.setReloadTime(0);
+            player.setReloading(false);
+            player.getWeapon().setAmmo(player.getWeapon().getWeaponEnum().getMaxAmmo());
+        }
+
+        reloadAnim.setPlayMode(Animation.PlayMode.NORMAL);
+    }
+
     public User getPlayer() {
         return player;
     }

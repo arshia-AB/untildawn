@@ -23,18 +23,31 @@ public class GameAssetManager {
     private final Texture character1_idle5_tex = new Texture(character1_idle5);
     private final Animation<Texture> character1_idle_frames = new Animation<>(0.1f, character1_idle0_tex, character1_idle1_tex, character1_idle2_tex, character1_idle3_tex, character1_idle4_tex, character1_idle5_tex);
 
+
+    private final Texture Smg_reload0 = new Texture("smg/SMGReload_0.png");
+    private final Texture Smg_reload1 = new Texture("smg/SMGReload_1.png");
+    private final Texture Smg_reload2 = new Texture("smg/SMGReload_2.png");
+    private final Texture Smg_reload3 = new Texture("smg/SMGReload_3.png");
+    private final Animation<Texture> character1_reload_anim = new Animation<>(
+        0.2f,
+        Smg_reload0,
+        Smg_reload1,
+        Smg_reload2,
+        Smg_reload3
+    );
+
     private final String smg = "smg/SMGStill.png";
     private final Texture smgTexture = new Texture(smg);
 
     private final String bullet = "bullet.png";
 
 
-    private GameAssetManager(){
+    private GameAssetManager() {
 
     }
 
-    public static GameAssetManager getGameAssetManager(){
-        if (gameAssetManager == null){
+    public static GameAssetManager getGameAssetManager() {
+        if (gameAssetManager == null) {
             gameAssetManager = new GameAssetManager();
         }
         return gameAssetManager;
@@ -48,19 +61,23 @@ public class GameAssetManager {
         return character1_idle_frames;
     }
 
-    public String getCharacter1_idle0(){
+    public String getCharacter1_idle0() {
         return character1_idle0;
     }
 
-    public Texture getSmgTexture(){
+    public Texture getSmgTexture() {
         return smgTexture;
     }
 
-    public String getSmg(){
+    public String getSmg() {
         return smg;
     }
 
-    public String getBullet(){
+    public String getBullet() {
         return bullet;
+    }
+
+    public Animation<Texture> getCharacter1_reload_anim() {
+        return character1_reload_anim;
     }
 }
