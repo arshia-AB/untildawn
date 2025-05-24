@@ -109,15 +109,13 @@ public class GameView implements Screen, InputProcessor {
         levelProgressBar.setValue(levelProgress);
         levelProgressBar.setAnimateDuration(0.2f);
 
-        table.add(new Label("Health:", skin)).left();
-        table.row();
-        table.add(healthBar).width(200).padBottom(10).left();
-        table.row();
-        table.add(ammoLabel).padBottom(5).left();
-        table.row();
-        table.add(levelLabel).padBottom(5).left();
-        table.row();
-        table.add(levelProgressBar).width(200).left();
+        table.add(new Label("HP:", skin)).left().padRight(5);
+        table.add(healthBar).width(150).padRight(30);
+
+        table.add(ammoLabel).padRight(Gdx.graphics.getWidth()/2f).left();
+        table.add(levelLabel).padRight(20).left();
+
+        table.add(levelProgressBar).width(150).left();
     }
 
     @Override
@@ -166,22 +164,33 @@ public class GameView implements Screen, InputProcessor {
 
         // HUD Update
         healthBar.setValue(player.getPlayerHP());
-        ammoLabel.setText("Ammo: " + player.getWeapon().getAmmo());
+        ammoLabel.setText("Ammo: " + ammoLeft);
         levelLabel.setText("Level: " + player.getLevel());
         levelProgressBar.setValue(player.getXP());
+        levelProgressBar.setWidth(Gdx.graphics.getWidth() / 5f);
+        healthBar.setWidth(Gdx.graphics.getWidth() / 5f);
 
         stage.act(delta);
         stage.draw();
     }
 
-    @Override public void resize(int width, int height) {
+    @Override
+    public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
         camera.setToOrtho(false, width, height);
     }
 
-    @Override public void pause() {}
-    @Override public void resume() {}
-    @Override public void hide() {}
+    @Override
+    public void pause() {
+    }
+
+    @Override
+    public void resume() {
+    }
+
+    @Override
+    public void hide() {
+    }
 
     @Override
     public void dispose() {
@@ -192,7 +201,8 @@ public class GameView implements Screen, InputProcessor {
         radialShader.dispose();
     }
 
-    @Override public boolean keyDown(int keycode) {
+    @Override
+    public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.SHIFT_LEFT || keycode == Input.Keys.SHIFT_RIGHT)
             shiftPressed = true;
 
@@ -203,13 +213,17 @@ public class GameView implements Screen, InputProcessor {
         return false;
     }
 
-    @Override public boolean keyUp(int keycode) {
+    @Override
+    public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.SHIFT_LEFT || keycode == Input.Keys.SHIFT_RIGHT)
             shiftPressed = false;
         return false;
     }
 
-    @Override public boolean keyTyped(char character) { return false; }
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -220,9 +234,20 @@ public class GameView implements Screen, InputProcessor {
         return true;
     }
 
-    @Override public boolean touchUp(int screenX, int screenY, int pointer, int button) { return false; }
-    @Override public boolean touchCancelled(int screenX, int screenY, int pointer, int button) { return false; }
-    @Override public boolean touchDragged(int screenX, int screenY, int pointer) { return false; }
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
@@ -230,5 +255,8 @@ public class GameView implements Screen, InputProcessor {
         return true;
     }
 
-    @Override public boolean scrolled(float amountX, float amountY) { return false; }
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
+    }
 }
