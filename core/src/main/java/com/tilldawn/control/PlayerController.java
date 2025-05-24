@@ -29,19 +29,47 @@ public class PlayerController {
 
 
     public void handlePlayerInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            player.setPosY(player.getPosY() - player.getSpeed());
+        float speed = player.getSpeed();
+        float x = player.getPosX();
+        float y = player.getPosY();
+
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && Gdx.input.isKeyPressed(Input.Keys.A)) {
+            x += speed;
+            y -= speed;
+            player.getPlayerSprite().setFlip(true, false);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.W) && Gdx.input.isKeyPressed(Input.Keys.D)) {
+            x -= speed;
+            y -= speed;
+            player.getPlayerSprite().setFlip(false, false);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.S) && Gdx.input.isKeyPressed(Input.Keys.A)) {
+            x += speed;
+            y += speed;
+            player.getPlayerSprite().setFlip(true, false);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.S) && Gdx.input.isKeyPressed(Input.Keys.D)) {
+            x -= speed;
+            y += speed;
+            player.getPlayerSprite().setFlip(false, false);
+        } else {
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+                y -= speed;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+                y += speed;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+                x += speed;
+                player.getPlayerSprite().setFlip(true, false);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+                x -= speed;
+                player.getPlayerSprite().setFlip(false, false);
+            }
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            player.setPosX(player.getPosX() - player.getSpeed());
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            player.setPosY(player.getPosY() + player.getSpeed());
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            player.setPosX(player.getPosX() + player.getSpeed());
-            player.getPlayerSprite().flip(true, false);
-        }
+
+        player.setPosX(x);
+        player.setPosY(y);
+
+
     }
 
     public void centerPlayerOnCamera(OrthographicCamera camera) {
