@@ -11,21 +11,77 @@ public class User {
     private String password;
     private String securityAnswer;
     private String avatarPath;
-    private int score = 0;
     private HeroEnum heroEnum;
     private WeaponEnum weaponEnum;
     private Weapon weapon;
     private transient Texture playerTexture = new Texture(GameAssetManager.getGameAssetManager().getCharacter1_idle0());
-
     private transient Sprite playerSprite = new Sprite(playerTexture);
+
     private float posX;
     private float posY;
-    private float playerHealth = 100;
+
+    private float playerHP = 100;
+    private int score = 0;
     private float time = 0;
     private float Speed = 5;
+    private int Elimination = 0;
+    private int level = 0;
+    private int XP = 0;
+    private int xpToNextLevel = 0;
+    private int maxLevelXp = 0;
+
+
     private boolean isPlayerIdle = true;
     private boolean isPlayerRunning = true;
     private transient CollisionRect rect;
+
+    public int getXP() {
+        return XP;
+    }
+
+    public void setXP(int XP) {
+        this.XP = XP;
+    }
+
+    public int getXpToNextLevel() {
+        return xpToNextLevel;
+    }
+
+    public void setXpToNextLevel(int xpToNextLevel) {
+        this.xpToNextLevel = xpToNextLevel;
+    }
+
+    public int getMaxLevelXp() {
+        return maxLevelXp;
+    }
+
+    public void setMaxLevelXp(int maxLevelXp) {
+        this.maxLevelXp = maxLevelXp;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getElimination() {
+        return Elimination;
+    }
+
+    public void setElimination(int elimination) {
+        Elimination = elimination;
+    }
+
+    public float getPlayerHP() {
+        return playerHP;
+    }
+
+    public void setPlayerHP(float playerHP) {
+        this.playerHP = playerHP;
+    }
 
     public User() {
     }
@@ -43,11 +99,9 @@ public class User {
         rect = new CollisionRect((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight(), playerSprite.getWidth(), playerSprite.getHeight());
 
 
-
         this.posX = this.playerSprite.getX();
         this.posY = this.playerSprite.getY();
     }
-
 
 
     public HeroEnum getHeroEnum() {
@@ -66,9 +120,6 @@ public class User {
         this.weaponEnum = weaponEnum;
     }
 
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
-    }
 
     public CollisionRect getRect() {
         return rect;
@@ -94,13 +145,6 @@ public class User {
         isPlayerRunning = playerRunning;
     }
 
-    public float getPlayerHealth() {
-        return playerHealth;
-    }
-
-    public void setPlayerHealth(float playerHealth) {
-        this.playerHealth = playerHealth;
-    }
 
     public float getTime() {
         return time;
@@ -158,12 +202,12 @@ public class User {
         this.heroEnum = heroEnum;
     }
 
-    public WeaponEnum getWeapon() {
-        return weaponEnum;
+    public Weapon getWeapon() {
+        return weapon;
     }
 
-    public void setWeapon(WeaponEnum weaponEnum) {
-        this.weaponEnum = weaponEnum;
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
     }
 
     public int getScore() {
@@ -206,4 +250,6 @@ public class User {
     public void setAvatarPath(String avatarPath) {
         this.avatarPath = avatarPath;
     }
+
+
 }

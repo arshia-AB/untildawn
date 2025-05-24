@@ -79,7 +79,7 @@ public class PreGameMenuView implements Screen {
                 public void clicked(InputEvent event, float x, float y) {
                     selectedWeaponEnum = weaponEnum;
                     selectedGunImage.setDrawable(image.getDrawable());
-                    Main.getApp().getCurrentUser().setWeapon(weaponEnum);
+                    Main.getApp().getCurrentUser().setWeaponEnum(weaponEnum);
 
                 }
             });
