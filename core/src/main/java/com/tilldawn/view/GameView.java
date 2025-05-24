@@ -78,7 +78,6 @@ public class GameView implements Screen, InputProcessor {
         bgTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
 
-
         // blackTexture
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(0, 0, 0, 1);
@@ -213,6 +212,8 @@ public class GameView implements Screen, InputProcessor {
             Main.getMain().setScreen(new PauseMenuView(GameAssetManager.getGameAssetManager().getSkin(), this));
             return true;
         }
+
+
         return false;
     }
 
@@ -230,7 +231,7 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (ammoLeft > 0) {
+        if (ammoLeft > 0 && !player.isReloading()) {
             controller.getWeaponController().handleWeaponShoot(screenX, screenY);
             ammoLeft = Math.max(0, ammoLeft - 1);
         }

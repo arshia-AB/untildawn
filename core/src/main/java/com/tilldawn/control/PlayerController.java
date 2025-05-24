@@ -6,12 +6,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.tilldawn.Enum.WeaponEnum;
 import com.tilldawn.Main;
 import com.tilldawn.model.GameAssetManager;
 import com.tilldawn.model.User;
 
 public class PlayerController {
     private User player;
+    private float reloadTimer = 0;
 
     public PlayerController(User player) {
         this.player = player;
@@ -20,9 +22,12 @@ public class PlayerController {
     public void update() {
         player.getPlayerSprite().draw(Main.getBatch());
 
-        if (player.isPlayerIdle()) {
+        if (player.isReloading()) {
+            handleReload();
+        } else {
             idleAnimation();
         }
+
         handlePlayerInput();
 
     }
@@ -66,6 +71,11 @@ public class PlayerController {
             }
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R) && !player.isReloading()) {
+            player.setReloading(true);
+            reloadTimer = 0;
+        }
+
         player.setPosX(x);
         player.setPosY(y);
 
@@ -94,21 +104,33 @@ public class PlayerController {
         animation.setPlayMode(Animation.PlayMode.LOOP);
     }
 
-    public void reloadAnimation() {
-        Animation<Texture> reloadAnim = GameAssetManager.getGameAssetManager().getCharacter1_reload_anim();
 
-        player.getPlayerSprite().setRegion(reloadAnim.getKeyFrame(player.getReloadTime()));
+    public void handleReload() {
+        reloadTimer += Gdx.graphics.getDeltaTime();
 
-        if (!reloadAnim.isAnimationFinished(player.getReloadTime())) {
-            player.setReloadTime(player.getReloadTime() + Gdx.graphics.getDeltaTime());
-        } else {
-            player.setReloadTime(0);
+        if (reloadTimer >= 1.0f) {
+            reloadTimer = 0;
             player.setReloading(false);
+
             player.getWeapon().setAmmo(player.getWeapon().getWeaponEnum().getMaxAmmo());
         }
-
-        reloadAnim.setPlayMode(Animation.PlayMode.NORMAL);
     }
+
+//    public void reloadAnimation() {
+//        Animation<Texture> reloadAnim = GameAssetManager.getGameAssetManager().getCharacter1_reload_anim();
+//
+//        player.getPlayerSprite().setRegion(reloadAnim.getKeyFrame(player.getTime()));
+//
+//        if (!reloadAnim.isAnimationFinished(player.getTime())) {
+//            player.setTime(player.getTime() + Gdx.graphics.getDeltaTime());
+//        } else {
+//            player.setTime(0);
+//            player.setReloading(false);
+//            player.getWeapon().setAmmo(player.getWeapon().getWeaponEnum().getMaxAmmo());
+//        }
+//
+//        reloadAnim.setPlayMode(Animation.PlayMode.NORMAL);
+//    }
 
     public User getPlayer() {
         return player;
