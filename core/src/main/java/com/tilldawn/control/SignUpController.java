@@ -40,6 +40,7 @@ public class SignUpController {
         User user = new User(username, password, securityAnswer, avatar);
         Main.getApp().getAllUsers().put(username, user);
         SaveUserToJson.saveUserToJson(user);
+        Main.getApp().setCurrentUser(user);
         return new Result(true, "Registered successfully ");
     }
 

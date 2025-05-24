@@ -15,16 +15,17 @@ public class User {
     private HeroEnum heroEnum;
     private WeaponEnum weaponEnum;
     private Weapon weapon;
-    private Texture playerTexture = new Texture(GameAssetManager.getGameAssetManager().getCharacter1_idle0());
-    private Sprite playerSprite = new Sprite(playerTexture);
-    private float posX ;
-    private float posY ;
+    private transient Texture playerTexture = new Texture(GameAssetManager.getGameAssetManager().getCharacter1_idle0());
+
+    private transient Sprite playerSprite = new Sprite(playerTexture);
+    private float posX;
+    private float posY;
     private float playerHealth = 100;
     private float time = 0;
     private float Speed = 5;
     private boolean isPlayerIdle = true;
     private boolean isPlayerRunning = true;
-    private CollisionRect rect;
+    private transient CollisionRect rect;
 
     public User() {
     }
@@ -34,13 +35,20 @@ public class User {
         this.password = password;
         this.securityAnswer = securityAnswer;
         this.avatarPath = avatarPath;
+
         playerSprite.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-        playerSprite.setSize(playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
-        rect = new CollisionRect((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight(), playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
+
+        playerSprite.setSize(playerTexture.getWidth() * 3f, playerTexture.getHeight() * 3f);
+
+        rect = new CollisionRect((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight(), playerSprite.getWidth(), playerSprite.getHeight());
+
+
 
         this.posX = this.playerSprite.getX();
         this.posY = this.playerSprite.getY();
     }
+
+
 
     public HeroEnum getHeroEnum() {
         return heroEnum;

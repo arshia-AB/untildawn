@@ -4,6 +4,14 @@ public class CollisionRect {
     float x, y;
     float width, height;
 
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
     public CollisionRect(float x, float y, float width, float height) {
         this.x = x;
         this.y = y;
