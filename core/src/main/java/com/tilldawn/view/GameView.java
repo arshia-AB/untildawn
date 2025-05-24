@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -76,6 +77,8 @@ public class GameView implements Screen, InputProcessor {
         bgTexture = new Texture(Gdx.files.internal("GameBackground.png"));
         bgTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
+
+
         // blackTexture
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(0, 0, 0, 1);
@@ -112,7 +115,7 @@ public class GameView implements Screen, InputProcessor {
         table.add(new Label("HP:", skin)).left().padRight(5);
         table.add(healthBar).width(150).padRight(30);
 
-        table.add(ammoLabel).padRight(Gdx.graphics.getWidth()/2f).left();
+        table.add(ammoLabel).padRight(Gdx.graphics.getWidth() / 2f).left();
         table.add(levelLabel).padRight(20).left();
 
         table.add(levelProgressBar).width(150).left();
