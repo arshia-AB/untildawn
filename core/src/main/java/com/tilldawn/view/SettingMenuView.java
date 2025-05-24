@@ -52,8 +52,11 @@ public class SettingMenuView implements Screen {
         musicSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                float volume = musicSlider.getValue();
-                currentMusic.setVolume(volume);
+                if (currentMusic != null) {
+
+                    float volume = musicSlider.getValue();
+                    currentMusic.setVolume(volume);
+                }
             }
         });
         musicSelect.addListener(new ChangeListener() {
@@ -73,6 +76,7 @@ public class SettingMenuView implements Screen {
                     case "No music":
                         if (currentMusic != null) {
                             currentMusic.stop();
+                            currentMusic.pause();
                         }
                         break;
 
