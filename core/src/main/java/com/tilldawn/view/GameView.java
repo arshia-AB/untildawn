@@ -1,6 +1,7 @@
 package com.tilldawn.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.tilldawn.control.GameController;
 import com.tilldawn.Main;
+import com.tilldawn.model.GameAssetManager;
 
 public class GameView implements Screen, InputProcessor {
     private Stage stage;
@@ -19,6 +21,7 @@ public class GameView implements Screen, InputProcessor {
     private OrthographicCamera camera;
     private long startTimeMillis;
     private Texture bgTexture;
+    private boolean shiftPressed = false;
 
     public GameView(GameController controller, Skin skin) {
         this.controller = controller;
@@ -97,6 +100,14 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
+        if (keycode == Input.Keys.SHIFT_LEFT || keycode == Input.Keys.SHIFT_RIGHT) {
+            shiftPressed = true;
+        }
+
+        if (shiftPressed && keycode == Input.Keys.Q) {
+            Main.getMain().setScreen(new PauseMenuView(GameAssetManager.getGameAssetManager().getSkin(), this));
+            return true;
+        }
         return false;
     }
 
