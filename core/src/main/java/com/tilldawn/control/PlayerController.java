@@ -23,7 +23,7 @@ public class PlayerController {
         player.getPlayerSprite().draw(Main.getBatch());
 
         if (player.isReloading()) {
-            handleReload();
+            reloadAnimation();
         } else {
             idleAnimation();
         }
@@ -116,21 +116,21 @@ public class PlayerController {
         }
     }
 
-//    public void reloadAnimation() {
-//        Animation<Texture> reloadAnim = GameAssetManager.getGameAssetManager().getCharacter1_reload_anim();
-//
-//        player.getPlayerSprite().setRegion(reloadAnim.getKeyFrame(player.getTime()));
-//
-//        if (!reloadAnim.isAnimationFinished(player.getTime())) {
-//            player.setTime(player.getTime() + Gdx.graphics.getDeltaTime());
-//        } else {
-//            player.setTime(0);
-//            player.setReloading(false);
-//            player.getWeapon().setAmmo(player.getWeapon().getWeaponEnum().getMaxAmmo());
-//        }
-//
-//        reloadAnim.setPlayMode(Animation.PlayMode.NORMAL);
-//    }
+    public void reloadAnimation() {
+        Animation<Texture> reloadAnim = GameAssetManager.getGameAssetManager().getCharacter1_reload_anim();
+
+        player.getPlayerSprite().setRegion(reloadAnim.getKeyFrame(player.getTime()));
+
+        if (!reloadAnim.isAnimationFinished(player.getTime())) {
+            player.setTime(player.getTime() + Gdx.graphics.getDeltaTime());
+        } else {
+            player.setTime(0);
+            player.setReloading(false);
+            player.getWeapon().setAmmo(player.getWeapon().getWeaponEnum().getMaxAmmo());
+        }
+
+        reloadAnim.setPlayMode(Animation.PlayMode.NORMAL);
+    }
 
     public User getPlayer() {
         return player;
