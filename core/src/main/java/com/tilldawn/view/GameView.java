@@ -6,6 +6,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -13,7 +15,10 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.tilldawn.control.GameController;
 import com.tilldawn.Main;
+import com.tilldawn.model.App;
 import com.tilldawn.model.GameAssetManager;
+
+
 
 public class GameView implements Screen, InputProcessor {
     private Stage stage;
@@ -22,6 +27,7 @@ public class GameView implements Screen, InputProcessor {
     private long startTimeMillis;
     private Texture bgTexture;
     private boolean shiftPressed = false;
+    private ShaderProgram grayscaleShader;
 
     public GameView(GameController controller, Skin skin) {
         this.controller = controller;
@@ -30,7 +36,14 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public void show() {
-
+        ShaderProgram.pedantic = false;
+        grayscaleShader = new ShaderProgram(
+                Gdx.files.internal("shader/grayscale.vertex.glsl"),
+                Gdx.files.internal("shader/grayscale.fragment.glsl")
+        );
+        if (!grayscaleShader.isCompiled()) {
+            System.err.println(grayscaleShader.getLog());
+        }
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
@@ -43,7 +56,11 @@ public class GameView implements Screen, InputProcessor {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
-
+        if (App.grayscaleEnabled) {
+            Main.getBatch().setShader(grayscaleShader);
+        } else {
+            Main.getBatch().setShader(null);
+        }
         camera.update();
         controller.getPlayerController().centerPlayerOnCamera(camera);
         Main.getBatch().setProjectionMatrix(camera.combined);
@@ -96,6 +113,8 @@ public class GameView implements Screen, InputProcessor {
     public void dispose() {
         stage.dispose();
         bgTexture.dispose();
+        grayscaleShader.dispose();
+
     }
 
     @Override

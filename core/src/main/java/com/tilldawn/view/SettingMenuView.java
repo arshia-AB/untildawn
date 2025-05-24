@@ -27,7 +27,7 @@ public class SettingMenuView implements Screen {
     private Stage stage;
     private Skin skin;
 
-    private ShaderProgram grayscaleShader;
+
     private Texture bgTexture;
     private SpriteBatch batch;
     private Screen previousScreen;
@@ -141,14 +141,7 @@ public class SettingMenuView implements Screen {
 
     @Override
     public void show() {
-        ShaderProgram.pedantic = false;
-        grayscaleShader = new ShaderProgram(
-            Gdx.files.internal("shader/grayscale.vertex.glsl"),
-            Gdx.files.internal("shader/grayscale.fragment.glsl")
-        );
-        if (!grayscaleShader.isCompiled()) {
-            System.err.println(grayscaleShader.getLog());
-        }
+
 
         bgTexture = new Texture(Gdx.files.internal("backgrounds/17.png"));
         batch = new SpriteBatch();
@@ -160,11 +153,7 @@ public class SettingMenuView implements Screen {
 
         batch.setProjectionMatrix(stage.getCamera().combined);
 
-        if (App.grayscaleEnabled) {
-            batch.setShader(grayscaleShader);
-        } else {
-            batch.setShader(null);
-        }
+
 
         batch.begin();
         batch.draw(bgTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -196,6 +185,5 @@ public class SettingMenuView implements Screen {
         stage.dispose();
         batch.dispose();
         bgTexture.dispose();
-        grayscaleShader.dispose();
     }
 }
