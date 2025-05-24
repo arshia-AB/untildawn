@@ -8,11 +8,11 @@ import com.tilldawn.Enum.WeaponEnum;
 public class Weapon {
     private Sprite sprite;
     private int ammo;
-    private WeaponEnum weaponEnum = WeaponEnum.SMG;
+    private WeaponEnum weaponEnum;
 
 
     public Weapon(WeaponEnum weaponEnum) {
-//        this.weaponEnum = weaponEnum;
+        this.weaponEnum = weaponEnum;
 
         sprite = new Sprite(new Texture(weaponEnum.getPath()));
         sprite.setX((float) Gdx.graphics.getWidth() / 2);

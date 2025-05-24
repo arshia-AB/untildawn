@@ -104,17 +104,17 @@ public class PlayerController {
         animation.setPlayMode(Animation.PlayMode.LOOP);
     }
 
-
-    public void handleReload() {
-        reloadTimer += Gdx.graphics.getDeltaTime();
-
-        if (reloadTimer >= 1.0f) {
-            reloadTimer = 0;
-            player.setReloading(false);
-
-            player.getWeapon().setAmmo(player.getWeapon().getWeaponEnum().getMaxAmmo());
-        }
-    }
+//
+//    public void handleReload() {
+//        reloadTimer += Gdx.graphics.getDeltaTime();
+//
+//        if (reloadTimer >= 1.0f) {
+//            reloadTimer = 0;
+//            player.setReloading(false);
+//
+//            player.getWeapon().setAmmo(player.getWeapon().getWeaponEnum().getMaxAmmo());
+//        }
+//    }
 
     public void reloadAnimation() {
         Animation<Texture> reloadAnim = GameAssetManager.getGameAssetManager().getCharacter1_reload_anim();
