@@ -30,9 +30,12 @@ public class SettingMenuView implements Screen {
     private ShaderProgram grayscaleShader;
     private Texture bgTexture;
     private SpriteBatch batch;
+    private Screen previousScreen;
 
-    public SettingMenuView(Skin skin) {
+
+    public SettingMenuView(Skin skin, Screen previousScreen) {
         this.skin = skin;
+        this.previousScreen = previousScreen;
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
@@ -105,7 +108,7 @@ public class SettingMenuView implements Screen {
         TextButton backBtn = new TextButton("Back", skin);
         backBtn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                Main.getMain().setScreen(new MainMenuView(new MainMenuController(), skin));
+                Main.getMain().setScreen(previousScreen);
             }
         });
 

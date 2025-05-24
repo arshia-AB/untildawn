@@ -91,7 +91,7 @@ public class PauseMenuView implements Screen {
 
         settingsBtn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                Main.getMain().setScreen(new SettingMenuView(skin));
+                Main.getMain().setScreen(new SettingMenuView(skin,PauseMenuView.this));
             }
         });
 
@@ -124,6 +124,7 @@ public class PauseMenuView implements Screen {
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
