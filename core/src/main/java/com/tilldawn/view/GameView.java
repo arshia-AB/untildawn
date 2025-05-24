@@ -44,7 +44,8 @@ public class GameView implements Screen, InputProcessor {
     private Label levelLabel;
     private User player = Main.getApp().getCurrentUser();
     private float health = player.getPlayerHP();
-    private int ammoLeft = player.getWeapon().getAmmo();
+ 
+
     private int level = player.getLevel();
     private float levelProgress = player.getXP();
 
@@ -104,7 +105,7 @@ public class GameView implements Screen, InputProcessor {
         healthBar.setValue(health);
         healthBar.setAnimateDuration(0.2f);
 
-        ammoLabel = new Label("Ammo: " + ammoLeft, skin);
+        ammoLabel = new Label("Ammo: " + player.getWeapon().getAmmo(), skin);
         levelLabel = new Label("Level: " + level, skin);
 
         levelProgressBar = new ProgressBar(0f, 1f, 0.01f, false, skin, "default-horizontal");
@@ -166,7 +167,7 @@ public class GameView implements Screen, InputProcessor {
 
         // HUD Update
         healthBar.setValue(player.getPlayerHP());
-        ammoLabel.setText("Ammo: " + ammoLeft);
+        ammoLabel.setText("Ammo: " + player.getWeapon().getAmmo());
         levelLabel.setText("Level: " + player.getLevel());
         levelProgressBar.setValue(player.getXP());
         levelProgressBar.setWidth(Gdx.graphics.getWidth() / 5f);
@@ -231,9 +232,9 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (ammoLeft > 0 && !player.isReloading()) {
+        if (player.getWeapon().getAmmo() > 0 && !player.isReloading()) {
             controller.getWeaponController().handleWeaponShoot(screenX, screenY);
-            ammoLeft = Math.max(0, ammoLeft - 1);
+            player.getWeapon().setAmmo(Math.max(0, player.getWeapon().getAmmo() - 1));
         }
         return true;
     }
