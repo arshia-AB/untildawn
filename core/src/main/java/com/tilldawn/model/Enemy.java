@@ -23,7 +23,7 @@ public abstract class Enemy {
         this.speed = speed;
         this.velocity = new Vector2();
         this.rect = new CollisionRect(position.x, position.y, SIZE, SIZE);
-
+        this.texture = texture;
         this.sprite = new Sprite(texture);
         this.sprite.setSize(SIZE, SIZE);
         this.sprite.setPosition(position.x, position.y);
