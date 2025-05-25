@@ -146,6 +146,7 @@ public class User {
 
     public void updatePosition() {
         playerSprite.setPosition(posX, posY);
+
         rect.move(posX, posY);
     }
 
@@ -214,6 +215,7 @@ public class User {
 
     public void setPosX(float posX) {
         this.posX = posX;
+
     }
 
     public float getPosY() {

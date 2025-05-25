@@ -8,7 +8,15 @@ public class TentacleMonster extends Enemy {
 
     public TentacleMonster(Vector2 spawnPos) {
         super(spawnPos, 25, 100, texture);
-        
+
+    }
+
+    @Override
+    public void update(float delta, Vector2 playerPos) {
+        Vector2 dir = new Vector2(playerPos.x - x, playerPos.y - y).nor();
+        x += dir.x * speed * delta;
+        y += dir.y * speed * delta;
+        sprite.setPosition(x, y);
     }
 
     @Override
