@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.tilldawn.Main;
 import com.tilldawn.model.DropItem;
 import com.tilldawn.model.Enemy;
 import com.tilldawn.model.TentacleMonster;
@@ -24,6 +25,15 @@ public class EnemyController {
         Iterator<Enemy> it = enemies.iterator();
         while (it.hasNext()) {
             Enemy e = it.next();
+
+            if (e.getRect().collideswith(Main.getApp().getCurrentUser().getRect())) {
+               
+                Main.getApp().getCurrentUser().takeDamage(5);
+                drops.add(e.onDeath());
+                it.remove();
+                continue;
+            }
+
             e.update(delta, playerPos);
             e.render(batch);
 
@@ -47,7 +57,6 @@ public class EnemyController {
             spawnRate = Math.max(0.8f, spawnRate - spawnAcceleration);
         }
     }
-
 
 
     private void spawnEnemy() {
@@ -88,4 +97,5 @@ public class EnemyController {
     public ArrayList<DropItem> getDrops() {
         return drops;
     }
+
 }

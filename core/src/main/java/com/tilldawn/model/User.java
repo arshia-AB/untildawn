@@ -46,6 +46,12 @@ public class User {
         return new Vector2(playerSprite.getX(), playerSprite.getY());
     }
 
+    public void takeDamage(int damage) {
+        this.playerHP -= damage;
+        if (this.playerHP < 0) this.playerHP = 0;
+
+    }
+
     public boolean isAutoReload() {
         return autoReload;
     }
@@ -136,6 +142,11 @@ public class User {
 
         this.posX = this.playerSprite.getX();
         this.posY = this.playerSprite.getY();
+    }
+
+    public void updatePosition() {
+        playerSprite.setPosition(posX, posY);
+        rect.move(posX, posY);
     }
 
 

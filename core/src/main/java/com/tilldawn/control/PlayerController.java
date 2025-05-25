@@ -22,6 +22,7 @@ public class PlayerController {
     public void update() {
         player.getPlayerSprite().draw(Main.getBatch());
 
+
         if (player.isReloading()) {
             reloadAnimation();
         } else {
@@ -78,6 +79,7 @@ public class PlayerController {
 
         player.setPosX(x);
         player.setPosY(y);
+        player.updatePosition();
 
 
     }

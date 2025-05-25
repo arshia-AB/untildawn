@@ -16,6 +16,9 @@ public abstract class Enemy {
     protected static final int SIZE = 32;
     protected Texture texture;
 
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
 
     public Enemy(Vector2 spawnPos, int hp, float speed, Texture texture) {
         this.position = spawnPos;

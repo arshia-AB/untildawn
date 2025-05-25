@@ -43,7 +43,6 @@ public class GameView implements Screen, InputProcessor {
     private Label ammoLabel;
     private Label levelLabel;
     private User player = Main.getApp().getCurrentUser();
-    private float health = player.getPlayerHP();
 
 
     private int level = player.getLevel();
@@ -59,13 +58,13 @@ public class GameView implements Screen, InputProcessor {
     public void show() {
         ShaderProgram.pedantic = false;
         grayscaleShader = new ShaderProgram(
-                Gdx.files.internal("shader/grayscale.vertex.glsl"),
-                Gdx.files.internal("shader/grayscale.fragment.glsl")
+            Gdx.files.internal("shader/grayscale.vertex.glsl"),
+            Gdx.files.internal("shader/grayscale.fragment.glsl")
         );
 
         radialShader = new ShaderProgram(
-                Gdx.files.internal("Light/radialLight.vertex.glsl"),
-                Gdx.files.internal("Light/radialLight.fragment.glsl")
+            Gdx.files.internal("Light/radialLight.vertex.glsl"),
+            Gdx.files.internal("Light/radialLight.fragment.glsl")
         );
 
         if (!radialShader.isCompiled()) {
@@ -102,7 +101,7 @@ public class GameView implements Screen, InputProcessor {
         stage.addActor(table);
 
         healthBar = new ProgressBar(0f, 1f, 0.01f, false, skin, "health");
-        healthBar.setValue(health);
+        healthBar.setValue(player.getPlayerHP());
         healthBar.setAnimateDuration(0.2f);
 
         ammoLabel = new Label("Ammo: " + player.getWeapon().getAmmo(), skin);
@@ -144,11 +143,11 @@ public class GameView implements Screen, InputProcessor {
         float camY = camera.position.y;
 
         Main.getBatch().draw(
-                bgTexture,
-                camX - width / 2f, camY - height / 2f,
-                width, height,
-                0, 0,
-                width / bgTexture.getWidth(), height / bgTexture.getHeight()
+            bgTexture,
+            camX - width / 2f, camY - height / 2f,
+            width, height,
+            0, 0,
+            width / bgTexture.getWidth(), height / bgTexture.getHeight()
         );
 
         controller.updateGame();
