@@ -19,7 +19,7 @@ public class GameController {
         this.view = view;
         playerController = new PlayerController(Main.getApp().getCurrentUser());
         worldController = new WorldController(playerController);
-        weaponController = new WeaponController(new Weapon(WeaponEnum.SMG));
+        weaponController = new WeaponController(Main.getApp().getCurrentUser().getWeapon());
         enemyController = new EnemyController();
     }
 

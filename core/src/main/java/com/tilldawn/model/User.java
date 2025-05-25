@@ -41,9 +41,10 @@ public class User {
     private float ReloadTime = 1f;
     private boolean IsReloading = false;
     private boolean autoReload = false;
+    private Vector2 position = new Vector2();
 
     public Vector2 getPosition() {
-        return new Vector2(playerSprite.getX(), playerSprite.getY());
+        return position;
     }
 
     public void takeDamage(int damage) {
@@ -142,10 +143,12 @@ public class User {
 
         this.posX = this.playerSprite.getX();
         this.posY = this.playerSprite.getY();
+        this.position.set(posX, posY);
     }
 
     public void updatePosition() {
         playerSprite.setPosition(posX, posY);
+        
 
         rect.move(posX, posY);
     }
@@ -215,6 +218,8 @@ public class User {
 
     public void setPosX(float posX) {
         this.posX = posX;
+        this.position.x = posX;
+
 
     }
 
@@ -224,6 +229,8 @@ public class User {
 
     public void setPosY(float posY) {
         this.posY = posY;
+        this.position.y = posY;
+
     }
 
     public Texture getPlayerTexture() {

@@ -152,7 +152,7 @@ public class GameView implements Screen, InputProcessor {
         );
 
         controller.updateGame(delta);
-        controller.getPlayerController().getPlayer().getPlayerSprite().draw(Main.getBatch());///todo in baes mishe dota player bebinam
+//        controller.getPlayerController().getPlayer().getPlayerSprite().draw(Main.getBatch());///todo in baes mishe dota player bebinam
         controller.getEnemyController().draw(Main.getBatch());
 
         Main.getBatch().end();

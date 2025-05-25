@@ -79,6 +79,7 @@ public class PlayerController {
 
         player.setPosX(x);
         player.setPosY(y);
+
         player.updatePosition();
 
 
@@ -90,6 +91,14 @@ public class PlayerController {
         float centerY = camera.position.y - sprite.getHeight() / 2f;
         sprite.setPosition(centerX, centerY);
     }
+//    public void centerPlayerOnCamera(OrthographicCamera camera) {
+//        float centerX = camera.position.x - player.getPlayerSprite().getWidth() / 2f;
+//        float centerY = camera.position.y - player.getPlayerSprite().getHeight() / 2f;
+//
+//        player.setPosX(centerX);
+//        player.setPosY(centerY);
+//        player.updatePosition();
+//    }
 
 
     public void idleAnimation() {
