@@ -85,7 +85,7 @@ public class PauseMenuView implements Screen {
 
         giveUpBtn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-//                Main.getMain().setScreen(new GameOverScreen());
+                Main.getMain().setScreen(new EndGameScreen(Main.getApp().getCurrentUser(), true));
             }
         });
 
