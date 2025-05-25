@@ -52,7 +52,7 @@ public class GameView implements Screen, InputProcessor {
 
     private Label timeLabel;
     private ProgressBar remainingTimeBar;
-    private float maxGameTime = 300f;
+    private float maxGameTime = player.getGameTime();
 
 
     public GameView(GameController controller, Skin skin) {

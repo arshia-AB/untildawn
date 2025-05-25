@@ -31,6 +31,7 @@ public class User {
     private int XP = 0;
     private int xpToNextLevel = 0;
     private int maxLevelXp = 0;
+    private int GameTime;
 
 
     private boolean isPlayerIdle = true;
@@ -42,6 +43,15 @@ public class User {
     private boolean IsReloading = false;
     private boolean autoReload = false;
     private Vector2 position = new Vector2();
+
+
+    public int getGameTime() {
+        return GameTime;
+    }
+
+    public void setGameTime(int gameTime) {
+        GameTime = gameTime;
+    }
 
     public Vector2 getPosition() {
         return position;
