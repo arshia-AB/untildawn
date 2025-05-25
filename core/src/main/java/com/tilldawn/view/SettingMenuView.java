@@ -27,12 +27,15 @@ public class SettingMenuView implements Screen {
     private Stage stage;
     private Skin skin;
 
-    private ShaderProgram grayscaleShader;
+
     private Texture bgTexture;
     private SpriteBatch batch;
+    private Screen previousScreen;
 
-    public SettingMenuView(Skin skin) {
+
+    public SettingMenuView(Skin skin, Screen previousScreen) {
         this.skin = skin;
+        this.previousScreen = previousScreen;
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
@@ -90,7 +93,7 @@ public class SettingMenuView implements Screen {
 
 
         CheckBox autoReloadCheck = new CheckBox("Enable Auto Reload", skin);
-
+        autoReloadCheck.setChecked(Main.getApp().getCurrentUser().isAutoReload());
 
         CheckBox grayscaleCheck = new CheckBox("Grayscale Mode", skin);
         grayscaleCheck.setChecked(App.grayscaleEnabled);
@@ -102,10 +105,17 @@ public class SettingMenuView implements Screen {
             }
         });
 
+        autoReloadCheck.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Main.getApp().getCurrentUser().setAutoReload(autoReloadCheck.isChecked());
+            }
+        });
+
         TextButton backBtn = new TextButton("Back", skin);
         backBtn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                Main.getMain().setScreen(new MainMenuView(new MainMenuController(), skin));
+                Main.getMain().setScreen(previousScreen);
             }
         });
 
@@ -138,14 +148,7 @@ public class SettingMenuView implements Screen {
 
     @Override
     public void show() {
-        ShaderProgram.pedantic = false;
-        grayscaleShader = new ShaderProgram(
-            Gdx.files.internal("shader/grayscale.vertex.glsl"),
-            Gdx.files.internal("shader/grayscale.fragment.glsl")
-        );
-        if (!grayscaleShader.isCompiled()) {
-            System.err.println(grayscaleShader.getLog());
-        }
+
 
         bgTexture = new Texture(Gdx.files.internal("backgrounds/17.png"));
         batch = new SpriteBatch();
@@ -157,11 +160,6 @@ public class SettingMenuView implements Screen {
 
         batch.setProjectionMatrix(stage.getCamera().combined);
 
-        if (App.grayscaleEnabled) {
-            batch.setShader(grayscaleShader);
-        } else {
-            batch.setShader(null);
-        }
 
         batch.begin();
         batch.draw(bgTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -193,6 +191,5 @@ public class SettingMenuView implements Screen {
         stage.dispose();
         batch.dispose();
         bgTexture.dispose();
-        grayscaleShader.dispose();
     }
 }

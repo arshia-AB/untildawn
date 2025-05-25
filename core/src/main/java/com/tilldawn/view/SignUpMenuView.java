@@ -3,6 +3,8 @@ package com.tilldawn.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -193,10 +195,12 @@ public class SignUpMenuView implements Screen {
         ButtonTable.row();
 
         ButtonTable.add(message).padTop(20);
+
     }
 
     @Override
     public void show() {
+
     }
 
     @Override

@@ -11,6 +11,15 @@ public class App {
     private User currentUser = null;
     public static boolean grayscaleEnabled = false;
     public static Music currentMusic = null;
+    private int timePassed = 0;
+
+    public int getTimePassed() {
+        return timePassed;
+    }
+
+    public void setTimePassed(int timePassed) {
+        this.timePassed = timePassed;
+    }
 
     public HashMap<String, User> getAllUsers() {
         return AllUsers;

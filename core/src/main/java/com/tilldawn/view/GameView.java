@@ -1,57 +1,147 @@
 package com.tilldawn.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.tilldawn.control.GameController;
 import com.tilldawn.Main;
+import com.tilldawn.control.GameController;
+import com.tilldawn.model.App;
+import com.tilldawn.model.GameAssetManager;
+import com.tilldawn.model.User;
 
 public class GameView implements Screen, InputProcessor {
+
     private Stage stage;
     private GameController controller;
     private OrthographicCamera camera;
-    private long startTimeMillis;
     private Texture bgTexture;
+    private Texture blackTexture;
+    private ShaderProgram grayscaleShader;
+    private ShaderProgram radialShader;
+
+    private Skin skin;
+    private boolean shiftPressed = false;
+
+    // HUD
+    private ProgressBar healthBar;
+    private ProgressBar levelProgressBar;
+    private Label ammoLabel;
+    private Label levelLabel;
+    private User player = Main.getApp().getCurrentUser();
+    private float health = player.getPlayerHP();
+
+
+    private int level = player.getLevel();
+    private float levelProgress = player.getXP();
 
     public GameView(GameController controller, Skin skin) {
         this.controller = controller;
+        this.skin = skin;
         controller.setView(this);
     }
 
     @Override
     public void show() {
+        ShaderProgram.pedantic = false;
+        grayscaleShader = new ShaderProgram(
+                Gdx.files.internal("shader/grayscale.vertex.glsl"),
+                Gdx.files.internal("shader/grayscale.fragment.glsl")
+        );
+
+        radialShader = new ShaderProgram(
+                Gdx.files.internal("Light/radialLight.vertex.glsl"),
+                Gdx.files.internal("Light/radialLight.fragment.glsl")
+        );
+
+        if (!radialShader.isCompiled()) {
+            System.err.println(radialShader.getLog());
+        }
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        stage = new Stage(new ScreenViewport());
         bgTexture = new Texture(Gdx.files.internal("GameBackground.png"));
         bgTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        Gdx.input.setInputProcessor(this);
+
+
+        // blackTexture
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(0, 0, 0, 1);
+        pixmap.fill();
+        blackTexture = new Texture(pixmap);
+        pixmap.dispose();
+
+        stage = new Stage(new ScreenViewport());
+        setupHUD();
+
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(stage);
+        multiplexer.addProcessor(this);
+        Gdx.input.setInputProcessor(multiplexer);
+    }
+
+    private void setupHUD() {
+        Table table = new Table();
+        table.bottom().left().pad(15);
+        table.setFillParent(true);
+        stage.addActor(table);
+
+        healthBar = new ProgressBar(0f, 1f, 0.01f, false, skin, "health");
+        healthBar.setValue(health);
+        healthBar.setAnimateDuration(0.2f);
+
+        ammoLabel = new Label("Ammo: " + player.getWeapon().getAmmo(), skin);
+        levelLabel = new Label("Level: " + level, skin);
+
+        levelProgressBar = new ProgressBar(0f, 1f, 0.01f, false, skin, "default-horizontal");
+        levelProgressBar.setValue(levelProgress);
+        levelProgressBar.setAnimateDuration(0.2f);
+
+        table.add(new Label("HP:", skin)).left().padRight(5);
+        table.add(healthBar).width(150).padRight(30);
+
+        table.add(ammoLabel).padRight(Gdx.graphics.getWidth() / 2f).left();
+        table.add(levelLabel).padRight(20).left();
+
+        table.add(levelProgressBar).width(150).left();
     }
 
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
 
+        float width = Gdx.graphics.getWidth();
+        float height = Gdx.graphics.getHeight();
+
+        if (App.grayscaleEnabled) {
+            Main.getBatch().setShader(grayscaleShader);
+        } else {
+            Main.getBatch().setShader(null);
+        }
+
         camera.update();
         controller.getPlayerController().centerPlayerOnCamera(camera);
         Main.getBatch().setProjectionMatrix(camera.combined);
+
         Main.getBatch().begin();
-        controller.getPlayerController().getPlayer().getPlayerSprite().draw(Main.getBatch());
 
         float camX = camera.position.x;
         float camY = camera.position.y;
-
-        float width = Gdx.graphics.getWidth();
-        float height = Gdx.graphics.getHeight();
 
         Main.getBatch().draw(
                 bgTexture,
@@ -62,46 +152,76 @@ public class GameView implements Screen, InputProcessor {
         );
 
         controller.updateGame();
-
+        controller.getPlayerController().getPlayer().getPlayerSprite().draw(Main.getBatch());
         Main.getBatch().end();
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        stage.draw();
 
+        // Light Shader
+        Main.getBatch().setShader(radialShader);
+        Main.getBatch().begin();
+        radialShader.setUniformf("u_lightPos", new Vector2(0.5f, 0.5f));
+        radialShader.setUniformf("u_radius", 0.4f);
+        radialShader.setUniformf("u_color", 1f, 1f, 1f, 1f);
+        Main.getBatch().draw(blackTexture, camX - width / 2f, camY - height / 2f, width, height);
+        Main.getBatch().end();
+        Main.getBatch().setShader(null);
+
+        // HUD Update
+        healthBar.setValue(player.getPlayerHP());
+        ammoLabel.setText("Ammo: " + player.getWeapon().getAmmo());
+        levelLabel.setText("Level: " + player.getLevel());
+        levelProgressBar.setValue(player.getXP());
+        levelProgressBar.setWidth(Gdx.graphics.getWidth() / 5f);
+        healthBar.setWidth(Gdx.graphics.getWidth() / 5f);
+
+        stage.act(delta);
+        stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height, true);
+        camera.setToOrtho(false, width, height);
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     @Override
     public void dispose() {
         stage.dispose();
         bgTexture.dispose();
+        blackTexture.dispose();
+        grayscaleShader.dispose();
+        radialShader.dispose();
     }
 
     @Override
     public boolean keyDown(int keycode) {
+        if (keycode == Input.Keys.SHIFT_LEFT || keycode == Input.Keys.SHIFT_RIGHT)
+            shiftPressed = true;
+
+        if (shiftPressed && keycode == Input.Keys.Q) {
+            Main.getMain().setScreen(new PauseMenuView(GameAssetManager.getGameAssetManager().getSkin(), this));
+            return true;
+        }
+
+
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
+        if (keycode == Input.Keys.SHIFT_LEFT || keycode == Input.Keys.SHIFT_RIGHT)
+            shiftPressed = false;
         return false;
     }
 
@@ -112,8 +232,15 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        controller.getWeaponController().handleWeaponShoot(screenX, screenY);
-        return false;
+        if (player.getWeapon().getAmmo() > 0 && !player.isReloading()) {
+            controller.getWeaponController().handleWeaponShoot(screenX, screenY);
+            player.getWeapon().setAmmo(Math.max(0, player.getWeapon().getAmmo() - 1));
+        }
+        if (player.isAutoReload() && player.getWeapon().getAmmo() <= 0) {
+            player.setReloading(true);
+
+        }
+        return true;
     }
 
     @Override
@@ -134,7 +261,7 @@ public class GameView implements Screen, InputProcessor {
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
         controller.getWeaponController().handleWeaponRotation(screenX, screenY);
-        return false;
+        return true;
     }
 
     @Override

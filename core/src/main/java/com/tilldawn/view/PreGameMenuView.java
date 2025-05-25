@@ -17,6 +17,7 @@ import com.tilldawn.control.GameController;
 import com.tilldawn.control.MainMenuController;
 import com.tilldawn.control.PreGameMenuController;
 import com.tilldawn.model.GameAssetManager;
+import com.tilldawn.model.Weapon;
 
 public class PreGameMenuView implements Screen {
     private Stage stage;
@@ -79,7 +80,7 @@ public class PreGameMenuView implements Screen {
                 public void clicked(InputEvent event, float x, float y) {
                     selectedWeaponEnum = weaponEnum;
                     selectedGunImage.setDrawable(image.getDrawable());
-                    Main.getApp().getCurrentUser().setWeapon(weaponEnum);
+                    Main.getApp().getCurrentUser().setWeaponEnum(weaponEnum);
 
                 }
             });
@@ -115,7 +116,7 @@ public class PreGameMenuView implements Screen {
                 if (selectedHeroEnum != null && selectedWeaponEnum != null) {
 
 //                    message.setText("user hero and weapon saved");
-
+                    Main.getApp().getCurrentUser().setWeapon(new Weapon(selectedWeaponEnum));
                     Main.getMain().setScreen(new GameView(new GameController(), GameAssetManager.getGameAssetManager().getSkin()));
                 } else {
                     message.setText("please select hero and weapon");

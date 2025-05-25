@@ -33,7 +33,7 @@ public class UserDatabase {
 
             pstmt.setString(1, user.getUsername());
             pstmt.setString(2, user.getHero().name());
-            pstmt.setString(3, user.getWeapon().name());
+            pstmt.setString(3, user.getWeaponEnum().name());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -53,7 +53,7 @@ public class UserDatabase {
                 User user = new User();
                 user.setUsername(rs.getString("username"));
                 user.setHero(HeroEnum.valueOf(rs.getString("hero")));
-                user.setWeapon(WeaponEnum.valueOf(rs.getString("weapon")));
+//                user.setWeapon(WeaponEnum.valueOf(rs.getString("weapon")));//todo
                 userList.add(user);
             }
 

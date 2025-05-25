@@ -3,6 +3,7 @@ package com.tilldawn.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -98,7 +99,7 @@ public class MainMenuView implements Screen {
         settingsBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getMain().setScreen(new SettingMenuView(GameAssetManager.getGameAssetManager().getSkin()));
+                Main.getMain().setScreen(new SettingMenuView(GameAssetManager.getGameAssetManager().getSkin(),MainMenuView.this));
             }
         });
         preGameBtn.addListener(new ClickListener() {
@@ -149,6 +150,11 @@ public class MainMenuView implements Screen {
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(stage);
+        Pixmap PXM = new Pixmap(Gdx.files.internal("custom-cursor.png"));
+        Cursor customCursor = Gdx.graphics.newCursor(PXM, 0, 0);
+        Gdx.graphics.setCursor(customCursor);
+
     }
 
     @Override

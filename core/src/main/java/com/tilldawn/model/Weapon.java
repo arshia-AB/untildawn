@@ -10,8 +10,10 @@ public class Weapon {
     private int ammo;
     private WeaponEnum weaponEnum;
 
+
     public Weapon(WeaponEnum weaponEnum) {
         this.weaponEnum = weaponEnum;
+
         sprite = new Sprite(new Texture(weaponEnum.getPath()));
         sprite.setX((float) Gdx.graphics.getWidth() / 2);
         sprite.setY((float) Gdx.graphics.getHeight() / 2);
