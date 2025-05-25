@@ -101,7 +101,7 @@ public class GameView implements Screen, InputProcessor {
 
     private void setupHUD() {
         Table table = new Table();
-        table.bottom().left().pad(15);
+        table.top().left().pad(15);
         table.setFillParent(true);
         stage.addActor(table);
 
@@ -109,23 +109,27 @@ public class GameView implements Screen, InputProcessor {
         healthBar.setValue(player.getPlayerHP());
         healthBar.setAnimateDuration(0.2f);
 
-        ammoLabel = new Label("Ammo: " + player.getWeapon().getAmmo(), skin);
-        levelLabel = new Label("Level: " + level, skin);
-
         levelProgressBar = new ProgressBar(0f, 1f, 0.01f, false, skin, "default-horizontal");
         levelProgressBar.setValue(levelProgress);
         levelProgressBar.setAnimateDuration(0.2f);
+
+        ammoLabel = new Label("Ammo: " + player.getWeapon().getAmmo(), skin);
+        levelLabel = new Label("Level: " + level, skin);
         timeLabel = new Label("Time: 0s", skin);
+
+        table.row().padBottom(10);
+        table.add(timeLabel).colspan(5).center().expandX();
+
         table.row().padTop(10);
-        table.add(timeLabel).colspan(5).center();
+
         table.add(new Label("HP:", skin)).left().padRight(5);
-        table.add(healthBar).width(150).padRight(30);
+        table.add(healthBar).width(Gdx.graphics.getWidth() / 5f).left().padRight(30);
 
-        table.add(ammoLabel).padRight(Gdx.graphics.getWidth() / 2f).left();
-        table.add(levelLabel).padRight(20).left();
-
-        table.add(levelProgressBar).width(150).left();
+        table.add(ammoLabel).left().padRight(30);
+        table.add(levelLabel).left().padRight(20);
+        table.add(levelProgressBar).width(Gdx.graphics.getWidth() / 5f).left();
     }
+
 
     @Override
     public void render(float delta) {
@@ -182,8 +186,8 @@ public class GameView implements Screen, InputProcessor {
         ammoLabel.setText("Ammo: " + player.getWeapon().getAmmo());
         levelLabel.setText("Level: " + player.getLevel());
         levelProgressBar.setValue(player.getXP());
-        levelProgressBar.setWidth(Gdx.graphics.getWidth() / 5f);
-        healthBar.setWidth(Gdx.graphics.getWidth() / 5f);
+//        levelProgressBar.setWidth(Gdx.graphics.getWidth() / 5f);
+//        healthBar.setWidth(Gdx.graphics.getWidth() / 5f);
         timeLabel.setText("Time: " + (int) survivalTime + "s");
         stage.act(delta);
         stage.draw();
