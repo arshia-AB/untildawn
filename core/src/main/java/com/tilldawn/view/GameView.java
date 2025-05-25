@@ -44,10 +44,14 @@ public class GameView implements Screen, InputProcessor {
     private Label ammoLabel;
     private Label levelLabel;
     private User player = Main.getApp().getCurrentUser();
-
+    private float survivalTime = 0;
 
     private int level = player.getLevel();
     private float levelProgress = player.getXP();
+
+
+    private Label timeLabel;
+
 
     public GameView(GameController controller, Skin skin) {
         this.controller = controller;
@@ -111,7 +115,9 @@ public class GameView implements Screen, InputProcessor {
         levelProgressBar = new ProgressBar(0f, 1f, 0.01f, false, skin, "default-horizontal");
         levelProgressBar.setValue(levelProgress);
         levelProgressBar.setAnimateDuration(0.2f);
-
+        timeLabel = new Label("Time: 0s", skin);
+        table.row().padTop(10);
+        table.add(timeLabel).colspan(5).center();
         table.add(new Label("HP:", skin)).left().padRight(5);
         table.add(healthBar).width(150).padRight(30);
 
@@ -124,6 +130,9 @@ public class GameView implements Screen, InputProcessor {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
+        survivalTime += delta;
+        player.setSurvivalTime(survivalTime);
+
 
         float width = Gdx.graphics.getWidth();
         float height = Gdx.graphics.getHeight();
@@ -175,7 +184,7 @@ public class GameView implements Screen, InputProcessor {
         levelProgressBar.setValue(player.getXP());
         levelProgressBar.setWidth(Gdx.graphics.getWidth() / 5f);
         healthBar.setWidth(Gdx.graphics.getWidth() / 5f);
-
+        timeLabel.setText("Time: " + (int) survivalTime + "s");
         stage.act(delta);
         stage.draw();
     }

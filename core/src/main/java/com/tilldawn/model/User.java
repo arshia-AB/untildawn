@@ -24,6 +24,7 @@ public class User {
     private float playerHP;
     private int score = 0;
     private float time = 0;
+    private float survivalTime;
     private float Speed = 5;
     private int Elimination = 0;
     private int level = 0;
@@ -36,7 +37,6 @@ public class User {
     private boolean isPlayerRunning = true;
 
     private transient CollisionRect rect;
-
 
     private float ReloadTime = 1f;
     private boolean IsReloading = false;
@@ -51,6 +51,14 @@ public class User {
         this.playerHP -= damage;
         if (this.playerHP < 0) this.playerHP = 0;
 
+    }
+
+    public float getSurvivalTime() {
+        return survivalTime;
+    }
+
+    public void setSurvivalTime(float survivalTime) {
+        this.survivalTime = survivalTime;
     }
 
     public User(String username, String password, String securityAnswer, String avatarPath) {
@@ -150,10 +158,6 @@ public class User {
 
         rect.move(posX, posY);
     }
-
-
-
-
 
 
     public WeaponEnum getWeaponEnum() {
