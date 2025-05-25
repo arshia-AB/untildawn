@@ -9,6 +9,7 @@ import com.tilldawn.model.Bullet;
 import com.tilldawn.model.Weapon;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class WeaponController {
     private Weapon weapon;
@@ -20,7 +21,7 @@ public class WeaponController {
 
     public void update() {
         weapon.getSprite().draw(Main.getBatch());
-        updateBullets();
+        updateBullets(Gdx.graphics.getDeltaTime());
     }
 
     public void handleWeaponRotation(int x, int y) {
@@ -35,21 +36,24 @@ public class WeaponController {
     }
 
     public void handleWeaponShoot(int x, int y) {
-        bullets.add(new Bullet(x, y));
+        int correctedY = Gdx.graphics.getHeight() - y;
+        bullets.add(new Bullet(x, correctedY));
         weapon.setAmmo(weapon.getAmmo() - 1);
     }
 
-    public void updateBullets() {
-        for (Bullet b : bullets) {
-            b.getSprite().draw(Main.getBatch());
-            Vector2 direction = new Vector2(
-                Gdx.graphics.getWidth() / 2f - b.getX(),
-                Gdx.graphics.getHeight() / 2f - b.getY()
-            ).nor();
+    public void updateBullets(float delta) {
+        Iterator<Bullet> it = bullets.iterator();
+        while (it.hasNext()) {
+            Bullet b = it.next();
+            b.update(delta);
+            b.render(Main.getBatch());
 
-            b.getSprite().setX(b.getSprite().getX() - direction.x * 5);
-            b.getSprite().setY(b.getSprite().getY() + direction.y * 5);
+            if (b.getSprite().getX() < 0 || b.getSprite().getX() > Gdx.graphics.getWidth()
+                || b.getSprite().getY() < 0 || b.getSprite().getY() > Gdx.graphics.getHeight()) {
+                it.remove();
+            }
         }
-    }
 
+
+    }
 }
