@@ -6,67 +6,38 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Enemy {
-    protected Vector2 position;
-    protected Vector2 velocity;
-    protected int hp;
+    protected float x, y;
     protected float speed;
-    protected boolean alive = true;
-    protected CollisionRect rect;
-    protected Sprite sprite;
-    protected static final int SIZE = 32;
+    protected int hp;
     protected Texture texture;
+    protected Sprite sprite;
 
-    public void setAlive(boolean alive) {
-        this.alive = alive;
-    }
-
-    public Enemy(Vector2 spawnPos, int hp, float speed, Texture texture) {
-        this.position = spawnPos;
+    public Enemy(float x, float y, int hp, float speed, Texture texture) {
+        this.x = x;
+        this.y = y;
         this.hp = hp;
         this.speed = speed;
-        this.velocity = new Vector2();
-        this.rect = new CollisionRect(position.x, position.y, SIZE, SIZE);
         this.texture = texture;
         this.sprite = new Sprite(texture);
-        this.sprite.setSize(SIZE, SIZE);
-        this.sprite.setPosition(position.x, position.y);
+        this.sprite.setPosition(x, y);
     }
 
-    public void update(float delta, Vector2 playerPos) {
-        if (!alive) return;
+    public abstract void update(float delta, Vector2 playerPos);
 
-        Vector2 direction = new Vector2(playerPos).sub(position).nor();
-        velocity.set(direction.scl(speed));
-        position.add(velocity.x * delta, velocity.y * delta);
-
-        rect.move(position.x, position.y);
-        sprite.setPosition(position.x, position.y);
+    public void draw(SpriteBatch batch) {
+        sprite.draw(batch);
     }
 
-    public void render(SpriteBatch batch) {
-        if (texture != null) {
-            batch.draw(texture, position.x, position.y, SIZE, SIZE);
-        }
+    public boolean isDead() {
+        return hp <= 0;
     }
 
-    public void takeDamage(int damage) {
-        hp -= damage;
-        if (hp <= 0) {
-            alive = false;
-        }
+    public void takeDamage(int dmg) {
+        this.hp -= dmg;
     }
 
-    public boolean isAlive() {
-        return alive;
+    public Sprite getSprite() {
+        return sprite;
     }
-
-    public CollisionRect getRect() {
-        return rect;
-    }
-
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    public abstract DropItem onDeath();
 }
+

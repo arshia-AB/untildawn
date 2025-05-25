@@ -23,12 +23,12 @@ public class GameController {
         enemyController = new EnemyController();
     }
 
-    public void updateGame() {
+    public void updateGame(float delta) {
         if (view != null) {
             worldController.update();
             playerController.update();
             weaponController.update();
-            enemyController.update(Gdx.graphics.getDeltaTime(), playerController.getPlayer().getPosition(), Main.getBatch());
+            enemyController.update(delta, playerController.getPlayer().getPosition());
         }
     }
 
@@ -38,5 +38,13 @@ public class GameController {
 
     public WeaponController getWeaponController() {
         return weaponController;
+    }
+
+    public WorldController getWorldController() {
+        return worldController;
+    }
+
+    public EnemyController getEnemyController() {
+        return enemyController;
     }
 }

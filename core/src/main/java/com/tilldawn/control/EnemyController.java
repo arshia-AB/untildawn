@@ -8,94 +8,64 @@ import com.badlogic.gdx.math.Vector2;
 import com.tilldawn.Main;
 import com.tilldawn.model.DropItem;
 import com.tilldawn.model.Enemy;
+import com.tilldawn.model.Eyebat;
 import com.tilldawn.model.TentacleMonster;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class EnemyController {
-    private ArrayList<Enemy> enemies = new ArrayList<>();
-    private ArrayList<DropItem> drops = new ArrayList<>();
 
-    private float spawnTimer = 0;
-    private float spawnRate = 3f;
-    private float spawnAcceleration = 0.05f;
+    private List<Enemy> enemies = new ArrayList<>();
+    private float tentacleSpawnTimer = 0f;
+    private float eyebatSpawnTimer = 0f;
+    private float totalGameTime = 0f;
 
-    public void update(float delta, Vector2 playerPos, SpriteBatch batch) {
-        Iterator<Enemy> it = enemies.iterator();
-        while (it.hasNext()) {
-            Enemy e = it.next();
+    public void update(float delta, Vector2 playerPos) {
+        totalGameTime += delta;
 
-            if (e.getRect().collideswith(Main.getApp().getCurrentUser().getRect())) {
-               
-                Main.getApp().getCurrentUser().takeDamage(5);
-                drops.add(e.onDeath());
-                it.remove();
-                continue;
+
+        // Tentacle spawn logic
+        tentacleSpawnTimer += delta;
+        float tentacleSpawnRate = Math.max(3, 30 - totalGameTime);
+        if (tentacleSpawnTimer >= tentacleSpawnRate) {
+            tentacleSpawnTimer = 0;
+            enemies.add(new TentacleMonster(randomX(), randomY()));
+        }
+
+
+        // Eyebat spawn logic
+        if (totalGameTime > 4) {
+            eyebatSpawnTimer += delta;
+            float eyebatSpawnRate = Math.max(10, 10 - (totalGameTime - 4));
+            if (eyebatSpawnTimer >= eyebatSpawnRate) {
+                eyebatSpawnTimer = 0;
+                enemies.add(new Eyebat(randomX(), randomY()));
             }
-
-            e.update(delta, playerPos);
-            e.render(batch);
-
-            if (!e.isAlive()) {
-                drops.add(e.onDeath());
-                it.remove();
-            }
         }
 
+        // Update enemies
+        for (Enemy enemy : enemies) {
+            enemy.update(delta, playerPos);
+        }
 
-//        Texture dropTexture = new Texture("Chest_0.png");
-//
-//        for (DropItem d : drops) {
-//            d.render(batch, dropTexture);
-//        }
+        // Remove dead enemies
+        enemies.removeIf(Enemy::isDead);
+    }
 
-        spawnTimer += delta;
-        if (spawnTimer >= spawnRate) {
-            spawnTimer = 0;
-            spawnEnemy();
-            spawnRate = Math.max(0.8f, spawnRate - spawnAcceleration);
+    public void draw(SpriteBatch batch) {
+        for (Enemy enemy : enemies) {
+            enemy.draw(batch);
         }
     }
 
-
-    private void spawnEnemy() {
-        Vector2 spawnPos = getRandomEdgeSpawn();
-        enemies.add(new TentacleMonster(spawnPos));
+    private float randomX() {
+        return MathUtils.random(0, Gdx.graphics.getWidth());
     }
 
-    private Vector2 getRandomEdgeSpawn() {
-        int edge = MathUtils.random(3);
-        float x = 0, y = 0;
-
-        switch (edge) {
-            case 0:
-                x = MathUtils.random(Gdx.graphics.getWidth());
-                y = Gdx.graphics.getHeight();
-                break;
-            case 1:
-                x = MathUtils.random(Gdx.graphics.getWidth());
-                y = -32;
-                break;
-            case 2:
-                x = -32;
-                y = MathUtils.random(Gdx.graphics.getHeight());
-                break;
-            case 3:
-                x = Gdx.graphics.getWidth();
-                y = MathUtils.random(Gdx.graphics.getHeight());
-                break;
-        }
-
-        return new Vector2(x, y);
+    private float randomY() {
+        return MathUtils.random(0, Gdx.graphics.getHeight());
     }
-
-    public ArrayList<Enemy> getEnemies() {
-        return enemies;
-    }
-
-    public ArrayList<DropItem> getDrops() {
-        return drops;
-    }
-
 }
+

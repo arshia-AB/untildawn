@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.Main;
+import com.tilldawn.control.EnemyController;
 import com.tilldawn.control.GameController;
 import com.tilldawn.model.App;
 import com.tilldawn.model.GameAssetManager;
@@ -150,9 +151,12 @@ public class GameView implements Screen, InputProcessor {
             width / bgTexture.getWidth(), height / bgTexture.getHeight()
         );
 
-        controller.updateGame();
-        controller.getPlayerController().getPlayer().getPlayerSprite().draw(Main.getBatch());
+        controller.updateGame(delta);
+        controller.getPlayerController().getPlayer().getPlayerSprite().draw(Main.getBatch());///todo in baes mishe dota player bebinam
+        controller.getEnemyController().draw(Main.getBatch());
+
         Main.getBatch().end();
+
 
         // Light Shader
         Main.getBatch().setShader(radialShader);
