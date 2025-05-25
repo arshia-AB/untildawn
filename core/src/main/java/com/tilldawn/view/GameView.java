@@ -51,6 +51,8 @@ public class GameView implements Screen, InputProcessor {
 
 
     private Label timeLabel;
+    private ProgressBar remainingTimeBar;
+    private float maxGameTime = 300f;
 
 
     public GameView(GameController controller, Skin skin) {
@@ -115,6 +117,14 @@ public class GameView implements Screen, InputProcessor {
 
         ammoLabel = new Label("Ammo: " + player.getWeapon().getAmmo(), skin);
         levelLabel = new Label("Level: " + level, skin);
+        remainingTimeBar = new ProgressBar(0f, maxGameTime, 1f, false, skin, "default-horizontal");
+        remainingTimeBar.setValue(maxGameTime);
+        remainingTimeBar.setAnimateDuration(0.5f);
+
+
+        table.row().padBottom(10);
+        table.add(new Label("Time Left:", skin)).left().padRight(10);
+        table.add(remainingTimeBar).colspan(4).width(Gdx.graphics.getWidth() / 2f).left();
         timeLabel = new Label("Time: 0s", skin);
 
         table.row().padBottom(10);
@@ -136,7 +146,12 @@ public class GameView implements Screen, InputProcessor {
         ScreenUtils.clear(0, 0, 0, 1);
         survivalTime += delta;
         player.setSurvivalTime(survivalTime);
-
+        float timeLeft = Math.max(0, maxGameTime - survivalTime);
+        remainingTimeBar.setValue(timeLeft);
+        if (timeLeft <= 0) {
+            Main.getMain().setScreen(new EndGameScreen(player, false)); // یا true بسته به موفقیت یا شکست
+            return;
+        }
 
         float width = Gdx.graphics.getWidth();
         float height = Gdx.graphics.getHeight();
