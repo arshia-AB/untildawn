@@ -50,11 +50,11 @@ public class UserDatabase {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                User user = new User();
-                user.setUsername(rs.getString("username"));
-                user.setHero(HeroEnum.valueOf(rs.getString("hero")));
+//                User user = new User();
+//                user.setUsername(rs.getString("username"));
+//                user.setHero(HeroEnum.valueOf(rs.getString("hero")));
 //                user.setWeapon(WeaponEnum.valueOf(rs.getString("weapon")));//todo
-                userList.add(user);
+//                userList.add(user);
             }
 
         } catch (SQLException e) {

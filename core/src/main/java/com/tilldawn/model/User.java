@@ -21,7 +21,7 @@ public class User {
     private float posX;
     private float posY;
 
-    private float playerHP = 100;
+    private float playerHP;
     private int score = 0;
     private float time = 0;
     private float Speed = 5;
@@ -51,6 +51,24 @@ public class User {
         this.playerHP -= damage;
         if (this.playerHP < 0) this.playerHP = 0;
 
+    }
+
+    public User(String username, String password, String securityAnswer, String avatarPath) {
+        this.username = username;
+        this.password = password;
+        this.securityAnswer = securityAnswer;
+        this.avatarPath = avatarPath;
+
+        playerSprite.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+
+        playerSprite.setSize(playerTexture.getWidth() * 3f, playerTexture.getHeight() * 3f);
+
+        rect = new CollisionRect((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight(), playerSprite.getWidth(), playerSprite.getHeight());
+
+
+        this.posX = this.playerSprite.getX();
+        this.posY = this.playerSprite.getY();
+        this.position.set(posX, posY);
     }
 
     public boolean isAutoReload() {
@@ -125,42 +143,18 @@ public class User {
         this.playerHP = playerHP;
     }
 
-    public User() {
-    }
-
-    public User(String username, String password, String securityAnswer, String avatarPath) {
-        this.username = username;
-        this.password = password;
-        this.securityAnswer = securityAnswer;
-        this.avatarPath = avatarPath;
-
-        playerSprite.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-
-        playerSprite.setSize(playerTexture.getWidth() * 3f, playerTexture.getHeight() * 3f);
-
-        rect = new CollisionRect((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight(), playerSprite.getWidth(), playerSprite.getHeight());
-
-
-        this.posX = this.playerSprite.getX();
-        this.posY = this.playerSprite.getY();
-        this.position.set(posX, posY);
-    }
 
     public void updatePosition() {
         playerSprite.setPosition(posX, posY);
-        
+
 
         rect.move(posX, posY);
     }
 
 
-    public HeroEnum getHeroEnum() {
-        return heroEnum;
-    }
 
-    public void setHeroEnum(HeroEnum heroEnum) {
-        this.heroEnum = heroEnum;
-    }
+
+
 
     public WeaponEnum getWeaponEnum() {
         return weaponEnum;

@@ -117,6 +117,7 @@ public class PreGameMenuView implements Screen {
 
 //                    message.setText("user hero and weapon saved");
                     Main.getApp().getCurrentUser().setWeapon(new Weapon(selectedWeaponEnum));
+                    Main.getApp().getCurrentUser().setPlayerHP(Main.getApp().getCurrentUser().getHero().getHP());
                     Main.getMain().setScreen(new GameView(new GameController(), GameAssetManager.getGameAssetManager().getSkin()));
                 } else {
                     message.setText("please select hero and weapon");
