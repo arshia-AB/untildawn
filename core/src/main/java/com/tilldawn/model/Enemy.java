@@ -2,6 +2,7 @@ package com.tilldawn.model;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Enemy {
@@ -13,6 +14,8 @@ public abstract class Enemy {
     protected CollisionRect rect;
     protected Sprite sprite;
     protected static final int SIZE = 32;
+    protected Texture texture;
+
 
     public Enemy(Vector2 spawnPos, int hp, float speed, Texture texture) {
         this.position = spawnPos;
@@ -37,9 +40,9 @@ public abstract class Enemy {
         sprite.setPosition(position.x, position.y);
     }
 
-    public void render(com.badlogic.gdx.graphics.g2d.SpriteBatch batch) {
-        if (alive) {
-            sprite.draw(batch);
+    public void render(SpriteBatch batch) {
+        if (texture != null) {
+            batch.draw(texture, position.x, position.y, SIZE, SIZE);
         }
     }
 

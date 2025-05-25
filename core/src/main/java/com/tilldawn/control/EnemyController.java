@@ -34,11 +34,11 @@ public class EnemyController {
         }
 
 
-        Texture dropTexture = new Texture("Chest_0.png");
-
-        for (DropItem d : drops) {
-            d.render(batch, dropTexture);
-        }
+//        Texture dropTexture = new Texture("Chest_0.png");
+//
+//        for (DropItem d : drops) {
+//            d.render(batch, dropTexture);
+//        }
 
         spawnTimer += delta;
         if (spawnTimer >= spawnRate) {
@@ -47,6 +47,8 @@ public class EnemyController {
             spawnRate = Math.max(0.8f, spawnRate - spawnAcceleration);
         }
     }
+
+
 
     private void spawnEnemy() {
         Vector2 spawnPos = getRandomEdgeSpawn();

@@ -3,6 +3,7 @@ package com.tilldawn.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.tilldawn.Enum.HeroEnum;
 import com.tilldawn.Enum.WeaponEnum;
 
@@ -40,6 +41,10 @@ public class User {
     private float ReloadTime = 1f;
     private boolean IsReloading = false;
     private boolean autoReload = false;
+
+    public Vector2 getPosition() {
+        return new Vector2(playerSprite.getX(), playerSprite.getY());
+    }
 
     public boolean isAutoReload() {
         return autoReload;

@@ -1,5 +1,6 @@
 package com.tilldawn.control;
 
+import com.badlogic.gdx.Gdx;
 import com.tilldawn.Enum.WeaponEnum;
 import com.tilldawn.Main;
 import com.tilldawn.model.User;
@@ -11,6 +12,7 @@ public class GameController {
     private PlayerController playerController;
     private WorldController worldController;
     private WeaponController weaponController;
+    private EnemyController enemyController;
 
 
     public void setView(GameView view) {
@@ -18,6 +20,7 @@ public class GameController {
         playerController = new PlayerController(Main.getApp().getCurrentUser());
         worldController = new WorldController(playerController);
         weaponController = new WeaponController(new Weapon(WeaponEnum.SMG));
+        enemyController = new EnemyController();
     }
 
     public void updateGame() {
@@ -25,6 +28,7 @@ public class GameController {
             worldController.update();
             playerController.update();
             weaponController.update();
+            enemyController.update(Gdx.graphics.getDeltaTime(), playerController.getPlayer().getPosition(), Main.getBatch());
         }
     }
 

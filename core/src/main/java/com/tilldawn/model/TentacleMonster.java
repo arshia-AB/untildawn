@@ -8,6 +8,7 @@ public class TentacleMonster extends Enemy {
 
     public TentacleMonster(Vector2 spawnPos) {
         super(spawnPos, 25, 100, texture);
+        
     }
 
     @Override
