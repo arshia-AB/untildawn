@@ -119,6 +119,7 @@ public class PreGameMenuView implements Screen {
                     Main.getApp().getCurrentUser().setGameTime(timeSelect.getSelected() * 60);
                     Main.getApp().getCurrentUser().setWeapon(new Weapon(selectedWeaponEnum));
                     Main.getApp().getCurrentUser().setPlayerHP(Main.getApp().getCurrentUser().getHero().getHP());
+                    Main.getApp().getCurrentUser().setSpeed(Main.getApp().getCurrentUser().getHero().getSpeed());
                     Main.getMain().setScreen(new GameView(new GameController(), GameAssetManager.getGameAssetManager().getSkin()));
                 } else {
                     message.setText("please select hero and weapon");
