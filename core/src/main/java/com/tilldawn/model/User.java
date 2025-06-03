@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.tilldawn.Enum.Ability;
 import com.tilldawn.Enum.HeroEnum;
 import com.tilldawn.Enum.WeaponEnum;
 
@@ -16,6 +17,8 @@ public class User {
     private WeaponEnum weaponEnum;
     private Weapon weapon;
     private transient Texture playerTexture = new Texture(GameAssetManager.getGameAssetManager().getCharacter1_idle0());
+
+    private Ability ability;
 
     private transient Sprite playerSprite = new Sprite(playerTexture);
 
@@ -46,6 +49,13 @@ public class User {
     private Vector2 position = new Vector2();
     private boolean invincible = false;
 
+    public Ability getAbility() {
+        return ability;
+    }
+
+    public void setAbility(Ability ability) {
+        this.ability = ability;
+    }
 
     public boolean isInvincible() {
         return invincible;
