@@ -38,7 +38,7 @@ public class WeaponController {
     public void handleWeaponShoot(int x, int y) {
         int correctedY = Gdx.graphics.getHeight() - y;
         bullets.add(new Bullet(x, correctedY));
-        weapon.setAmmo(weapon.getAmmo() - 1);
+//        weapon.setAmmo(weapon.getAmmo() - 1);
     }
 
     public void updateBullets(float delta) {
@@ -55,5 +55,9 @@ public class WeaponController {
         }
 
 
+    }
+
+    public Sprite getWaponSprite() {
+        return weapon.getSprite();
     }
 }

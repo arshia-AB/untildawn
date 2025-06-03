@@ -1,6 +1,7 @@
 package com.tilldawn.control;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.tilldawn.Enum.WeaponEnum;
 import com.tilldawn.Main;
 import com.tilldawn.model.User;
@@ -28,7 +29,7 @@ public class GameController {
             worldController.update();
             playerController.update();
             weaponController.update();
-            enemyController.update(delta, playerController.getPlayer().getPosition());
+            enemyController.update(delta, new Vector2(weaponController.getWaponSprite().getX(), weaponController.getWaponSprite().getY()));
         }
     }
 

@@ -149,7 +149,7 @@ public class GameView implements Screen, InputProcessor {
         float timeLeft = Math.max(0, maxGameTime - survivalTime);
         remainingTimeBar.setValue(timeLeft);
         if (timeLeft <= 0) {
-            Main.getMain().setScreen(new EndGameScreen(player, false)); // یا true بسته به موفقیت یا شکست
+            Main.getMain().setScreen(new EndGameScreen(player, false));
             return;
         }
 
@@ -164,6 +164,10 @@ public class GameView implements Screen, InputProcessor {
 
         camera.update();
         controller.getPlayerController().centerPlayerOnCamera(camera);
+
+//        camera.position.set(player.getPosX(), player.getPosY(), 0);
+//        camera.update();
+
         Main.getBatch().setProjectionMatrix(camera.combined);
 
         Main.getBatch().begin();
