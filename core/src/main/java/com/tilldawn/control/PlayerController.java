@@ -88,6 +88,7 @@ public class PlayerController {
     }
 
     public void centerPlayerOnCamera(OrthographicCamera camera) {
+//        camera.position.set(player.getPosition().x, player.getPosition().y, 0);
         Sprite sprite = player.getPlayerSprite();
         float centerX = camera.position.x - sprite.getWidth() / 2f;
         float centerY = camera.position.y - sprite.getHeight() / 2f;

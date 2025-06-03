@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.tilldawn.Main;
 import com.tilldawn.model.Bullet;
 import com.tilldawn.model.Enemy;
+import com.tilldawn.model.User;
 import com.tilldawn.model.Weapon;
 
 import java.util.ArrayList;
@@ -42,9 +43,31 @@ public class WeaponController {
     }
 
     public void handleWeaponShoot(int x, int y) {
+//        int correctedY = Gdx.graphics.getHeight() - y;
+//
+//        bullets.add(new Bullet(x, correctedY));
         int correctedY = Gdx.graphics.getHeight() - y;
-        bullets.add(new Bullet(x, correctedY));
-//        weapon.setAmmo(weapon.getAmmo() - 1);
+
+        Vector2 center = new Vector2(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
+        Vector2 targetPos = new Vector2(x, correctedY);
+        Vector2 baseDir = targetPos.sub(center).nor();
+
+        int projectileCount = Main.getApp().getCurrentUser().getWeapon().getWeaponEnum().getProjectTile();
+        float spreadAngle = 10f;
+        int mid = projectileCount / 2;
+
+        for (int i = 0; i < projectileCount; i++) {
+            float angleOffset = (i - mid) * spreadAngle;
+            if (projectileCount % 2 == 0) {
+                angleOffset += spreadAngle / 2f;
+            }
+
+            Vector2 rotatedDir = new Vector2(baseDir).rotateDeg(angleOffset);
+
+            Vector2 offsetTarget = new Vector2(center).add(rotatedDir.scl(1000));
+
+            bullets.add(new Bullet((int) offsetTarget.x, (int) offsetTarget.y));
+        }
     }
 
     public void updateBullets(float delta) {
