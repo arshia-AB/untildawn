@@ -35,6 +35,7 @@ public class Eyebat extends Enemy {
             bullet.update(delta);
         }
     }
+    //todo age player damage nakhord position weapon ro bede
 
     private void shootAtPlayer(Vector2 playerPos) {
         Vector2 start = new Vector2(x + sprite.getWidth() / 2, y + sprite.getHeight() / 2);

@@ -22,7 +22,7 @@ public class User {
     private float posX;
     private float posY;
 
-    private float playerHP = 100;
+    private float playerHP = 100f;
     private int score = 0;
     private float time = 0;
     private float survivalTime;

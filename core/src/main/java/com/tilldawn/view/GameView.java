@@ -132,7 +132,7 @@ public class GameView implements Screen, InputProcessor {
 
         table.row().padTop(10);
 
-        table.add(new Label("HP:", skin)).left().padRight(5);
+        table.add(new Label("HP:" + player.getPlayerHP(), skin)).left().padRight(5);
         table.add(healthBar).width(Gdx.graphics.getWidth() / 5f).left().padRight(30);
 
         table.add(ammoLabel).left().padRight(30);
@@ -204,13 +204,14 @@ public class GameView implements Screen, InputProcessor {
         Main.getBatch().setShader(null);
 
         // HUD Update
-        healthBar.setValue(player.getPlayerHP()/6f);
+        healthBar.setValue(player.getPlayerHP() / 100f);
         ammoLabel.setText("Ammo: " + player.getWeapon().getAmmo());
         levelLabel.setText("Level: " + player.getLevel());
         levelProgressBar.setValue(player.getXP());
 //        levelProgressBar.setWidth(Gdx.graphics.getWidth() / 5f);
 //        healthBar.setWidth(Gdx.graphics.getWidth() / 5f);
         timeLabel.setText("Time: " + (int) survivalTime + "s");
+
         stage.act(delta);
         stage.draw();
     }

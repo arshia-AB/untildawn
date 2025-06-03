@@ -17,8 +17,11 @@ public class EnemyController {
 
     private List<Enemy> enemies = new ArrayList<>();
     private float tentacleSpawnTimer = 0f;
-    private float eyebatSpawnTimer = 10f;
+    private float eyebatSpawnTimer = 0f;
     private float totalGameTime = 0f;
+    private User player = Main.getApp().getCurrentUser();
+    private int t = player.getGameTime();
+
 
     public void update(float delta, Vector2 playerPos, ArrayList<Bullet> bullets, WeaponEnum weaponEnum) {
         totalGameTime += delta;
@@ -34,7 +37,7 @@ public class EnemyController {
 
 
         // Eyebat spawn logic
-        if (totalGameTime > 4) {
+        if (totalGameTime > t / 4f) {
             eyebatSpawnTimer += delta;
             float eyebatSpawnRate = Math.max(10, 10 - (totalGameTime - 4));
             if (eyebatSpawnTimer >= eyebatSpawnRate) {
