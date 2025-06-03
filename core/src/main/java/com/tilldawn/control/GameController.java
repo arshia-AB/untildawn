@@ -2,11 +2,14 @@ package com.tilldawn.control;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.tilldawn.Enum.WeaponEnum;
 import com.tilldawn.Main;
 import com.tilldawn.model.User;
 import com.tilldawn.model.Weapon;
 import com.tilldawn.view.GameView;
+
+import java.awt.*;
 
 public class GameController {
     private GameView view;
@@ -32,6 +35,7 @@ public class GameController {
             enemyController.update(delta, new Vector2(weaponController.getWaponSprite().getX(), weaponController.getWaponSprite().getY()), weaponController.getBullets(), playerController.getPlayer().getWeaponEnum());
         }
     }
+
 
     public PlayerController getPlayerController() {
         return playerController;

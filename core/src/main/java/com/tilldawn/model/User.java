@@ -4,9 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.tilldawn.Enum.Ability;
 import com.tilldawn.Enum.HeroEnum;
 import com.tilldawn.Enum.WeaponEnum;
+import com.tilldawn.Main;
+import com.tilldawn.view.GameView;
 
 public class User {
     private String username;
@@ -52,6 +58,14 @@ public class User {
     public Ability getAbility() {
         return ability;
     }
+
+    public void increaseLevel() {
+        this.level++;
+
+
+
+    }
+
 
     public void setAbility(Ability ability) {
         this.ability = ability;

@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.tilldawn.Enum.WeaponEnum;
 import com.tilldawn.Main;
 import com.tilldawn.model.*;
+import com.tilldawn.view.AbilitySelectScreen;
+import com.tilldawn.view.GameView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -58,7 +60,7 @@ public class EnemyController {
                         player.setXP(player.getXP() + 3);
                         if (player.getXP() > player.getXpToNextLevel()) {
                             player.setXP(0);
-                            player.setLevel(player.getLevel() + 1);
+                            player.increaseLevel();
                         }
 
                     }
@@ -73,9 +75,10 @@ public class EnemyController {
                 Main.getApp().getCurrentUser().takeDamage(1);
                 enemy.setHp(0);
                 player.setElimination(player.getElimination() + 1);
-                player.setXP(player.getXP() + 3);
-                player.setXP(0);
-                player.setLevel(player.getLevel() + 1);
+//                player.setXP(player.getXP() + 3);
+//                player.setXP(0);
+//                player.increaseLevel();
+//                Main.getMain().setScreen(new AbilitySelectScreen(GameAssetManager.getGameAssetManager().getSkin(), this));
 
                 player.setInvincible(true);
                 InvincibleTimer += delta;

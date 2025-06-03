@@ -11,19 +11,26 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.tilldawn.Enum.Ability;
 import com.tilldawn.Main;
 import com.tilldawn.control.EnemyController;
 import com.tilldawn.control.GameController;
 import com.tilldawn.model.App;
 import com.tilldawn.model.GameAssetManager;
 import com.tilldawn.model.User;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class GameView implements Screen, InputProcessor {
 
@@ -48,6 +55,7 @@ public class GameView implements Screen, InputProcessor {
 
     private int level = player.getLevel();
     private float levelProgress = player.getXP();
+    private boolean gamePaused = false;
 
 
     private Label timeLabel;
@@ -60,6 +68,7 @@ public class GameView implements Screen, InputProcessor {
         this.skin = skin;
         controller.setView(this);
     }
+
 
     @Override
     public void show() {
@@ -145,6 +154,10 @@ public class GameView implements Screen, InputProcessor {
     public void render(float delta) {
         if (Main.getApp().getCurrentUser().getPlayerHP() <= 0) {
             Main.getMain().setScreen(new EndGameScreen(Main.getApp().getCurrentUser(), true));
+        }
+        if (Main.getApp().getCurrentUser().getLevel() == 2 && player.getAbility() == null) {
+            Main.getMain().setScreen(new AbilitySelectScreen(GameAssetManager.getGameAssetManager().getSkin(), this));
+
         }
         ScreenUtils.clear(0, 0, 0, 1);
         survivalTime += delta;
