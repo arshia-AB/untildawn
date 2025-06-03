@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.tilldawn.Enum.WeaponEnum;
 import com.tilldawn.Main;
 import com.tilldawn.model.*;
 
@@ -19,7 +20,7 @@ public class EnemyController {
     private float eyebatSpawnTimer = 0f;
     private float totalGameTime = 0f;
 
-    public void update(float delta, Vector2 playerPos, ArrayList<Bullet> bullets) {
+    public void update(float delta, Vector2 playerPos, ArrayList<Bullet> bullets, WeaponEnum weaponEnum) {
         totalGameTime += delta;
 
 
@@ -46,7 +47,7 @@ public class EnemyController {
 
             for (Enemy enemy : enemies) {
                 if (bullet.getRect().collideswith(enemy.getRect())) {
-                    enemy.takeDamage(bullet.getDamage());
+                    enemy.takeDamage(weaponEnum.getDamage());
                     bullet.setAlive(false);
                     break;
                 }

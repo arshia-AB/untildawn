@@ -29,7 +29,7 @@ public class GameController {
             worldController.update();
             playerController.update();
             weaponController.update();
-            enemyController.update(delta, new Vector2(weaponController.getWaponSprite().getX(), weaponController.getWaponSprite().getY()), weaponController.getBullets());
+            enemyController.update(delta, new Vector2(weaponController.getWaponSprite().getX(), weaponController.getWaponSprite().getY()), weaponController.getBullets(), playerController.getPlayer().getWeaponEnum());
         }
     }
 
