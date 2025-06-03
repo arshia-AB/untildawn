@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.tilldawn.Enum.WeaponEnum;
 import com.tilldawn.Main;
 import com.tilldawn.model.GameAssetManager;
@@ -74,12 +75,12 @@ public class PlayerController {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.R) && !player.isReloading()) {
             player.setReloading(true);
-
             reloadTimer = 0;
         }
 
         player.setPosX(x);
         player.setPosY(y);
+        player.setPosition(new Vector2(x, y));
 
         player.updatePosition();
 

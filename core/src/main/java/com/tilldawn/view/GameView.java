@@ -204,7 +204,7 @@ public class GameView implements Screen, InputProcessor {
         Main.getBatch().setShader(null);
 
         // HUD Update
-        healthBar.setValue(player.getPlayerHP());
+        healthBar.setValue(player.getPlayerHP()/6f);
         ammoLabel.setText("Ammo: " + player.getWeapon().getAmmo());
         levelLabel.setText("Level: " + player.getLevel());
         levelProgressBar.setValue(player.getXP());

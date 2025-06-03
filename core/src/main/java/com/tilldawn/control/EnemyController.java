@@ -17,7 +17,7 @@ public class EnemyController {
 
     private List<Enemy> enemies = new ArrayList<>();
     private float tentacleSpawnTimer = 0f;
-    private float eyebatSpawnTimer = 0f;
+    private float eyebatSpawnTimer = 10f;
     private float totalGameTime = 0f;
 
     public void update(float delta, Vector2 playerPos, ArrayList<Bullet> bullets, WeaponEnum weaponEnum) {
@@ -55,7 +55,7 @@ public class EnemyController {
         }
         for (Enemy enemy : enemies) {
             if (enemy.getRect().collideswith(Main.getApp().getCurrentUser().getRect())) {
-                Main.getApp().getCurrentUser().takeDamage(10);
+                Main.getApp().getCurrentUser().takeDamage(1);
                 enemy.setHp(0);
             }
         }
@@ -74,7 +74,7 @@ public class EnemyController {
                     bullet.update(delta);
 
                     if (bullet.getRect().collideswith(Main.getApp().getCurrentUser().getRect())) {
-                        Main.getApp().getCurrentUser().takeDamage(10);
+                        Main.getApp().getCurrentUser().takeDamage(1);
                         it.remove();
                     }
                 }

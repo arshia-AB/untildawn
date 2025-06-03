@@ -16,6 +16,7 @@ public class User {
     private WeaponEnum weaponEnum;
     private Weapon weapon;
     private transient Texture playerTexture = new Texture(GameAssetManager.getGameAssetManager().getCharacter1_idle0());
+
     private transient Sprite playerSprite = new Sprite(playerTexture);
 
     private float posX;
@@ -44,6 +45,9 @@ public class User {
     private boolean autoReload = false;
     private Vector2 position = new Vector2();
 
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
 
     public int getGameTime() {
         return GameTime;
