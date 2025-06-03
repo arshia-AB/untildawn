@@ -207,7 +207,7 @@ public class GameView implements Screen, InputProcessor {
         healthBar.setValue(player.getPlayerHP() / player.getHero().getHP());
         ammoLabel.setText("Ammo: " + player.getWeapon().getAmmo());
         levelLabel.setText("Level: " + player.getLevel());
-        levelProgressBar.setValue(player.getXP());
+        levelProgressBar.setValue(player.getXP() / (float) player.getXpToNextLevel());
 //        levelProgressBar.setWidth(Gdx.graphics.getWidth() / 5f);
 //        healthBar.setWidth(Gdx.graphics.getWidth() / 5f);
         timeLabel.setText("Time: " + (int) survivalTime + "s");

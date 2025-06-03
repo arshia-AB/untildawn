@@ -55,6 +55,11 @@ public class EnemyController {
                     enemy.takeDamage(weaponEnum.getDamage());
                     if (enemy.isDead()) {
                         player.setElimination(player.getElimination() + 1);
+                        player.setXP(player.getXP() + 3);
+                        if (player.getXP() > player.getXpToNextLevel()) {
+                            player.setXP(0);
+                            player.setLevel(player.getLevel() + 1);
+                        }
 
                     }
                     bullet.setAlive(false);
@@ -64,10 +69,14 @@ public class EnemyController {
         }
         // Enemy hit player
         for (Enemy enemy : enemies) {
-            if (enemy.getRect().collideswith(Main.getApp().getCurrentUser().getRect()) && !player.isInvincible()) {
+            if (enemy.getRect().collideswith(player.getRect()) && !player.isInvincible()) {
                 Main.getApp().getCurrentUser().takeDamage(1);
                 enemy.setHp(0);
                 player.setElimination(player.getElimination() + 1);
+                player.setXP(player.getXP() + 3);
+                player.setXP(0);
+                player.setLevel(player.getLevel() + 1);
+
                 player.setInvincible(true);
                 InvincibleTimer += delta;
             }

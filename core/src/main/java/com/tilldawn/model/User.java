@@ -28,9 +28,9 @@ public class User {
     private float survivalTime;
     private float Speed = 5f;
     private int Elimination = 0;
-    private int level = 0;
-    private int XP = 0;
-    private int xpToNextLevel = 0;
+    private int level = 1;
+    private int XP;
+    private int xpToNextLevel = 20 * level;
     private int maxLevelXp = 0;
     private int GameTime;
 
