@@ -22,7 +22,7 @@ public class User {
     private float posX;
     private float posY;
 
-    private float playerHP = 100f;
+    private float playerHP;
     private int score = 0;
     private float time = 0;
     private float survivalTime;
@@ -44,6 +44,16 @@ public class User {
     private boolean IsReloading = false;
     private boolean autoReload = false;
     private Vector2 position = new Vector2();
+    private boolean invincible = false;
+
+
+    public boolean isInvincible() {
+        return invincible;
+    }
+
+    public void setInvincible(boolean invincible) {
+        this.invincible = invincible;
+    }
 
     public void setPosition(Vector2 position) {
         this.position = position;

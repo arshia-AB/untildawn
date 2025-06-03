@@ -17,10 +17,11 @@ public class EnemyController {
 
     private List<Enemy> enemies = new ArrayList<>();
     private float tentacleSpawnTimer = 0f;
-    private float eyebatSpawnTimer = 0f;
+    private float eyebatSpawnTimer = 14f;
     private float totalGameTime = 0f;
     private User player = Main.getApp().getCurrentUser();
     private int t = player.getGameTime();
+    private float InvincibleTimer = 0f;
 
 
     public void update(float delta, Vector2 playerPos, ArrayList<Bullet> bullets, WeaponEnum weaponEnum) {
@@ -37,7 +38,8 @@ public class EnemyController {
 
 
         // Eyebat spawn logic
-        if (totalGameTime > t / 4f) {
+//        if (totalGameTime > t / 4f) {
+        if (totalGameTime > 4) {
             eyebatSpawnTimer += delta;
             float eyebatSpawnRate = Math.max(10, 10 - (totalGameTime - 4));
             if (eyebatSpawnTimer >= eyebatSpawnRate) {
@@ -51,16 +53,28 @@ public class EnemyController {
             for (Enemy enemy : enemies) {
                 if (bullet.getRect().collideswith(enemy.getRect())) {
                     enemy.takeDamage(weaponEnum.getDamage());
+                    if (enemy.isDead()) {
+                        player.setElimination(player.getElimination() + 1);
+
+                    }
                     bullet.setAlive(false);
                     break;
                 }
             }
         }
+        // Enemy hit player
         for (Enemy enemy : enemies) {
-            if (enemy.getRect().collideswith(Main.getApp().getCurrentUser().getRect())) {
+            if (enemy.getRect().collideswith(Main.getApp().getCurrentUser().getRect()) && !player.isInvincible()) {
                 Main.getApp().getCurrentUser().takeDamage(1);
                 enemy.setHp(0);
+                player.setElimination(player.getElimination() + 1);
+                player.setInvincible(true);
+                InvincibleTimer += delta;
             }
+        }
+        if (InvincibleTimer >= 1f) {
+            InvincibleTimer = 0;
+            player.setInvincible(false);
         }
 
         bullets.removeIf(b -> !b.isAlive());
