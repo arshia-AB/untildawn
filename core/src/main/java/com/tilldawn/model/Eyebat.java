@@ -31,6 +31,9 @@ public class Eyebat extends Enemy {
             shootTimer = 0f;
             shootAtPlayer(playerPos);
         }
+        for (EnemyBullet bullet : bullets) {
+            bullet.update(delta);
+        }
     }
 
     private void shootAtPlayer(Vector2 playerPos) {

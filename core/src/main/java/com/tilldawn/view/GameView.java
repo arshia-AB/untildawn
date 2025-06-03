@@ -143,6 +143,9 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
+        if (Main.getApp().getCurrentUser().getPlayerHP() <= 0) {
+            Main.getMain().setScreen(new EndGameScreen(Main.getApp().getCurrentUser(), true));
+        }
         ScreenUtils.clear(0, 0, 0, 1);
         survivalTime += delta;
         player.setSurvivalTime(survivalTime);

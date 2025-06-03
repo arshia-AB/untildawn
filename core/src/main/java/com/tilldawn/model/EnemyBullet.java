@@ -13,6 +13,8 @@ public class EnemyBullet {
     private Sprite sprite;
     private boolean alive = true;
 
+    private CollisionRect rect;
+
     public EnemyBullet(Vector2 start, Vector2 target) {
         position = new Vector2(start);
         velocity = target.sub(start).nor().scl(SPEED);
@@ -21,11 +23,14 @@ public class EnemyBullet {
         sprite = new Sprite(texture);
         sprite.setSize(SIZE, SIZE);
         sprite.setPosition(position.x, position.y);
+
+        rect = new CollisionRect(position.x, position.y, SIZE, SIZE);
     }
 
     public void update(float delta) {
         position.mulAdd(velocity, delta);
         sprite.setPosition(position.x, position.y);
+        rect.move(position.x, position.y);
     }
 
     public void render(com.badlogic.gdx.graphics.g2d.SpriteBatch batch) {
@@ -46,5 +51,9 @@ public class EnemyBullet {
 
     public Vector2 getPosition() {
         return position;
+    }
+
+    public CollisionRect getRect() {
+        return rect;
     }
 }

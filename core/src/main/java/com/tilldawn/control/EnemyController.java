@@ -53,13 +53,33 @@ public class EnemyController {
                 }
             }
         }
+        for (Enemy enemy : enemies) {
+            if (enemy.getRect().collideswith(Main.getApp().getCurrentUser().getRect())) {
+                Main.getApp().getCurrentUser().takeDamage(10);
+                enemy.setHp(0);
+            }
+        }
 
         bullets.removeIf(b -> !b.isAlive());
         // Update enemies
         for (Enemy enemy : enemies) {
             enemy.update(delta, playerPos);
         }
+// Enemy bullets hit player
+        for (Enemy enemy : enemies) {
+            if (enemy instanceof Eyebat eyebat) {
+                Iterator<EnemyBullet> it = eyebat.getBullets().iterator();
+                while (it.hasNext()) {
+                    EnemyBullet bullet = it.next();
+                    bullet.update(delta);
 
+                    if (bullet.getRect().collideswith(Main.getApp().getCurrentUser().getRect())) {
+                        Main.getApp().getCurrentUser().takeDamage(10);
+                        it.remove();
+                    }
+                }
+            }
+        }
         // Remove dead enemies
         enemies.removeIf(Enemy::isDead);
     }
@@ -67,6 +87,13 @@ public class EnemyController {
     public void draw(SpriteBatch batch) {
         for (Enemy enemy : enemies) {
             enemy.draw(batch);
+
+            if (enemy instanceof Eyebat) {
+                Eyebat eyebat = (Eyebat) enemy;
+                for (EnemyBullet bullet : eyebat.getBullets()) {
+                    bullet.render(batch);
+                }
+            }
         }
     }
 

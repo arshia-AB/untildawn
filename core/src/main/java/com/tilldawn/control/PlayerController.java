@@ -74,6 +74,7 @@ public class PlayerController {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.R) && !player.isReloading()) {
             player.setReloading(true);
+
             reloadTimer = 0;
         }
 
