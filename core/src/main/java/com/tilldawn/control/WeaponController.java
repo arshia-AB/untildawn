@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.tilldawn.Main;
 import com.tilldawn.model.Bullet;
+import com.tilldawn.model.Enemy;
 import com.tilldawn.model.Weapon;
 
 import java.util.ArrayList;
@@ -22,6 +23,11 @@ public class WeaponController {
     public void update() {
         weapon.getSprite().draw(Main.getBatch());
         updateBullets(Gdx.graphics.getDeltaTime());
+
+    }
+
+    public ArrayList<Bullet> getBullets() {
+        return bullets;
     }
 
     public void handleWeaponRotation(int x, int y) {

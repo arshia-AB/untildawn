@@ -6,10 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.tilldawn.Main;
-import com.tilldawn.model.DropItem;
-import com.tilldawn.model.Enemy;
-import com.tilldawn.model.Eyebat;
-import com.tilldawn.model.TentacleMonster;
+import com.tilldawn.model.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,7 +19,7 @@ public class EnemyController {
     private float eyebatSpawnTimer = 0f;
     private float totalGameTime = 0f;
 
-    public void update(float delta, Vector2 playerPos) {
+    public void update(float delta, Vector2 playerPos, ArrayList<Bullet> bullets) {
         totalGameTime += delta;
 
 
@@ -44,7 +41,19 @@ public class EnemyController {
                 enemies.add(new Eyebat(randomX(), randomY()));
             }
         }
+        for (Bullet bullet : bullets) {
+            if (!bullet.isAlive()) continue;
 
+            for (Enemy enemy : enemies) {
+                if (bullet.getRect().collideswith(enemy.getRect())) {
+                    enemy.takeDamage(bullet.getDamage());
+                    bullet.setAlive(false);
+                    break;
+                }
+            }
+        }
+
+        bullets.removeIf(b -> !b.isAlive());
         // Update enemies
         for (Enemy enemy : enemies) {
             enemy.update(delta, playerPos);

@@ -25,7 +25,7 @@ public class User {
     private int score = 0;
     private float time = 0;
     private float survivalTime;
-    private float Speed = 5;
+    private float Speed = 5f;
     private int Elimination = 0;
     private int level = 0;
     private int XP = 0;

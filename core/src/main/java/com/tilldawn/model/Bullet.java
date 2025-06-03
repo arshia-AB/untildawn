@@ -9,7 +9,7 @@ public class Bullet {
     private Texture texture = new Texture(GameAssetManager.getGameAssetManager().getBullet());
     private Sprite sprite;
     private CollisionRect rect;
-    private int damage = 5;
+    private int damage = 50;
     private boolean alive = true;
 
     private Vector2 position;

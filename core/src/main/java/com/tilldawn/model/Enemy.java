@@ -34,10 +34,17 @@ public abstract class Enemy {
 
     public void takeDamage(int dmg) {
         this.hp -= dmg;
+       
     }
 
     public Sprite getSprite() {
         return sprite;
     }
+
+    public CollisionRect getRect() {
+        return new CollisionRect(x, y, sprite.getWidth(), sprite.getHeight());
+    }
+
+
 }
 
