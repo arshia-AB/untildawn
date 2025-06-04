@@ -8,14 +8,22 @@ public enum HeroEnum {
     DASHER("heros/T_Dasher_Portrait.png", "DASHER", 2, 10);
     private final String path;
     private final String Name;
-    private final int HP;
-    private final int Speed;
+    private int HP;
+    private int Speed;
 
     HeroEnum(String path, String Name, int Hp, int Speed) {
         this.path = path;
         this.Name = Name;
         this.HP = Hp;
         this.Speed = Speed;
+    }
+
+    public void increaseHp(int a) {
+        this.HP += a;
+    }
+
+    public void increaseSpeed(int a) {
+        this.Speed *= a;
     }
 
     public String getName() {

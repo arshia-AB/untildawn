@@ -42,6 +42,7 @@ public class Weapon {
         return weaponEnum;
     }
 
+
     public void setWeaponEnum(WeaponEnum weaponEnum) {
         this.weaponEnum = weaponEnum;
     }

@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.Main;
+import com.tilldawn.control.AbilityController;
 import com.tilldawn.model.User;
 import com.tilldawn.Enum.Ability;
 
@@ -55,6 +56,8 @@ public class AbilitySelectScreen implements Screen {
                 public void clicked(InputEvent event, float x, float y) {
                     User player = Main.getApp().getCurrentUser();
                     player.setAbility(ability);
+                    AbilityController controller = new AbilityController();
+                    controller.applyAbility(player, ability);
                     Main.getMain().setScreen(returnScreen);
                 }
             });

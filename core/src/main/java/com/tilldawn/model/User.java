@@ -61,10 +61,10 @@ public class User {
 
     public void increaseLevel() {
         this.level++;
-
-
-
     }
+
+
+
 
 
     public void setAbility(Ability ability) {

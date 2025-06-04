@@ -52,6 +52,8 @@ public class GameView implements Screen, InputProcessor {
     private Label levelLabel;
     private User player = Main.getApp().getCurrentUser();
     private float survivalTime = 0;
+    private int levelAbility = 2;
+
 
     private int level = player.getLevel();
     private float levelProgress = player.getXP();
@@ -155,10 +157,15 @@ public class GameView implements Screen, InputProcessor {
         if (Main.getApp().getCurrentUser().getPlayerHP() <= 0) {
             Main.getMain().setScreen(new EndGameScreen(Main.getApp().getCurrentUser(), true));
         }
-        if (Main.getApp().getCurrentUser().getLevel() == 2 && player.getAbility() == null) {
+        if (Main.getApp().getCurrentUser().getLevel() == levelAbility) {
+
+
             Main.getMain().setScreen(new AbilitySelectScreen(GameAssetManager.getGameAssetManager().getSkin(), this));
+            levelAbility++;
+
 
         }
+
         ScreenUtils.clear(0, 0, 0, 1);
         survivalTime += delta;
         player.setSurvivalTime(survivalTime);
@@ -264,6 +271,9 @@ public class GameView implements Screen, InputProcessor {
         if (shiftPressed && keycode == Input.Keys.Q) {
             Main.getMain().setScreen(new PauseMenuView(GameAssetManager.getGameAssetManager().getSkin(), this));
             return true;
+        }
+        if (shiftPressed && keycode == Input.Keys.L) {
+            player.increaseLevel();
         }
 
 

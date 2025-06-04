@@ -50,4 +50,16 @@ public enum WeaponEnum {
         }
         return null;
     }
+
+    public void setMaxAmmo(int maxAmmo) {
+        this.maxAmmo = maxAmmo;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public void setProjectTile(int projectTile) {
+        this.projectTile = projectTile;
+    }
 }
