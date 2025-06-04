@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.tilldawn.Enum.Ability;
 import com.tilldawn.Enum.HeroEnum;
 import com.tilldawn.Main;
 import com.tilldawn.control.MainMenuController;
@@ -21,25 +22,32 @@ public class HintMenuView implements Screen {
         this.skin = skin;
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
+
         Texture bgTexture = new Texture("backgrounds/12.png");
         Image background = new Image(bgTexture);
         background.setFillParent(true);
         stage.addActor(background);
+
         Table root = new Table();
-        root.setFillParent(true);
         root.top().pad(20);
-        stage.addActor(root);
+
+        ScrollPane scrollPane = new ScrollPane(root, skin);
+        scrollPane.setFillParent(true);
+        scrollPane.setFadeScrollBars(false);
+        scrollPane.setScrollingDisabled(true, false);
+        stage.addActor(scrollPane);
 
         // Title
         Label title = new Label("Hint Menu", skin, "title");
         root.add(title).colspan(2).center().padBottom(20).row();
 
         // Hero hints
-        root.add(new Label("Hero Hints:", skin)).left().row();
+        root.add(new Label("Hero Hints:", skin)).left().padTop(10).row();
         for (HeroEnum heroEnum : HeroEnum.values()) {
-
-            root.add(new Label(heroEnum.name() + "  HP :" + heroEnum.getHP() + "  Speed :" + heroEnum.getSpeed(), skin)).left().pad(5).row();
+            root.add(new Label(heroEnum.name() + "  HP: " + heroEnum.getHP() + "  Speed: " + heroEnum.getSpeed(), skin)).left().pad(5).row();
         }
+
+//Cheat code
         root.add(new Label("Cheat Codes:", skin)).padTop(20).left().row();
         root.add(new Label("- ⏳ decrease game time: reduce game time by 60 seconds", skin)).left().pad(2).row();
         root.add(new Label("- 🆙 level up: instantly level up", skin)).left().pad(2).row();
@@ -47,6 +55,7 @@ public class HintMenuView implements Screen {
         root.add(new Label("- 💀 go to boss fight: skip to boss level", skin)).left().pad(2).row();
         root.add(new Label("- ⭐ get score: gain 500 score instantly", skin)).left().pad(2).row();
 
+        // Controls
         root.add(new Label("Active Controls:", skin)).padTop(20).left().row();
         root.add(new Label("- W: Move Up", skin)).left().pad(2).row();
         root.add(new Label("- S: Move Down", skin)).left().pad(2).row();
@@ -54,16 +63,31 @@ public class HintMenuView implements Screen {
         root.add(new Label("- D: Move Right", skin)).left().pad(2).row();
         root.add(new Label("- R: Reload Weapon", skin)).left().pad(2).row();
 
+        // Abilities
+        root.add(new Label("Abilities:", skin)).padTop(20).left().row();
+        for (Ability ability : Ability.values()) {
+            root.add(new Label("- " + ability.name() + ": " + getAbilityDescription(ability), skin)).left().pad(2).row();
+        }
 
         // Back button
         TextButton backBtn = new TextButton("Back", skin);
         backBtn.addListener(event -> {
             if (backBtn.isPressed()) {
-                Main.getMain().setScreen(new MainMenuView(new MainMenuController(), GameAssetManager.getGameAssetManager().getSkin())); // or switch to previous screen
+                Main.getMain().setScreen(new MainMenuView(new MainMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
             }
             return true;
         });
-        root.add(backBtn).colspan(2).center().padTop(30).row();
+        root.add(backBtn).colspan(2).center().padTop(30).padBottom(10).row();
+    }
+
+    private String getAbilityDescription(Ability ability) {
+        return switch (ability) {
+            case VITALITY -> "Increase max HP";
+            case DAMAGER -> "Boost attack damage";
+            case PROCREASE -> "Increase projectile count";
+            case AMOCREASE -> "Increase ammo capacity";
+            case SPEEDY -> "Move faster";
+        };
     }
 
     @Override
