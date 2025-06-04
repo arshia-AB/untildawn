@@ -16,7 +16,7 @@ public enum Ability {
         return index;
     }
 
-    public Ability getAbilityByIndex(int i) {
+    public static Ability getAbilityByIndex(int i) {
         for (Ability ability : Ability.values()) {
             if (ability.getIndex() == i) {
                 return ability;

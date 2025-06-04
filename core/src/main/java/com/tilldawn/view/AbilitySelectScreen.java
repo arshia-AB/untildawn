@@ -13,6 +13,7 @@ import com.tilldawn.Main;
 import com.tilldawn.model.User;
 import com.tilldawn.Enum.Ability;
 
+import java.security.SecureRandom;
 import java.util.Collections;
 
 public class AbilitySelectScreen implements Screen {
@@ -38,11 +39,13 @@ public class AbilitySelectScreen implements Screen {
         Label titleLabel = new Label("Choose One Ability", skin, "title");
         table.add(titleLabel).colspan(3).padBottom(20);
         table.row();
-
+        SecureRandom random = new SecureRandom();
+        int a = random.nextInt(1, 3);
         Array<Ability> randomAbilities = new Array<>();
-        randomAbilities.add(Ability.AMOCREASE);
-        randomAbilities.add(Ability.DAMAGER);
-        randomAbilities.add(Ability.VITALITY);
+
+        randomAbilities.add(Ability.getAbilityByIndex(a));
+        randomAbilities.add(Ability.getAbilityByIndex(a + 1));
+        randomAbilities.add(Ability.getAbilityByIndex(a + 2));
 
 
         for (final Ability ability : randomAbilities) {
