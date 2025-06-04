@@ -75,10 +75,6 @@ public class EnemyController {
                 Main.getApp().getCurrentUser().takeDamage(1);
                 enemy.setHp(0);
                 player.setElimination(player.getElimination() + 1);
-//                player.setXP(player.getXP() + 3);
-//                player.setXP(0);
-//                player.increaseLevel();
-//                Main.getMain().setScreen(new AbilitySelectScreen(GameAssetManager.getGameAssetManager().getSkin(), this));
 
                 player.setInvincible(true);
                 InvincibleTimer += delta;
@@ -110,7 +106,7 @@ public class EnemyController {
             }
         }
         // Remove dead enemies
-        enemies.removeIf(Enemy::isDead);
+        enemies.removeIf(Enemy::isAnimationDead);
     }
 
     public void draw(SpriteBatch batch) {

@@ -12,6 +12,13 @@ public class TentacleMonster extends Enemy {
 
     @Override
     public void update(float delta, Vector2 playerPos) {
+        if (isDying) {
+            deathTimer += delta;
+            if (deathAnimation.isAnimationFinished(deathTimer)) {
+                isDead = true;
+            }
+            return;
+        }
         Vector2 dir = new Vector2(playerPos.x - x, playerPos.y - y).nor();
         x += dir.x * speed * delta;
         y += dir.y * speed * delta;

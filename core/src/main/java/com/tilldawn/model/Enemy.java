@@ -12,6 +12,17 @@ public abstract class Enemy {
     protected Texture texture;
     protected Sprite sprite;
 
+    protected boolean isDying = false;
+    protected boolean isDead = false;
+    protected float deathTimer = 0f;
+
+    protected com.badlogic.gdx.graphics.g2d.Animation<Texture> deathAnimation;
+    protected Texture[] deathFrames;
+
+    public boolean isAnimationDead() {
+        return isDead;
+    }
+
     public Enemy(float x, float y, int hp, float speed, Texture texture) {
         this.x = x;
         this.y = y;
@@ -20,12 +31,30 @@ public abstract class Enemy {
         this.texture = texture;
         this.sprite = new Sprite(texture);
         this.sprite.setPosition(x, y);
+        deathFrames = new Texture[4];
+        for (int i = 0; i < 4; i++) {
+            deathFrames[i] = new Texture("DeathFX/DeathFX_" + i + ".png");
+        }
+        deathAnimation = new com.badlogic.gdx.graphics.g2d.Animation<>(0.1f, deathFrames);
+    }
+
+    public void die() {
+        if (!isDying) {
+            isDying = true;
+            deathTimer = 0f;
+
+        }
     }
 
     public abstract void update(float delta, Vector2 playerPos);
 
     public void draw(SpriteBatch batch) {
-        sprite.draw(batch);
+        if (isDying) {
+            Texture currentFrame = deathAnimation.getKeyFrame(deathTimer, false);
+            batch.draw(currentFrame, x, y);
+        } else {
+            sprite.draw(batch);
+        }
     }
 
     public boolean isDead() {
@@ -34,6 +63,9 @@ public abstract class Enemy {
 
     public void takeDamage(int dmg) {
         this.hp -= dmg;
+        if (hp <= 0 && !isDying) {
+            die();
+        }
 
     }
 
