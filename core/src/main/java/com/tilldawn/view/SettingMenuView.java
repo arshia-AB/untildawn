@@ -87,7 +87,7 @@ public class SettingMenuView implements Screen {
             }
         });
         CheckBox sfxCheck = new CheckBox("Enable SFX", skin);
-        sfxCheck.setChecked(true);
+        sfxCheck.setChecked(Main.getApp().isSFX());
 
         TextButton changeKeyBtn = new TextButton("Change Controls", skin);
 
@@ -109,6 +109,12 @@ public class SettingMenuView implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Main.getApp().getCurrentUser().setAutoReload(autoReloadCheck.isChecked());
+            }
+        });
+        sfxCheck.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Main.getApp().setSFX(sfxCheck.isChecked());
             }
         });
 

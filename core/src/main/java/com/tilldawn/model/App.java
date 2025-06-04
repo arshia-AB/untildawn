@@ -12,6 +12,15 @@ public class App {
     public static boolean grayscaleEnabled = false;
     public static Music currentMusic = null;
     private int timePassed = 0;
+    private boolean SFX;
+
+    public boolean isSFX() {
+        return SFX;
+    }
+
+    public void setSFX(boolean SFX) {
+        this.SFX = SFX;
+    }
 
     public int getTimePassed() {
         return timePassed;

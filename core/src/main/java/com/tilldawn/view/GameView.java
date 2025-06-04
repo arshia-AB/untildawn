@@ -315,7 +315,10 @@ public class GameView implements Screen, InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (player.getWeapon().getAmmo() > 0 && !player.isReloading()) {
             controller.getWeaponController().handleWeaponShoot(screenX, screenY);
+            if (Main.getApp().isSFX()){
+
             shootSound.play(0.7f);
+            }
             player.getWeapon().setAmmo(Math.max(0, player.getWeapon().getAmmo() - 1));
         }
         if (player.isAutoReload() && player.getWeapon().getAmmo() <= 0) {
