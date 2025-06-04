@@ -35,7 +35,7 @@ public class GameController {
             playerController.update();
             weaponController.update();
             abilityController.update(delta);
-            enemyController.update(delta, new Vector2(weaponController.getWaponSprite().getX(), weaponController.getWaponSprite().getY()), weaponController.getBullets(), playerController.getPlayer().getWeaponEnum());
+            enemyController.update(delta, playerController.getPlayer().getPosition(), weaponController.getBullets(), playerController.getPlayer().getWeaponEnum());
         }
     }
 

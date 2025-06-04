@@ -53,7 +53,7 @@ public abstract class Enemy {
             Texture currentFrame = deathAnimation.getKeyFrame(deathTimer, false);
             batch.draw(currentFrame, x, y);
         } else {
-            sprite.draw(batch);
+            batch.draw(texture, x, y);
         }
     }
 

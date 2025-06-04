@@ -200,11 +200,11 @@ public class GameView implements Screen, InputProcessor {
             Main.getBatch().setShader(null);
         }
 
-        camera.update();
-        controller.getPlayerController().centerPlayerOnCamera(camera);
-
-//        camera.position.set(player.getPosX(), player.getPosY(), 0);
 //        camera.update();
+//        controller.getPlayerController().centerPlayerOnCamera(camera);
+
+        camera.position.set(player.getPosX(), player.getPosY(), 0);
+        camera.update();
 
         Main.getBatch().setProjectionMatrix(camera.combined);
 
