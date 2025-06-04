@@ -55,6 +55,7 @@ public class EnemyController {
             for (Enemy enemy : enemies) {
                 if (bullet.getRect().collideswith(enemy.getRect())) {
                     enemy.takeDamage(weaponEnum.getDamage());
+                    enemy.applyKnockback(bullet.getPosition());
                     if (enemy.isDead()) {
 
                         player.setElimination(player.getElimination() + 1);

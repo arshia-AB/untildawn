@@ -16,11 +16,22 @@ public abstract class Enemy {
     protected boolean isDead = false;
     protected float deathTimer = 0f;
 
+    protected Vector2 knockbackVelocity = new Vector2();
+    protected float knockbackTimer = 0f;
+    protected final float KNOCKBACK_DURATION = 0.1f;
+    protected final float KNOCKBACK_STRENGTH = 150f;
+
     protected com.badlogic.gdx.graphics.g2d.Animation<Texture> deathAnimation;
     protected Texture[] deathFrames;
 
     public boolean isAnimationDead() {
         return isDead;
+    }
+
+    public void applyKnockback(Vector2 from) {
+        Vector2 knockbackDir = new Vector2(x + sprite.getWidth() / 2, y + sprite.getHeight() / 2).sub(from).nor();
+        knockbackVelocity = knockbackDir.scl(KNOCKBACK_STRENGTH);
+        knockbackTimer = KNOCKBACK_DURATION;
     }
 
     public Enemy(float x, float y, int hp, float speed, Texture texture) {

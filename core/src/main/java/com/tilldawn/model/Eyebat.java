@@ -28,6 +28,15 @@ public class Eyebat extends Enemy {
             }
             return;
         }
+        if (knockbackTimer > 0) {
+            float dt = Math.min(delta, knockbackTimer);
+            knockbackTimer -= dt;
+
+            x += knockbackVelocity.x * dt;
+            y += knockbackVelocity.y * dt;
+
+            sprite.setPosition(x, y);
+        }
         Vector2 dir = new Vector2(playerPos.x - x, playerPos.y - y).nor();
         x += dir.x * speed * delta;
         y += dir.y * speed * delta;
