@@ -61,6 +61,7 @@ public class GameView implements Screen, InputProcessor {
 
 
     private Label timeLabel;
+    private Label killLabel;
     private ProgressBar remainingTimeBar;
     private float maxGameTime = player.getGameTime();
 
@@ -138,8 +139,10 @@ public class GameView implements Screen, InputProcessor {
         table.add(remainingTimeBar).colspan(4).width(Gdx.graphics.getWidth() / 2f).left();
         timeLabel = new Label("Time: 0s", skin);
 
+
         table.row().padBottom(10);
         table.add(timeLabel).colspan(5).center().expandX();
+
 
         table.row().padTop(10);
 
@@ -150,6 +153,9 @@ public class GameView implements Screen, InputProcessor {
         table.add(ammoLabel).left().padRight(30);
         table.add(levelLabel).left().padRight(20);
         table.add(levelProgressBar).width(Gdx.graphics.getWidth() / 5f).left();
+        table.row().expandY();
+        killLabel = new Label("Kills: " + player.getElimination(), skin);
+        table.add(killLabel).colspan(5).center().bottom().padBottom(10);
     }
 
 
@@ -232,6 +238,8 @@ public class GameView implements Screen, InputProcessor {
 //        levelProgressBar.setWidth(Gdx.graphics.getWidth() / 5f);
 //        healthBar.setWidth(Gdx.graphics.getWidth() / 5f);
         timeLabel.setText("Time: " + (int) survivalTime + "s");
+        killLabel.setText("Kills: " + player.getElimination());
+
 
         stage.act(delta);
         stage.draw();
