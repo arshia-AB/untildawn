@@ -70,6 +70,9 @@ public class GameView implements Screen, InputProcessor {
     private ProgressBar remainingTimeBar;
     private float maxGameTime = player.getGameTime();
 
+    public void setMaxGameTime(float maxGameTime) {
+        this.maxGameTime = maxGameTime;
+    }
 
     public GameView(GameController controller, Skin skin) {
         this.controller = controller;

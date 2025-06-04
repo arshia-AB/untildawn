@@ -50,7 +50,7 @@ public class CheatCodeScreen extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int newTime = Math.max(0, user.getGameTime() - 60);
-                user.setGameTime(newTime);
+                gameView.setMaxGameTime(newTime);
             }
         });
 
@@ -70,7 +70,7 @@ public class CheatCodeScreen extends ScreenAdapter {
         addHealthBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (user.getPlayerHP() <= 0) {
+                if (user.getPlayerHP() !=user.getHero().getHP()) {
                     user.setPlayerHP(user.getHero().getHP());
                 }
             }
