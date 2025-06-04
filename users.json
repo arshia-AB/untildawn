@@ -483,5 +483,66 @@
       "y": 340.11768
     },
     "invincible": true
+  },
+  {
+    "username": "Guest17",
+    "password": "",
+    "securityAnswer": "",
+    "posX": 957.6569,
+    "posY": 537.2549,
+    "playerHP": 0.0,
+    "score": 89,
+    "time": 0.26271445,
+    "survivalTime": 22.275295,
+    "Speed": 4.0,
+    "Elimination": 4,
+    "level": 1,
+    "XP": 9,
+    "xpToNextLevel": 20,
+    "maxLevelXp": 0,
+    "GameTime": 120,
+    "isHit": true,
+    "hitTimer": 0.0,
+    "isPlayerIdle": true,
+    "isPlayerRunning": true,
+    "ReloadTime": 1.0,
+    "IsReloading": false,
+    "autoReload": false,
+    "position": {
+      "x": 957.6569,
+      "y": 537.2549
+    },
+    "invincible": true
+  },
+  {
+    "username": "Guest18",
+    "password": "",
+    "securityAnswer": "",
+    "ability": "PROCREASE",
+    "posX": -1495.5063,
+    "posY": 569.9115,
+    "playerHP": 0.0,
+    "score": 632,
+    "time": 0.020783901,
+    "survivalTime": 70.328285,
+    "Speed": 4.0,
+    "Elimination": 9,
+    "level": 2,
+    "XP": 3,
+    "xpToNextLevel": 40,
+    "maxLevelXp": 0,
+    "GameTime": 120,
+    "isHit": true,
+    "hitTimer": 0.0,
+    "isPlayerIdle": true,
+    "isPlayerRunning": true,
+    "ReloadTime": 1.0,
+    "IsReloading": false,
+    "autoReload": false,
+    "position": {
+      "x": -1495.5063,
+      "y": 569.9115
+    },
+    "invincible": true
   }
 ]

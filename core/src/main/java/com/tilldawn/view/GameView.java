@@ -67,13 +67,9 @@ public class GameView implements Screen, InputProcessor {
     private ProgressBar remainingTimeBar;
     private float maxGameTime = player.getGameTime();
 
-
-    private float gameTimer = 0f;
-    private final float TOTAL_GAME_TIME = maxGameTime;
-    private boolean bossSpawned = false;
-    private BossDashEnemy boss;
-    private Barrier barrier;
-
+    public float getMaxGameTime() {
+        return maxGameTime;
+    }
 
     public void setMaxGameTime(float maxGameTime) {
         this.maxGameTime = maxGameTime;

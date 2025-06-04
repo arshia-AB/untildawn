@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.Main;
+import com.tilldawn.control.EnemyController;
 import com.tilldawn.model.User;
 
 public class CheatCodeScreen extends ScreenAdapter {
@@ -70,7 +71,7 @@ public class CheatCodeScreen extends ScreenAdapter {
         addHealthBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (user.getPlayerHP() !=user.getHero().getHP()) {
+                if (user.getPlayerHP() != user.getHero().getHP()) {
                     user.setPlayerHP(user.getHero().getHP());
                 }
             }
@@ -80,6 +81,7 @@ public class CheatCodeScreen extends ScreenAdapter {
         bossFightBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+
                 Main.getMain().setScreen(gameView);
             }
         });
