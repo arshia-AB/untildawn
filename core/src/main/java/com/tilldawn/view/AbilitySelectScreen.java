@@ -2,6 +2,7 @@ package com.tilldawn.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -33,6 +34,10 @@ public class AbilitySelectScreen implements Screen {
     }
 
     private void setupUI() {
+        Texture bgTexture = new Texture(Gdx.files.internal("backgrounds/14.png"));
+        Image background = new Image(bgTexture);
+        background.setFillParent(true);
+        stage.addActor(background);
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);

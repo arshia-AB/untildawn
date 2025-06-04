@@ -61,6 +61,7 @@ public class EnemyController {
                         if (player.getXP() > player.getXpToNextLevel()) {
                             player.setXP(0);
                             player.increaseLevel();
+                            player.setXpToNextLevel(player.getLevel() * 20);
                         }
 
                     }

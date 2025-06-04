@@ -275,6 +275,7 @@ public class GameView implements Screen, InputProcessor {
         }
         if (shiftPressed && keycode == Input.Keys.L) {
             player.increaseLevel();
+            player.setXpToNextLevel(player.getLevel() * 20);
         }
 
 
