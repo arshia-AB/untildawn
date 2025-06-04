@@ -37,28 +37,38 @@ public class PlayerController {
 
     public void handlePlayerInput() {
         float speed = player.getSpeed();
-        float x = player.getPosX();
-        float y = player.getPosY();
+        Vector2 movement = new Vector2(0, 0);
 
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            y += speed;
+            movement.y += 1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            y -= speed;
+            movement.y -= 1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            x -= speed;
-            player.getPlayerSprite().setFlip(true, false);
+            movement.x -= 1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            x += speed;
-            player.getPlayerSprite().setFlip(false, false);
+            movement.x += 1;
         }
 
-        player.setPosX(x);
-        player.setPosY(y);
-        player.setPosition(new Vector2(x, y));
-        player.updatePosition();
+        if (!movement.isZero()) {
+            movement.nor().scl(speed);
+
+            float x = player.getPosX() + movement.x;
+            float y = player.getPosY() + movement.y;
+
+            player.setPosX(x);
+            player.setPosY(y);
+            player.setPosition(new Vector2(x, y));
+            player.updatePosition();
+
+            if (movement.x < 0) {
+                player.getPlayerSprite().setFlip(true, false);
+            } else if (movement.x > 0) {
+                player.getPlayerSprite().setFlip(false, false);
+            }
+        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.R) && !player.isReloading()) {
             player.setReloading(true);
