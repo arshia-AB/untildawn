@@ -73,7 +73,7 @@ public class PauseMenuView implements Screen {
         cheatsBtn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
 
-                showDialog("Cheats:\n- GODMODE\n- UNLIMITED AMMO\n...");
+                Main.getMain().setScreen(new CheatCodeScreen(gameScreen));
             }
         });
 

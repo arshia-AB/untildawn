@@ -49,7 +49,7 @@ public class EndGameScreen implements Screen {
 
         this.survivalTime = player.getSurvivalTime();
         this.kills = player.getElimination();
-        this.score = (int) (survivalTime * kills);
+        this.score = player.getScore() + (int) (survivalTime * kills);
         player.setScore(score);
         SaveUserToJson.saveUserToJson(player);
 
