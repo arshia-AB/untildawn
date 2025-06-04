@@ -143,7 +143,8 @@ public class GameView implements Screen, InputProcessor {
 
         table.row().padTop(10);
 
-        table.add(new Label("HP:" + player.getPlayerHP(), skin)).left().padRight(5);
+        table.add(new Label("HP:", skin)).left().padRight(5);
+
         table.add(healthBar).width(Gdx.graphics.getWidth() / 5f).left().padRight(30);
 
         table.add(ammoLabel).left().padRight(30);

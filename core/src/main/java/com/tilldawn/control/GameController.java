@@ -17,6 +17,7 @@ public class GameController {
     private WorldController worldController;
     private WeaponController weaponController;
     private EnemyController enemyController;
+    private AbilityController abilityController;
 
 
     public void setView(GameView view) {
@@ -25,6 +26,7 @@ public class GameController {
         worldController = new WorldController(playerController);
         weaponController = new WeaponController(Main.getApp().getCurrentUser().getWeapon());
         enemyController = new EnemyController();
+        abilityController = new AbilityController(Main.getApp().getCurrentUser());
     }
 
     public void updateGame(float delta) {
@@ -32,6 +34,7 @@ public class GameController {
             worldController.update();
             playerController.update();
             weaponController.update();
+            abilityController.update(delta);
             enemyController.update(delta, new Vector2(weaponController.getWaponSprite().getX(), weaponController.getWaponSprite().getY()), weaponController.getBullets(), playerController.getPlayer().getWeaponEnum());
         }
     }

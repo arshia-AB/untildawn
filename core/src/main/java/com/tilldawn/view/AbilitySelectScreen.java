@@ -56,8 +56,8 @@ public class AbilitySelectScreen implements Screen {
                 public void clicked(InputEvent event, float x, float y) {
                     User player = Main.getApp().getCurrentUser();
                     player.setAbility(ability);
-                    AbilityController controller = new AbilityController();
-                    controller.applyAbility(player, ability);
+                    AbilityController controller = new AbilityController(player);
+                    controller.applyAbility(ability);
                     Main.getMain().setScreen(returnScreen);
                 }
             });
