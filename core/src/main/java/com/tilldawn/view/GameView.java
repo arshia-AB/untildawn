@@ -26,6 +26,7 @@ import com.tilldawn.control.EnemyController;
 import com.tilldawn.control.GameController;
 import com.tilldawn.model.App;
 import com.tilldawn.model.GameAssetManager;
+import com.tilldawn.model.SaveUserToJson;
 import com.tilldawn.model.User;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
@@ -162,6 +163,7 @@ public class GameView implements Screen, InputProcessor {
     @Override
     public void render(float delta) {
         if (Main.getApp().getCurrentUser().getPlayerHP() <= 0) {
+           SaveUserToJson.saveUserToJson(player);
             Main.getMain().setScreen(new EndGameScreen(Main.getApp().getCurrentUser(), true));
         }
         if (Main.getApp().getCurrentUser().getLevel() == levelAbility) {
@@ -179,6 +181,8 @@ public class GameView implements Screen, InputProcessor {
         float timeLeft = Math.max(0, maxGameTime - survivalTime);
         remainingTimeBar.setValue(timeLeft);
         if (timeLeft <= 0) {
+            SaveUserToJson.saveUserToJson(player);
+
             Main.getMain().setScreen(new EndGameScreen(player, false));
             return;
         }

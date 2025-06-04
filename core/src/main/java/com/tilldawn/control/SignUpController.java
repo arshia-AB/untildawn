@@ -49,6 +49,31 @@ public class SignUpController {
     }
 
     public User loginAsGuest() {
-        return new User("Guest", "", "", getRandomAvatar());
+        int maxGuestNumber = 0;
+
+        for (String username : Main.getApp().getAllUsers().keySet()) {
+            if (username.startsWith("Guest")) {
+                try {
+                    String numberPart = username.replace("Guest", "");
+                    if (!numberPart.isEmpty()) {
+                        int num = Integer.parseInt(numberPart);
+                        if (num > maxGuestNumber) {
+                            maxGuestNumber = num;
+                        }
+                    } else {
+
+                        if (maxGuestNumber == 0) {
+                            maxGuestNumber = 1;
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                }
+            }
+        }
+
+        String newGuestUsername = "Guest" + (maxGuestNumber + 1);
+        User guestUser = new User(newGuestUsername, "", "", getRandomAvatar());
+        Main.getApp().getAllUsers().put(newGuestUsername, guestUser);
+        return guestUser;
     }
 }

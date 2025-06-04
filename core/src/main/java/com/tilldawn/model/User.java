@@ -18,10 +18,10 @@ public class User {
     private String username;
     private String password;
     private String securityAnswer;
-    private String avatarPath;
-    private HeroEnum heroEnum;
-    private WeaponEnum weaponEnum;
-    private Weapon weapon;
+    private transient String avatarPath;
+    private transient HeroEnum heroEnum;
+    private transient WeaponEnum weaponEnum;
+    private transient Weapon weapon;
     private transient Texture playerTexture = new Texture(GameAssetManager.getGameAssetManager().getCharacter1_idle0());
 
     private Ability ability;
@@ -62,9 +62,6 @@ public class User {
     public void increaseLevel() {
         this.level++;
     }
-
-
-
 
 
     public void setAbility(Ability ability) {

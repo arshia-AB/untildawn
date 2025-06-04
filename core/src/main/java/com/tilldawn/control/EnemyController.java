@@ -56,6 +56,7 @@ public class EnemyController {
                 if (bullet.getRect().collideswith(enemy.getRect())) {
                     enemy.takeDamage(weaponEnum.getDamage());
                     if (enemy.isDead()) {
+
                         player.setElimination(player.getElimination() + 1);
                         player.setXP(player.getXP() + 3);
                         if (player.getXP() > player.getXpToNextLevel()) {

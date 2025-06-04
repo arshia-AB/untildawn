@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.Main;
 import com.tilldawn.control.MainMenuController;
+import com.tilldawn.model.SaveUserToJson;
 
 import java.awt.*;
 
@@ -85,6 +86,8 @@ public class PauseMenuView implements Screen {
 
         giveUpBtn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                SaveUserToJson.saveUserToJson(Main.getApp().getCurrentUser());
+
                 Main.getMain().setScreen(new EndGameScreen(Main.getApp().getCurrentUser(), true));
             }
         });

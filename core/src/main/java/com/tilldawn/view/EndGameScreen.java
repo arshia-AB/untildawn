@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.Main;
 import com.tilldawn.control.MainMenuController;
+import com.tilldawn.model.SaveUserToJson;
 import com.tilldawn.model.User;
 import com.tilldawn.model.GameAssetManager;
 
@@ -49,6 +50,9 @@ public class EndGameScreen implements Screen {
         this.survivalTime = player.getSurvivalTime();
         this.kills = player.getElimination();
         this.score = (int) (survivalTime * kills);
+        player.setScore(score);
+        SaveUserToJson.saveUserToJson(player);
+
 
         this.skin = GameAssetManager.getGameAssetManager().getSkin();
         this.stage = new Stage(new ScreenViewport());
@@ -80,7 +84,7 @@ public class EndGameScreen implements Screen {
     }
 
     private void goToMainMenu() {
-        Main.getMain().setScreen(new MainMenuView(new MainMenuController(),GameAssetManager.getGameAssetManager().getSkin()));
+        Main.getMain().setScreen(new MainMenuView(new MainMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
     }
 
     @Override
@@ -100,7 +104,7 @@ public class EndGameScreen implements Screen {
         font.draw(batch, "Survival Time: " + (int) survivalTime + " seconds", centerX - 100, startY - 100);
         font.draw(batch, "Kills: " + kills, centerX - 100, startY - 150);
         font.draw(batch, "Score: " + score, centerX - 100, startY - 200);
-
+        player.setScore(score);
         font.setColor(isPlayerDead ? Color.RED : Color.GREEN);
         font.draw(batch, isPlayerDead ? "DEAD" : "WIN", centerX - 50, startY - 250);
         font.setColor(Color.WHITE);
