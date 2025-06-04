@@ -22,7 +22,9 @@ public class PlayerController {
 
     public void update() {
         player.getPlayerSprite().draw(Main.getBatch());
+        float delta = Gdx.graphics.getDeltaTime();
 
+        player.updateHit(delta);
 
         if (player.isReloading()) {
             reloadAnimation();

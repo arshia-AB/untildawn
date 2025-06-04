@@ -44,6 +44,32 @@ public class User {
     private int GameTime;
 
 
+    private boolean isHit = false;
+    private float hitTimer = 0f;
+    private static final float HIT_DURATION = 0.3f;
+
+    public void onHit() {
+        isHit = true;
+        hitTimer = 0f;
+    }
+
+    public void updateHit(float delta) {
+        if (isHit) {
+            hitTimer += delta;
+            if (((int) (hitTimer * 10) % 2) == 0) {
+                playerSprite.setAlpha(0.3f);
+            } else {
+                playerSprite.setAlpha(1f);
+            }
+
+            if (hitTimer >= HIT_DURATION) {
+                isHit = false;
+                playerSprite.setAlpha(1f);
+            }
+        }
+    }
+
+
     private boolean isPlayerIdle = true;
     private boolean isPlayerRunning = true;
 

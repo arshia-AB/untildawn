@@ -366,5 +366,34 @@
       "y": 560.2697
     },
     "invincible": true
+  },
+  {
+    "username": "Guest14",
+    "password": "",
+    "securityAnswer": "",
+    "ability": "DAMAGER",
+    "posX": 875.97845,
+    "posY": 1092.9009,
+    "playerHP": 3.0,
+    "score": 2400,
+    "time": 0.23448381,
+    "survivalTime": 60.00551,
+    "Speed": 4.0,
+    "Elimination": 40,
+    "level": 3,
+    "XP": 54,
+    "xpToNextLevel": 60,
+    "maxLevelXp": 0,
+    "GameTime": 120,
+    "isPlayerIdle": true,
+    "isPlayerRunning": true,
+    "ReloadTime": 1.0,
+    "IsReloading": false,
+    "autoReload": false,
+    "position": {
+      "x": 875.97845,
+      "y": 1092.9009
+    },
+    "invincible": true
   }
 ]

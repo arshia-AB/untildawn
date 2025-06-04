@@ -102,6 +102,7 @@ public class EnemyController {
 
                     if (bullet.getRect().collideswith(Main.getApp().getCurrentUser().getRect())) {
                         Main.getApp().getCurrentUser().takeDamage(1);
+                        player.onHit();
                         it.remove();
                     }
                 }
