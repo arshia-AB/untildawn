@@ -99,13 +99,19 @@ public class MainMenuView implements Screen {
         settingsBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getMain().setScreen(new SettingMenuView(GameAssetManager.getGameAssetManager().getSkin(),MainMenuView.this));
+                Main.getMain().setScreen(new SettingMenuView(GameAssetManager.getGameAssetManager().getSkin(), MainMenuView.this));
             }
         });
         preGameBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Main.getMain().setScreen(new PreGameMenuView(new PreGameMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
+            }
+        });
+        leaderboardBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Main.getMain().setScreen(new ScoreboardScreen());
             }
         });
         profileBtn.addListener(new ClickListener() {
