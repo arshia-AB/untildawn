@@ -133,5 +133,9 @@ public class EnemyController {
     private float randomY() {
         return MathUtils.random(0, Gdx.graphics.getHeight());
     }
+
+    public void addEnemy(Enemy enemy) {
+        enemies.add(enemy);
+    }
 }
 

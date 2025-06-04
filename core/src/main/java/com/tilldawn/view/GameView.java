@@ -24,10 +24,7 @@ import com.tilldawn.Enum.Ability;
 import com.tilldawn.Main;
 import com.tilldawn.control.EnemyController;
 import com.tilldawn.control.GameController;
-import com.tilldawn.model.App;
-import com.tilldawn.model.GameAssetManager;
-import com.tilldawn.model.SaveUserToJson;
-import com.tilldawn.model.User;
+import com.tilldawn.model.*;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.audio.Sound;
 
@@ -69,6 +66,14 @@ public class GameView implements Screen, InputProcessor {
     private Label killLabel;
     private ProgressBar remainingTimeBar;
     private float maxGameTime = player.getGameTime();
+
+
+    private float gameTimer = 0f;
+    private final float TOTAL_GAME_TIME = maxGameTime;
+    private boolean bossSpawned = false;
+    private BossDashEnemy boss;
+    private Barrier barrier;
+
 
     public void setMaxGameTime(float maxGameTime) {
         this.maxGameTime = maxGameTime;
@@ -226,7 +231,23 @@ public class GameView implements Screen, InputProcessor {
             0, 0,
             width / bgTexture.getWidth(), height / bgTexture.getHeight()
         );
+        if (!bossSpawned && survivalTime >= TOTAL_GAME_TIME / 2f) {
+            boss = new BossDashEnemy(player.getPosX() + 500, player.getPosY());
+            controller.getEnemyController().addEnemy(boss);
+            barrier = new Barrier(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            bossSpawned = true;
+        }
 
+        if (barrier != null && barrier.isActive()) {
+            barrier.update(delta);
+            if (barrier.collidesWith(player.getPlayerSprite())) {
+                player.takeDamage(10);
+            }
+        }
+
+        if (boss != null && boss.isDead() && barrier != null && barrier.isActive()) {
+            barrier.deactivate();
+        }
         controller.updateGame(delta);
 //        controller.getPlayerController().getPlayer().getPlayerSprite().draw(Main.getBatch());///todo in baes mishe dota player bebinam
         controller.getEnemyController().draw(Main.getBatch());
@@ -321,9 +342,9 @@ public class GameView implements Screen, InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (player.getWeapon().getAmmo() > 0 && !player.isReloading()) {
             controller.getWeaponController().handleWeaponShoot(screenX, screenY);
-            if (Main.getApp().isSFX()){
+            if (Main.getApp().isSFX()) {
 
-            shootSound.play(0.7f);
+                shootSound.play(0.7f);
             }
             player.getWeapon().setAmmo(Math.max(0, player.getWeapon().getAmmo() - 1));
         }
