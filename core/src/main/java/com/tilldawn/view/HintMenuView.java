@@ -21,8 +21,8 @@ public class HintMenuView implements Screen {
         this.skin = skin;
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-        Texture bgTexture=new Texture("backgrounds/12.png");
-        Image background =new Image(bgTexture);
+        Texture bgTexture = new Texture("backgrounds/12.png");
+        Image background = new Image(bgTexture);
         background.setFillParent(true);
         stage.addActor(background);
         Table root = new Table();
@@ -40,24 +40,20 @@ public class HintMenuView implements Screen {
 
             root.add(new Label(heroEnum.name() + "  HP :" + heroEnum.getHP() + "  Speed :" + heroEnum.getSpeed(), skin)).left().pad(5).row();
         }
+        root.add(new Label("Cheat Codes:", skin)).padTop(20).left().row();
+        root.add(new Label("- ⏳ decrease game time: reduce game time by 60 seconds", skin)).left().pad(2).row();
+        root.add(new Label("- 🆙 level up: instantly level up", skin)).left().pad(2).row();
+        root.add(new Label("- ❤️ increase HP: restore full health", skin)).left().pad(2).row();
+        root.add(new Label("- 💀 go to boss fight: skip to boss level", skin)).left().pad(2).row();
+        root.add(new Label("- ⭐ get score: gain 500 score instantly", skin)).left().pad(2).row();
 
-        // Active controls
-//        root.add(new Label("Active Controls:", skin)).padTop(20).left().row();
-//        for (Map.Entry<String, String> entry : GameSettings.getActiveKeys().entrySet()) {
-//            root.add(new Label(entry.getKey() + ": " + entry.getValue(), skin)).left().pad(3).row();
-//        }
+        root.add(new Label("Active Controls:", skin)).padTop(20).left().row();
+        root.add(new Label("- W: Move Up", skin)).left().pad(2).row();
+        root.add(new Label("- S: Move Down", skin)).left().pad(2).row();
+        root.add(new Label("- A: Move Left", skin)).left().pad(2).row();
+        root.add(new Label("- D: Move Right", skin)).left().pad(2).row();
+        root.add(new Label("- R: Reload Weapon", skin)).left().pad(2).row();
 
-        // Cheat codes
-//        root.add(new Label("Cheat Codes:", skin)).padTop(20).left().row();
-//        for (String cheat : GameSettings.getEnabledCheats()) {
-//            root.add(new Label("- " + cheat, skin)).left().row();
-//        }
-
-        // Abilities
-//        root.add(new Label("Abilities:", skin)).padTop(20).left().row();
-//        for (String ability : GameSettings.getAbilities()) {
-//            root.add(new Label("- " + ability, skin)).left().row();
-//        }
 
         // Back button
         TextButton backBtn = new TextButton("Back", skin);
