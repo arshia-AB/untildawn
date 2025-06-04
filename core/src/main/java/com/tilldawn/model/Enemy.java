@@ -27,13 +27,11 @@ public abstract class Enemy {
     public boolean isAnimationDead() {
         return isDead;
     }
-
     public void applyKnockback(Vector2 from) {
         Vector2 knockbackDir = new Vector2(x + sprite.getWidth() / 2, y + sprite.getHeight() / 2).sub(from).nor();
         knockbackVelocity = knockbackDir.scl(KNOCKBACK_STRENGTH);
         knockbackTimer = KNOCKBACK_DURATION;
     }
-
     public Enemy(float x, float y, int hp, float speed, Texture texture) {
         this.x = x;
         this.y = y;
