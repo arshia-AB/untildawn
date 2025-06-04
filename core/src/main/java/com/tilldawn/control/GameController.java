@@ -24,7 +24,7 @@ public class GameController {
         this.view = view;
         playerController = new PlayerController(Main.getApp().getCurrentUser());
         worldController = new WorldController(playerController);
-        weaponController = new WeaponController(Main.getApp().getCurrentUser().getWeapon());
+        weaponController = new WeaponController(Main.getApp().getCurrentUser().getWeapon(), view);
         enemyController = new EnemyController();
         abilityController = new AbilityController(Main.getApp().getCurrentUser());
     }

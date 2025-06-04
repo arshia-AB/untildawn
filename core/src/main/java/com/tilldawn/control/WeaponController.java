@@ -4,11 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.tilldawn.Main;
 import com.tilldawn.model.Bullet;
 import com.tilldawn.model.Enemy;
 import com.tilldawn.model.User;
 import com.tilldawn.model.Weapon;
+import com.tilldawn.view.GameView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,15 +18,29 @@ import java.util.Iterator;
 public class WeaponController {
     private Weapon weapon;
     private ArrayList<Bullet> bullets = new ArrayList<>();
+    private GameView gameview;
 
-    public WeaponController(Weapon weapon) {
+    public WeaponController(Weapon weapon, GameView gameView) {
         this.weapon = weapon;
+        this.gameview = gameView;
     }
 
     public void update() {
+        updateWeaponPosition();
         weapon.getSprite().draw(Main.getBatch());
         updateBullets(Gdx.graphics.getDeltaTime());
 
+    }
+
+    private void updateWeaponPosition() {
+        User player = Main.getApp().getCurrentUser();
+        Vector2 playerPos = player.getPosition();
+
+
+        float offsetX = 20f;
+        float offsetY = 10f;
+
+        weapon.getSprite().setPosition(playerPos.x + offsetX, playerPos.y + offsetY);
     }
 
     public ArrayList<Bullet> getBullets() {
@@ -43,14 +59,13 @@ public class WeaponController {
     }
 
     public void handleWeaponShoot(int x, int y) {
-//        int correctedY = Gdx.graphics.getHeight() - y;
-//
-//        bullets.add(new Bullet(x, correctedY));
-        int correctedY = Gdx.graphics.getHeight() - y;
+        Vector3 screenCoords = new Vector3(x, y, 0);
+        Vector3 worldCoords3D = gameview.getCamera().unproject(screenCoords);
+        Vector2 targetPos = new Vector2(worldCoords3D.x, worldCoords3D.y);
 
-        Vector2 center = new Vector2(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
-        Vector2 targetPos = new Vector2(x, correctedY);
-        Vector2 baseDir = targetPos.sub(center).nor();
+        Vector2 weaponPos = new Vector2(weapon.getSprite().getX(), weapon.getSprite().getY());
+
+        Vector2 baseDir = new Vector2(targetPos).sub(weaponPos).nor();
 
         int projectileCount = Main.getApp().getCurrentUser().getWeapon().getWeaponEnum().getProjectTile();
         float spreadAngle = 10f;
@@ -63,12 +78,12 @@ public class WeaponController {
             }
 
             Vector2 rotatedDir = new Vector2(baseDir).rotateDeg(angleOffset);
+            Vector2 offsetTarget = new Vector2(weaponPos).add(rotatedDir.cpy().scl(1000)); // کپی مهمه
 
-            Vector2 offsetTarget = new Vector2(center).add(rotatedDir.scl(1000));
-
-            bullets.add(new Bullet((int) offsetTarget.x, (int) offsetTarget.y));
+            bullets.add(new Bullet((int) offsetTarget.x, (int) offsetTarget.y, weaponPos));
         }
     }
+
 
     public void updateBullets(float delta) {
         Iterator<Bullet> it = bullets.iterator();

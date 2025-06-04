@@ -56,6 +56,9 @@ public class GameView implements Screen, InputProcessor {
     private float survivalTime = 0;
     private int levelAbility = 2;
 
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
 
     private int level = player.getLevel();
     private float levelProgress = player.getXP();

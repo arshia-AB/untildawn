@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.tilldawn.Main;
 
 public class Bullet {
     private Texture texture = new Texture(GameAssetManager.getGameAssetManager().getBullet());
@@ -17,10 +18,11 @@ public class Bullet {
     private static final float SPEED = 500f;
     private static final int SIZE = 20;
 
-    public Bullet(int x, int y) {
-        position = new Vector2(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
-        Vector2 target = new Vector2(x, y);
-        velocity = target.sub(position).nor().scl(SPEED);
+    public Bullet(int targetX, int targetY, Vector2 origin) {
+        this.position = new Vector2(origin);
+
+        Vector2 target = new Vector2(targetX, targetY);
+        this.velocity = target.sub(position).nor().scl(SPEED);
 
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         sprite = new Sprite(texture);
@@ -29,6 +31,7 @@ public class Bullet {
 
         rect = new CollisionRect(position.x, position.y, SIZE, SIZE);
     }
+
 
     public void update(float delta) {
         position.add(velocity.x * delta, velocity.y * delta);
