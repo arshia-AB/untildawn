@@ -281,5 +281,33 @@
       "y": 1008.0
     },
     "invincible": true
+  },
+  {
+    "username": "Guest11",
+    "password": "",
+    "securityAnswer": "",
+    "posX": 1036.0,
+    "posY": 216.0,
+    "playerHP": 0.0,
+    "score": 95,
+    "time": 0.0069954,
+    "survivalTime": 23.85023,
+    "Speed": 4.0,
+    "Elimination": 4,
+    "level": 1,
+    "XP": 9,
+    "xpToNextLevel": 20,
+    "maxLevelXp": 0,
+    "GameTime": 120,
+    "isPlayerIdle": true,
+    "isPlayerRunning": true,
+    "ReloadTime": 1.0,
+    "IsReloading": false,
+    "autoReload": false,
+    "position": {
+      "x": 1036.0,
+      "y": 216.0
+    },
+    "invincible": true
   }
 ]

@@ -17,7 +17,7 @@ public class EnemyBullet {
 
     public EnemyBullet(Vector2 start, Vector2 target) {
         position = new Vector2(start);
-        velocity = target.sub(start).nor().scl(SPEED);
+        velocity = new Vector2(target).sub(start).nor().scl(SPEED);
 
         Texture texture = new Texture("bullet.png");
         sprite = new Sprite(texture);

@@ -46,6 +46,7 @@ public class Eyebat extends Enemy {
 
     private void shootAtPlayer(Vector2 playerPos) {
         Vector2 start = new Vector2(x + sprite.getWidth() / 2, y + sprite.getHeight() / 2);
-        bullets.add(new EnemyBullet(start, playerPos));
+        Vector2 target = new Vector2(playerPos);
+        bullets.add(new EnemyBullet(start, target));
     }
 }
