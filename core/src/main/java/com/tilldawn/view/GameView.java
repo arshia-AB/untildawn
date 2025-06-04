@@ -29,6 +29,7 @@ import com.tilldawn.model.GameAssetManager;
 import com.tilldawn.model.SaveUserToJson;
 import com.tilldawn.model.User;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.audio.Sound;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class GameView implements Screen, InputProcessor {
     private Texture blackTexture;
     private ShaderProgram grayscaleShader;
     private ShaderProgram radialShader;
-
+    private Sound shootSound;
     private Skin skin;
     private boolean shiftPressed = false;
 
@@ -76,6 +77,9 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public void show() {
+        shootSound = Gdx.audio.newSound(Gdx.files.internal("sfx/pistol-shot-233473.mp3"));
+
+
         ShaderProgram.pedantic = false;
         grayscaleShader = new ShaderProgram(
             Gdx.files.internal("shader/grayscale.vertex.glsl"),
@@ -163,7 +167,7 @@ public class GameView implements Screen, InputProcessor {
     @Override
     public void render(float delta) {
         if (Main.getApp().getCurrentUser().getPlayerHP() <= 0) {
-           SaveUserToJson.saveUserToJson(player);
+            SaveUserToJson.saveUserToJson(player);
             Main.getMain().setScreen(new EndGameScreen(Main.getApp().getCurrentUser(), true));
         }
         if (Main.getApp().getCurrentUser().getLevel() == levelAbility) {
@@ -274,6 +278,7 @@ public class GameView implements Screen, InputProcessor {
         blackTexture.dispose();
         grayscaleShader.dispose();
         radialShader.dispose();
+        shootSound.dispose();
     }
 
     @Override
@@ -310,6 +315,7 @@ public class GameView implements Screen, InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (player.getWeapon().getAmmo() > 0 && !player.isReloading()) {
             controller.getWeaponController().handleWeaponShoot(screenX, screenY);
+            shootSound.play(0.7f);
             player.getWeapon().setAmmo(Math.max(0, player.getWeapon().getAmmo() - 1));
         }
         if (player.isAutoReload() && player.getWeapon().getAmmo() <= 0) {
