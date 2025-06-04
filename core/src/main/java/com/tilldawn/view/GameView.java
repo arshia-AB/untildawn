@@ -231,23 +231,7 @@ public class GameView implements Screen, InputProcessor {
             0, 0,
             width / bgTexture.getWidth(), height / bgTexture.getHeight()
         );
-        if (!bossSpawned && survivalTime >= TOTAL_GAME_TIME / 2f) {
-            boss = new BossDashEnemy(player.getPosX() + 500, player.getPosY());
-            controller.getEnemyController().addEnemy(boss);
-            barrier = new Barrier(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-            bossSpawned = true;
-        }
 
-        if (barrier != null && barrier.isActive()) {
-            barrier.update(delta);
-            if (barrier.collidesWith(player.getPlayerSprite())) {
-                player.takeDamage(10);
-            }
-        }
-
-        if (boss != null && boss.isDead() && barrier != null && barrier.isActive()) {
-            barrier.deactivate();
-        }
         controller.updateGame(delta);
 //        controller.getPlayerController().getPlayer().getPlayerSprite().draw(Main.getBatch());///todo in baes mishe dota player bebinam
         controller.getEnemyController().draw(Main.getBatch());

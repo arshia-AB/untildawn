@@ -24,12 +24,19 @@ public class EnemyController {
     private User player = Main.getApp().getCurrentUser();
     private int t = player.getGameTime();
     private float InvincibleTimer = 0f;
+    private boolean bossSpawned = false;
+    private BossDashEnemy boss;
 
 
     public void update(float delta, Vector2 playerPos, ArrayList<Bullet> bullets, WeaponEnum weaponEnum) {
         totalGameTime += delta;
 
-
+// Boss spawn logic
+        if (!bossSpawned && totalGameTime >= 5f) {
+            boss = new BossDashEnemy(player.getPosX() + 800, player.getPosY());
+            enemies.add(boss);
+            bossSpawned = true;
+        }
         // Tentacle spawn logic
         tentacleSpawnTimer += delta;
         float tentacleSpawnRate = Math.max(3, 30 - totalGameTime);
@@ -49,6 +56,7 @@ public class EnemyController {
                 enemies.add(new Eyebat(randomX(), randomY()));
             }
         }
+        //player bullet hit enemy
         for (Bullet bullet : bullets) {
             if (!bullet.isAlive()) continue;
 
